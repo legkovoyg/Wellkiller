@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type = "text/css" href="{% static 'users/css/styles.css'%}" rel = "stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Авторизация</title>
+</head>
+<body>
+    <div class="content">
+        <div class="contentLogin">
+            <form method = "post" class="contentLogin__loginPass">
+            {% block content %}
+            <div class="contentLogin__name">RockSilencing</div>
+            <div class="contentLogin__loginPass">
+
+                    {% csrf_token %}
+                    {{form }}
+
+
+            </div>
+            <div class="contentLogin__button">
+                <div class="contentLogin__rememberMe">
+                    <input class="rememberMe-checkbox" name="rememberMe" type="checkbox">Запомнить меня
+                </div>
+
+
+                    <button class="contentLogin__signIn-Button" type = "submit">Вход в систему</button>
+
+            </div>
+            <a class="contentLogin__signUp" href="/regPage/reg.html">Зарегистрироваться</a>
+                </form>
+            {% endblock %}
+        </div>
+    </div>        
+</body>
+</html>
