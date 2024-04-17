@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from users.forms import LoginUserForm
+from users.forms import LoginUserForm, RegisterUserForm
 # Create your views here.
 
 def login_user(request):
@@ -14,11 +14,22 @@ def login_user(request):
                                 password = cd['password'])
             if user and user.is_active:
                 login(request, user)
-                return HttpResponseRedirect("/users/logout")
+                return HttpResponseRedirect("/calculator")
     else:
         form = LoginUserForm()
-
     return render(request, 'users/login.html',{"form" : form})
 
 def logout_user(request):
     return HttpResponse('logout')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, 'users/register_done.html')
+    else:
+        form = RegisterUserForm()
+    return render(request,'users/register.html', {'form': form})

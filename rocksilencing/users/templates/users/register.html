@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type = "text/css" href="{% static 'users/css/register-styles_v_2.css'%}" rel = "stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Страница не найдена</title>
+</head>
+<body>
+    <div class="content">
+        {% block content %}
+        <form method = "post" class="contentReg">
+
+            <div class="contentReg__name">Регистрация</div>
+
+            <div  class="contentReg__regbase">
+                {% csrf_token %}
+                    {{form }}
+            </div>
+
+            <div class="contentReg__button">
+                    <button class="contentReg__signUp-Button">Зарегистрироваться</button>
+                    <a href="/users/login/">Уже зарегистрированы?</a>
+            </div>
+
+        </form>
+        {% endblock %}
+    </div>        
+</body>
+</html>

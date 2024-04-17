@@ -1,0 +1,46 @@
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+    margin-right: 25px;
+    margin-top: 27px;
+    margin-bottom: 16px;
+    margin-left: 75px;
+}
+
+.container__tab{
+    max-width: 800px;
+    padding: 0 25px 0;
+    border-right: solid rgba(255, 255, 255, 0.08) 2px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.headerContainer{
+    position: static;
+    height: 52px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 0px 12px 0px;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.headerContainer h1{
+    margin-left: 20px;
+}
+
+.headerContainer svg{
+    cursor: pointer;
+}
+
+/* .headerContainer svg:hover{
+    border-radius: 8px;
+    background: rgb(29, 154, 108);
+    transition: all 0.25s ease;
+} */

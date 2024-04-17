@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from calculator.views import index
+from calculator.views import calculator_page
 from rocksilencing import settings
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('calculator/', index),
+    path('calculator/', calculator_page),
     path('users/', include('users.urls', namespace = "users"))
 ]
