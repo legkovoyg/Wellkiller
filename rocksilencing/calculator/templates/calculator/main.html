@@ -8,7 +8,7 @@
     <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/common_v2.css'%}" rel = "stylesheet" crossorigin="anonymous">
     <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/main-content.css'%}" rel = "stylesheet" crossorigin="anonymous">
     <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/main-head.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/menu-list.css'%}" rel = "stylesheet" crossorigin="anonymous">
+    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/menu-lists.css'%}" rel = "stylesheet" crossorigin="anonymous">
     <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/sidebar.css'%}" rel = "stylesheet" crossorigin="anonymous">
     <link type = "text/css" href="{%static 'calculator/css/First_section/commonTable.css'%}" rel = "stylesheet" crossorigin="anonymous">
     <link type = "text/css" href="{%static 'calculator/css/First_section/table-first.css'%}" rel = "stylesheet" crossorigin="anonymous">
@@ -27,7 +27,7 @@
         </div>
         <form method = "post" class="main-Header__rightContent" >
             {% csrf_token %}
-            <button type = "submit" class="rightContent-fourth" href = "{% url 'users:login' %}"  style="text-decoration: none; color: rgba(255, 255, 255, 0.87);">Login</button>
+            <a type = "submit" class="rightContent-fourth" href = "{% url 'users:login' %}"  style="text-decoration: none; color: rgba(255, 255, 255, 0.87);">Login</a>
         </form>
     </header>
         <aside class="menu">
