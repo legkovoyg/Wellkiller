@@ -23,9 +23,9 @@ from rocksilencing import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', calculator_page),
-    path('calculator/', calculator_page),
-    path('calculator/scale_calculator', scale_calculator_page),
-    path('calculator/reagent_base', reagent_base_page),
-    path('calculator/history_page', history_page),
+    path('calculator/', calculator_page, name='calculator'),
+    path('calculator/scale_calculator/', scale_calculator_page, name = 'scale_calculator'),
+    path('calculator/reagent_base/', reagent_base_page, name = 'reagent_base'),
+    path('calculator/history_page/', history_page, name = 'history_page'),
     path('users/', include('users.urls', namespace = "users"))
 ]

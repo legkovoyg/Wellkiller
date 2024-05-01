@@ -1,0 +1,113 @@
+
+@import './styles/Common_section_sidebars-menu/common.css';
+@import './styles/Common_section_sidebars-menu/main-content.css';
+@import './styles/Common_section_sidebars-menu/main-head.css';
+@import './styles/First_section/commonTable.css';
+@import './styles/First_section/table-first.css';
+@import './saltPage/styles/First_section/table-first.css';
+@import './saltPage/styles/Second_section/table-second.css';
+@import './styles/Second_section/header-second-sect.css';
+@import './saltPage/styles/Second_section/header-second-sect.css';
+@import './styles/Second_section/header-second-sect.css';
+@import './saltPage/styles/Third_section/';
+
+
+rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background-color: steelblue;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: none;
+    opacity: .75;
+}
+
+
+.tabs .tab{
+    display:inline-block;
+    padding:20px;
+    margin:0 0px 20px 0px;
+    cursor:pointer;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.tabs .tab.on{
+    border-bottom:  4px solid rgb(29, 154, 108);
+}
+
+.tabs-items .item{
+    display:none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.tabs-items .item.on{
+    display:block;
+}
+
+.item p{
+    margin-top: 0;
+}
+
+table, th, td {
+    border: 0;
+    border-collapse: collapse;
+    padding: 6px 6px 6px 40px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    font-weight: 400;
+}
+
+td{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td input{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    outline: none;
+}
+
+select{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    outline: none;
+}
+
+td p{
+    margin: 0;
+}
+
+/* tr:hover{
+    background-color: rgb(39, 80, 75);
+} */
+
+
+/* SALT */
+
+.plates{
+    display: flex;
+    flex-direction: row;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.tables{
+    margin-top: 10px;
+}

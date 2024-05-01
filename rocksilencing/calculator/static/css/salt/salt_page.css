@@ -1,0 +1,128 @@
+/* maincontent */
+
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+    margin-right: 25px;
+    margin-top: 27px;
+    margin-bottom: 16px;
+    margin-left: 0px;
+}
+
+.container__tab{
+    max-width: 800px;
+    padding: 0 25px 0;
+    border-right: solid rgba(255, 255, 255, 0.08) 2px; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* header for tables*/
+
+.headerContainer{
+    position: static;
+    height: 52px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.headerContainer h1{
+    margin-left: 20px;
+}
+
+.headerContainer svg{
+    cursor: pointer;
+}
+
+/* common */
+
+body{
+    background: #292e3c;
+    font-family: inter;
+    margin: 0;
+    height: 100%;
+} 
+
+/* tables styles*/
+
+table, th, td {
+    border: 0;
+    border-collapse: collapse;
+    padding: 6px 6px 6px 40px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    font-weight: 400;
+}
+
+td{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td input{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    outline: none;
+}
+
+select{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    outline: none;
+}
+
+td p{
+    margin: 0;
+}
+
+.plates{
+    display: flex;
+    flex-direction: row;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.tables{
+    margin-top: 10px;
+}
+
+/* button */
+
+.text{
+    font-size: 14px;
+    line-height: 24px;
+}
+
+button{
+    margin-top: 10px;
+    /* position: static; */
+    width: 100%;
+    padding: 8px 12px 8px 12px;
+    border-radius: 8px;
+    background: rgb(29, 154, 108);
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: rgba(29, 154, 108, 0.74);
+    transition: all .2s;
+    animation: shadow .6s infinite linear;
+}

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{%static 'images/base/base_icon.svg'%}" />
+    <link type = "text/css" href="{%static 'css/base_style.css'%}" rel = "stylesheet" crossorigin="anonymous">
+    <link type = "text/css" href="{%static 'css/base_header.css'%}" rel = "stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    {% block styles %}
+    {% endblock %}
+    <title>Document</title>
+</head>
+<body>
+    <header class="main-Header" style="background-color: #292E3C; position: relative; z-index: 101; width: 100%;"> 
+        <div class="main-Header__leftContent" style="display: flex; align-items: center; ">
+            <div class="leftContent-first" >Название дизайна</div>
+            <div class="leftContent-second">/ План операций</div>
+        </div>
+        <div class="main-Header__rightContent">
+            <a class="rightContent-fourth" href="/loginPage/login.html" style="text-decoration: none; color: rgba(255, 255, 255, 0.87);">Login</a>
+        </div>
+    </header>
+    <nav class="sidebar close">
+        <header>
+            <!-- название проекта и лого можно-->
+            <i class="bx bx-chevron-right toggle"></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="{% url 'calculator' %}">
+                            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 2.5V15C5 16.3807 6.11929 17.5 7.5 17.5H12.5C13.8807 17.5 15 16.3807 15 15V2.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
+                                <path d="M10 2.5V12.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
+                                <path d="M1.25 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
+                                <path d="M18.75 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
+                                </svg>
+                                
+                            <span class="text nav-text">Новый расчет</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'history_page' %}">
+                            <i class="bx bx-layer icon" ></i>
+                            <span class="text nav-text">История расчетов</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'reagent_base' %}">
+                            <i class="bx bx-folder icon" ></i>
+                            <span class="text nav-text">База реагентов</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'scale_calculator' %}">
+                            <i class="bx bx-droplet icon" ></i>
+                            <span class="text nav-text">Совместимость вод</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="bx bx-question-mark icon" ></i>
+                            <span class="text nav-text">FAQ</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- <div class="bottom-content"></div> -->
+        </div>
+            <footer class="bottom-content">
+                <span class="text nav-text" >Версия 3.01.2024</span>
+            </footer>
+    </nav>
+    <section class="home" style="position: fixed;">
+        {% block content %}
+
+        {% endblock %}
+    </section>
+    <script src="{%static 'js/base/script.js'%}"></script>
+
+</body>
+</html>

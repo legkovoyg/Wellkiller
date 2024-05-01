@@ -1,98 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type = "text/css" href="{%static 'calculator/css/style.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/common_v2.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/main-content.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/main-head.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/menu-lists.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Common_section_sidebars-menu/sidebar.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/First_section/commonTable.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/First_section/table-first.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Second_section/header-second-sect.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/Second_section/table-second.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link type = "text/css" href="{%static 'calculator/css/salt_style.css'%}" rel = "stylesheet" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" crossorigin="anonymous">
-    <title>Симулятор глушения</title>
-</head>
-<body>
-    <header class="main-Header">
-        <div class="main-Header__leftContent" style="display: flex; align-items: center;">
-            <div class="leftContent-first" >Расчет смешивания вод</div>
-            <div class="leftContent-second"></div>
-        </div>
-        <div class="main-Header__rightContent">
-            <a class="rightContent-fourth" href="/loginPage/login.html" style="text-decoration: none; color: rgba(255, 255, 255, 0.87);">Login</a>
-        </div>
-    </header>
-        <aside class="menu">
-            <div class="menu__list">
-            <div class="list-iconFirst"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 2.5V15C5 16.3807 6.11929 17.5 7.5 17.5H12.5C13.8807 17.5 15 16.3807 15 15V2.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                <path d="M10 2.5V12.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                <path d="M1.25 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                <path d="M18.75 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                </svg>
-                </div>
-            <div class="list-iconSecond"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.36089 0.949054C7.76238 0.744193 8.23773 0.744196 8.63921 0.949061L14.6295 4.00571C15.6534 4.52822 15.6519 5.9919 14.6268 6.51225L8.63621 9.55321C8.23662 9.75605 7.76428 9.7563 7.36448 9.55389L1.3663 6.51709C0.340046 5.99751 0.337735 4.53268 1.36234 4.00986L7.36089 0.949054ZM8.00004 2.37708L2.34634 5.26192L7.99958 8.12409L13.6458 5.25795L8.00004 2.37708ZM15.4406 9.02949C15.6335 9.41541 15.4771 9.88468 15.0912 10.0776L8.62853 13.309C8.23264 13.5069 7.76664 13.5069 7.37075 13.309L0.90811 10.0776C0.522189 9.88468 0.365764 9.41541 0.558724 9.02949C0.751684 8.64357 1.22096 8.48714 1.60688 8.6801L7.99964 11.8765L14.3924 8.6801C14.7783 8.48714 15.2476 8.64357 15.4406 9.02949ZM1.67707 12.4652C1.29115 12.2722 0.821875 12.4287 0.628915 12.8146C0.435954 13.2005 0.592379 13.6698 0.9783 13.8627L7.37067 17.0589C7.76656 17.2569 8.23256 17.2569 8.62845 17.0589L15.0209 13.8627C15.4068 13.6698 15.5632 13.2005 15.3703 12.8146C15.1773 12.4287 14.708 12.2722 14.3221 12.4652L7.99956 15.6264L1.67707 12.4652Z" fill="white"/>
-                </svg>
-                </div>
-            <div class="list-iconThird"><svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.28125 4C2.28125 3.05076 3.05076 2.28125 4 2.28125H6.5C7.04099 2.28125 7.55041 2.53596 7.875 2.96875L8.25 3.46875C8.86968 4.29499 9.8422 4.78125 10.875 4.78125H14C14.9492 4.78125 15.7188 5.55076 15.7188 6.5V12.75C15.7188 13.6992 14.9492 14.4688 14 14.4688H4C3.05076 14.4688 2.28125 13.6992 2.28125 12.75V4ZM4 0.71875C2.18782 0.71875 0.71875 2.18782 0.71875 4V12.75C0.71875 14.5622 2.18782 16.0312 4 16.0312H14C15.8122 16.0312 17.2812 14.5622 17.2812 12.75V6.5C17.2812 4.68782 15.8122 3.21875 14 3.21875H10.875C10.334 3.21875 9.82459 2.96404 9.5 2.53125L9.125 2.03125C8.50532 1.20501 7.5328 0.71875 6.5 0.71875H4ZM3.375 6.96875C3.375 6.53728 3.79474 6.1875 4.3125 6.1875H13.6875C14.2052 6.1875 14.625 6.53728 14.625 6.96875C14.625 7.40022 14.2052 7.75 13.6875 7.75H4.3125C3.79474 7.75 3.375 7.40022 3.375 6.96875Z" fill="white"/>
-                </svg>
-                </div>
-            <div class="list-iconFourth"><svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.625 9.25C12.625 12.3566 10.1066 14.875 7 14.875C3.8934 14.875 1.375 12.3566 1.375 9.25C1.375 7.89322 2.04473 6.59916 3.087 5.31243C3.94222 4.25662 4.99371 3.26871 6.02931 2.29571C6.25909 2.07983 6.48809 1.86467 6.71398 1.64968C6.8727 1.49862 7.1273 1.49862 7.28602 1.64968C7.51191 1.86467 7.74091 2.07983 7.97069 2.29571C9.00629 3.26871 10.0578 4.25662 10.913 5.31243C11.9553 6.59916 12.625 7.89322 12.625 9.25Z" stroke="white" stroke-width="1.25"/>
-                </svg>
-                </div>
-            </div>
-        </aside>
-        <aside class="sidebar">
-            <div class="sidebar__title"></div>
-            <div class="sidebar__list-menu" >
-                <ul >
-                    <li ><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 16.875H8.75C5.6434 16.875 3.125 14.3566 3.125 11.25V5H4.375V11.25C4.375 13.6662 6.33375 15.625 8.75 15.625H15V16.875Z" fill="white"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 1.25 6.25)" stroke="white" stroke-width="1.25"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 13.75 18.75)" stroke="white" stroke-width="1.25"/>
-                        </svg>
+{% block styles %}
+<link type = "text/css" href="{%static 'css/salt/salt_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+{% endblock %}
 
-                        <a href="#" style="text-decoration: none;" >Новый расчет</a></li>
-                    <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 16.875H8.75C5.6434 16.875 3.125 14.3566 3.125 11.25V5H4.375V11.25C4.375 13.6662 6.33375 15.625 8.75 15.625H15V16.875Z" fill="white"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 1.25 6.25)" stroke="white" stroke-width="1.25"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 13.75 18.75)" stroke="white" stroke-width="1.25"/>
-                        </svg>
-
-                        <a href="#" style="text-decoration: none;">История расчетов</a></li>
-                    <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 16.875H8.75C5.6434 16.875 3.125 14.3566 3.125 11.25V5H4.375V11.25C4.375 13.6662 6.33375 15.625 8.75 15.625H15V16.875Z" fill="white"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 1.25 6.25)" stroke="white" stroke-width="1.25"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 13.75 18.75)" stroke="white" stroke-width="1.25"/>
-                        </svg>
-
-                        <a href="#" style="text-decoration: none;">База реагентов</a></li>
-                    <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 16.875H8.75C5.6434 16.875 3.125 14.3566 3.125 11.25V5H4.375V11.25C4.375 13.6662 6.33375 15.625 8.75 15.625H15V16.875Z" fill="white"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 1.25 6.25)" stroke="white" stroke-width="1.25"/>
-                        <circle cx="2.5" cy="2.5" r="1.875" transform="matrix(1 0 0 -1 13.75 18.75)" stroke="white" stroke-width="1.25"/>
-                        </svg>
-
-                        <a href="#" style="text-decoration: none;">Расчет солеотложений</a></li>
-                </ul>
-            </div>
-            <div class="sidebar__footer">
-                <p>Версия 0.01.2024</p>
-            </div>
-        </aside>
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
     <main class="mainContainer">
-        {% block content %}
-        {% csrf_token %}
-        <form method="post">
+
         <section class="container__tab" name="входные данные">
             <div class="headerContainer">
                 <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,18 +16,41 @@
                 </svg>
                 <h1>Входные данные</h1>
             </div>
-            <p style="color: rgba(255, 255, 255, 0.87);">Условия смешивания</p>
-            <div style="color: rgba(255, 255, 255, 0.87);" >Температура{{ form.Temperature }}</div>
-            <div style="color: rgba(255, 255, 255, 0.87);" >Давление{{ form.Pressure }}</div>
-            <div style="color: rgba(255, 255, 255, 0.87);" >Доля первой жидкости{{ form.Part_of_Mixture }}</div>
+            <p style="color: rgba(255, 255, 255, 0.87); margin: 0 0 12px;">Условия смешивания</p>
+            <table>
+                <tr style="background: #363A47;">
+                    <td>
+                        Температура, °С
+                    </td>
+                    <td>
+                        {{ form.Temperature }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Давление, атм
+                    </td>
+                    <td>
+                        {{form.Pressure}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Доля первой жидкости, %
+                    </td>
+                    <td>
+                        {{form.Part_of_Mixture}}
+                    </td>
+                </tr>
+            </table>
             <section style="padding: 15px 0;">
                 <div class="plates">
                     <div>Вода 1</div>
                     <div style="margin-left: 20px;">ph
-                        {{ form.pH_1 }}
+                        {{form.pH_1}}
                     </div>
                     <div style="margin-left: 20px;">Плотность, г/см³
-                        {{ form.ro_1 }}
+                        {{form.ro_1}}
                     </div>
                 </div>
                 <div class="tables">
@@ -121,10 +60,10 @@
                                 Концентрация ионов
                             </td>
                             <td>
-                                мг/л
+                                моль/кг
                             </td>
                             <td>
-                                моль/кг
+                                мг/л
                             </td>
                         </tr>
                         <tr>
@@ -132,7 +71,7 @@
                                 Cl<sup>-</sup>
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Cl_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -143,7 +82,7 @@
                                 SO4<sup>2-</sup>
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.SO4_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -154,7 +93,7 @@
                                 HCO3-
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.HCO3_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -165,7 +104,7 @@
                                 Ca2+
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Ca_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -176,7 +115,7 @@
                                 Mg2+
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Mg_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -187,7 +126,7 @@
                                 Na<sup>+</sup>+K<sup>+</sup>
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Na_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -198,7 +137,7 @@
                                 Ba<sup>2+</sup>
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Ba_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -209,7 +148,7 @@
                                 Sr<sup>2+</sup>
                             </td>
                             <td>
-                                {{ form.Ba_1 }}
+                                {{form.Sr_1}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -220,12 +159,12 @@
             </section>
             <section style="padding: 15px 0;">
                 <div class="plates">
-                    <div>Вода 2</div>
+                    <div>Вода 1</div>
                     <div style="margin-left: 20px;">ph
-                        <input type="text" id="ph_2" style="width: 60px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;">
+                        {{form.pH_2}}
                     </div>
                     <div style="margin-left: 20px; ">Плотность, г/см³
-                        <input type="text" id="density_2" style="width: 60px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;">
+                        {{form.ro_2}}
                     </div>
                 </div>
                 <div class="tables">
@@ -235,10 +174,11 @@
                                 Концентрация ионов
                             </td>
                             <td>
-                                мг/л
+
+                                моль/кг
                             </td>
                             <td>
-                                моль/кг
+                                мг/л
                             </td>
                         </tr>
                         <tr>
@@ -246,7 +186,7 @@
                                 Cl<sup>-</sup>
                             </td>
                             <td>
-                                {{ form.Cl_2 }}
+                                {{form.Cl_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;">                                
@@ -257,7 +197,7 @@
                                 SO4<sup>2-</sup>
                             </td>
                             <td>
-                                {{ form.SO4_2 }}
+                                {{form.SO4_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -268,7 +208,7 @@
                                 HCO3-
                             </td>
                             <td>
-                                {{ form.HCO3_2 }}
+                                {{form.HCO3_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -279,7 +219,7 @@
                                 Ca2+
                             </td>
                             <td>
-                                {{ form.Ca_2 }}
+                                {{form.Ca_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -290,7 +230,7 @@
                                 Mg2+
                             </td>
                             <td>
-                                {{ form.Mg_2 }}
+                                {{form.Mg_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -301,7 +241,7 @@
                                 Na<sup>+</sup>+K<sup>+</sup>
                             </td>
                             <td>
-                                {{ form.Na_2 }}
+                                {{form.Na_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -312,7 +252,7 @@
                                 Ba<sup>2+</sup>
                             </td>
                             <td>
-                                {{ form.Ba_2 }}
+                                {{form.Ba_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #292e3c;"> 
@@ -323,7 +263,7 @@
                                 Sr<sup>2+</sup>
                             </td>
                             <td>
-                                {{ form.Sr_2 }}
+                                {{form.Sr_2}}
                             </td>
                             <td>
                                 <input type="text" style="background: #363A47;">
@@ -331,21 +271,17 @@
                         </tr>
                     </table>
                 </div>
-
             </section>
             <footer class="tabs-first__footer-buttons">
-                <button type = "submit">Произвести расчет</button>
+                <button>Произвести расчет</button>
             </footer>
         </section>
-            {% csrf_token %}
-            </form>
-        {% endblock %}
         <section name="результата расчета" style="padding: 0 25px 0;" >
             <div class="headerContainer">
                 <h1>Результаты расчетов</h1>
             </div>
             <section name="график" >
-                <img src="/saltPage/graphsalt2.jpg" width="100%" style="margin-top: 12px;">
+                <img src="{% static 'images/salt/main_page_graph.jpg'%}" width="100%" style="margin-top: 12px;">
             </section>
             <section name="таблица">
                 <p style="color: rgba(255, 255, 255, 0.87);">Масса осадка, г/л</p>
@@ -377,326 +313,68 @@
                                 Кальцит CaCO3
                             </td>
                         </tr>
+                        {% for elem in all_results %}
+                        {% if elem.Part_of_mixture == custom_Part_of_Mixture %}
+                        <tr style="background: #5C606A;">
+                            <td>
+                                {{elem.Part_of_mixture}}
+                            </td>
+                            <td>
+                                {{elem.Barit}}
+                            </td>
+                            <td>
+                                {{elem.Celestine}}
+                            </td>
+                            <td>
+                                {{elem.Anhydrate}}
+                            </td>
+                            <td>
+                                {{elem.Bassanit}}
+                            </td>
+                            <td>
+                                {{elem.Gips}}
+                            </td>
+                            <td>
+                                {{elem.Magnium_Sulfat}}
+                            </td>
+                            <td>
+                                {{elem.Calcit}}
+                            </td>
+                        </tr>
+                        {% else %}
                         <tr>
                             <td>
-                                0
+                                {{elem.Part_of_mixture}}
                             </td>
                             <td>
-                                -
+                                {{elem.Barit}}
                             </td>
                             <td>
-                                -
+                                {{elem.Celestine}}
                             </td>
                             <td>
-                                -
+                                {{elem.Anhydrate}}
                             </td>
                             <td>
-                                -
+                                {{elem.Bassanit}}
                             </td>
                             <td>
-                                -
+                                {{elem.Gips}}
                             </td>
                             <td>
-                                -
+                                {{elem.Magnium_Sulfat}}
                             </td>
                             <td>
-                                -
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
+                                {{elem.Calcit}}
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                10
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                {{form.Bar.value}}
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                20
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                30
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                40
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                50
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                60
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                70
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                80
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                90
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        <tr style="background-color: #363A47;">
-                            <td>
-                                100
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                -
-                            </td>
-                            <td>
-                                0,45644
-                            </td>
-                            <td>
-                                0,563224
-                            </td>
-                            <td>
-                                0,665459
-                            </td>
-                            <td>
-                                0,236545
-                            </td>
-                        </tr>
-                        
+                        {% endif %}
+                        {% endfor %}
                     </table>
                 </div>
             </section>
         </section>
     </main>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="/script.js" defer></script> 
-</body>
-</html>
+    </form>
+{% endblock %}
 

@@ -1,0 +1,52 @@
+body{
+    background: #292e3c;
+    font-family: inter;
+    margin: 0;
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 89vh;
+    border-radius: 8px;
+    padding: 40px 30px;
+}
+
+.contentReg{
+    background: #222836;
+    border-radius: 8px;
+    padding: 40px 40px 40px;
+    font-size: 30px;
+    color: white;
+    align-items: center;
+}
+.congratulations{
+    text-align: center;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom: 17px;
+}
+.contentReg_to_page{
+    font-size: 14px;
+    text-align: center;
+    font-weight: 400;
+
+}
+a{
+    color:#1d9a6c;
+    background-image: linear-gradient(to right, #1d9a6c, white);
+    background-repeat: no-repeat;
+    background-size: 0px 2px;
+    background-position:left bottom;
+    padding-bottom: 2px;
+    text-decoration: none; 
+    transition: 0.8s;
+    font-size: 16px;
+    
+}
+a:hover {
+    background-size: 100% 2px; 
+    font-weight: 500;
+   }
