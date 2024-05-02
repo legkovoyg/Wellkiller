@@ -1,9 +1,9 @@
+import plotly.express as px
 from django.shortcuts import render
 from django.http import HttpResponse
-from calculator.forms import Scale_Calculator_form
+from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2
 from calculator.Method_for_salt_calculator import calculate_full_result
-from bokeh.plotting import figure
-from bokeh.embed import components
+
 # from .Main import calculate
 # Create your views here.
 
@@ -12,7 +12,10 @@ def calculator_page(request):
 
 def scale_calculator_page(request):
     if request.method == 'POST':
-        form = Scale_Calculator_form(request.POST)
+        x = [5, 15, 25, 35, 45, 55]
+        y1 = [0.8, 0.6, 0.4, 0.2, 0, 0]
+        y2 = [1.2, 1, 0.8, 0.6, 0.4, 0.2]
+        form = Scale_Calculator_form_1(request.POST)
         if form.is_valid():
             # Входные данные для жидкости 1
             Cl_1 = float(request.POST['Cl_1'])
@@ -41,7 +44,24 @@ def scale_calculator_page(request):
             Pressure = float(request.POST['Pressure'])  # Давление в МПа
             custom_Part_of_Mixture = float(request.POST['Part_of_Mixture'])
             Parts_of_Mixture = [0, 5 ,10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-            whitened_Parts_of_Mixture = [5, 20, 40, 60, 80, 100]
+
+            fig = px.line(x=x, y=y1, name='First data')
+            fig.add_trace(px.line(x=x, y=y2, name='Second data').data[0])
+            fig.update_layout(
+                title='My Graph',
+                xaxis_title='X Axis',
+                yaxis_title='Y Axis'
+            )
+
+            fig.update_xaxes(
+                range=[0, 60]
+            )
+
+            fig.update_yaxes(
+                range=[0, 1.5]
+            )
+            fig.write_html("templates/plot.html")
+
             if custom_Part_of_Mixture not in Parts_of_Mixture:
                 Parts_of_Mixture.append(custom_Part_of_Mixture)
             all_results = []
@@ -52,11 +72,15 @@ def scale_calculator_page(request):
 
             return render(request, "calculator/salt.html", {"form": form, "all_results": all_results,"custom_Part_of_Mixture":custom_Part_of_Mixture})
     else:
-        form = Scale_Calculator_form()
-    return render(request,"calculator/salt.html", {"form": form})
+        form = Scale_Calculator_form_1()
+        form_2 = Scale_Calculator_form_2()
+    return render(request,"calculator/salt.html", {"form": form, "form_2":form_2})
 
 def reagent_base_page(request):
     return HttpResponse("Страница базы солеотложений")
 
 def history_page(request):
     return HttpResponse("Страница истории")
+
+def FAQ_page(request):
+    return  HttpResponse("FAQ page")
