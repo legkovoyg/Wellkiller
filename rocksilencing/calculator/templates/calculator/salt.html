@@ -2,13 +2,13 @@
 {% load static %}
 {% block styles %}
 <link type = "text/css" href="{%static 'css/salt/salt_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+<title>Калькулятор солеотложений</title>
 {% endblock %}
 
 {% block content %}
 <form method="POST">
     {% csrf_token %}
     <main class="mainContainer">
-
         <section class="container__tab" name="входные данные">
             <div class="headerContainer">
                 <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Давление, атм
+                        Давление, МПа
                     </td>
                     <td>
                         {{form.Pressure}}
@@ -40,6 +40,14 @@
                     </td>
                     <td>
                         {{form.Part_of_Mixture}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Концентрация ионов в
+                    </td>
+                    <td>
+                        {{select.Chosen_concentration}}
                     </td>
                 </tr>
             </table>
@@ -281,8 +289,7 @@
                 <h1>Результаты расчетов</h1>
             </div>
             <section name="график" >
-                <img src="{% static 'images/salt/main_page_graph.jpg'%}" width="100%" style="margin-top: 12px;">
-                {% include 'plot.html' %}
+                {{ graph|safe }}
             </section>
             <section name="таблица">
                 <p style="color: rgba(255, 255, 255, 0.87);">Масса осадка, г/л</p>

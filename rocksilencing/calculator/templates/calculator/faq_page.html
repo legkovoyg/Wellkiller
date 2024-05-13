@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<link type = "text/css" href="{%static 'css/salt/salt_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+<title>FAQ</title>
+{% endblock %}
+{% block content %}
+    <iframe width="100%" height = "100%" src="{% static 'pdf/FAQQ.pdf' %}">
+   {% csrf_token %}
+{% endblock %}

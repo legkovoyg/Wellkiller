@@ -52,12 +52,6 @@
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="{% url 'history_page' %}">
-                            <i class="bx bx-layer icon" ></i>
-                            <span class="text nav-text">История расчетов</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
                         <a href="{% url 'reagent_base' %}">
                             <i class="bx bx-folder icon" ></i>
                             <span class="text nav-text">База реагентов</span>
@@ -84,7 +78,7 @@
                 <span class="text nav-text" >Версия 3.01.2024</span>
             </footer>
     </nav>
-    <section class="home" style="position: fixed;">
+    <section class="home">
         {% block content %}
 
         {% endblock %}

@@ -1,9 +1,9 @@
 import plotly.express as px
 from django.shortcuts import render
 from django.http import HttpResponse
-from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2
-from calculator.Method_for_salt_calculator import calculate_full_result
-
+from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2, Scale_Calculator_select
+from calculator.custom_fuctions.Method_for_salt_calculator import calculate_full_result
+from calculator.custom_fuctions.graph_method import create_plot
 # from .Main import calculate
 # Create your views here.
 
@@ -44,24 +44,6 @@ def scale_calculator_page(request):
             Pressure = float(request.POST['Pressure'])  # Давление в МПа
             custom_Part_of_Mixture = float(request.POST['Part_of_Mixture'])
             Parts_of_Mixture = [0, 5 ,10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-
-            fig = px.line(x=x, y=y1, name='First data')
-            fig.add_trace(px.line(x=x, y=y2, name='Second data').data[0])
-            fig.update_layout(
-                title='My Graph',
-                xaxis_title='X Axis',
-                yaxis_title='Y Axis'
-            )
-
-            fig.update_xaxes(
-                range=[0, 60]
-            )
-
-            fig.update_yaxes(
-                range=[0, 1.5]
-            )
-            fig.write_html("templates/plot.html")
-
             if custom_Part_of_Mixture not in Parts_of_Mixture:
                 Parts_of_Mixture.append(custom_Part_of_Mixture)
             all_results = []
@@ -69,18 +51,21 @@ def scale_calculator_page(request):
             for each_elem in Parts_of_Mixture:
                 result = calculate_full_result(Cl_1,Cl_2,SO4_1,SO4_2,HCO3_1, HCO3_2, Ca_1,Ca_2,Mg_1,Mg_2,Na_1, Na_2, Ba_1, Ba_2,Sr_1,Sr_2,pH_1,pH_2,ro_1,ro_2, Temperature, Pressure, each_elem)
                 all_results.append(result)
-
-            return render(request, "calculator/salt.html", {"form": form, "all_results": all_results,"custom_Part_of_Mixture":custom_Part_of_Mixture})
+            graph = create_plot(all_results)
+            return render(request, "calculator/salt.html", {"form": form,
+                                                            "all_results": all_results,
+                                                            "custom_Part_of_Mixture":custom_Part_of_Mixture,
+                                                            'graph': graph})
     else:
         form = Scale_Calculator_form_1()
-        form_2 = Scale_Calculator_form_2()
-    return render(request,"calculator/salt.html", {"form": form, "form_2":form_2})
+        select = Scale_Calculator_select()
+    return render(request,"calculator/salt.html", {"form": form, "select":select})
 
 def reagent_base_page(request):
-    return HttpResponse("Страница базы солеотложений")
+    return render(request, 'calculator/reagent_page.html')
 
 def history_page(request):
     return HttpResponse("Страница истории")
 
 def FAQ_page(request):
-    return  HttpResponse("FAQ page")
+    return render(request, "calculator/faq_page.html")

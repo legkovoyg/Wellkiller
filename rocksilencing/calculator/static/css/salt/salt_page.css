@@ -80,7 +80,8 @@ td input{
 select{
     width: 120px;
     border: none;
-    color: rgba(255, 255, 255, 0.64);
+    background:#363A47;
+    color: white;
     outline: none;
 }
 

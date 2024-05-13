@@ -188,7 +188,6 @@ body.dark .sidebar header .toggle{
     position: relative;
     height: 100vh;
     left: 250px;
-    overflow-y: scroll;
     width: calc(100%-88px);
     transition: var(--tran-05);
 }

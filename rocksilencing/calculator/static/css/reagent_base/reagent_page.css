@@ -1,0 +1,141 @@
+*{
+    color: #fff;
+}
+
+/* main content */
+
+.main__content{
+    margin-left: 88px;
+
+    margin-bottom: 25px;
+    margin-right: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+section{
+    padding: 0 20px 0;
+    width: 100%;
+}
+
+.header{
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* section 1 search*/
+
+.content__search{
+    width: 40%;
+    background-color: #222836;
+    height: 1200px;
+    margin-top: 0;
+    padding-top: 20px;
+    overflow: hidden;
+    border-right: solid rgba(255, 255, 255, 0.08) 2px;
+}
+
+.search-header{
+
+    display: flex;
+    flex-direction: row;
+    position: static;
+    justify-content: center;
+}
+
+.search-box{
+    border-bottom: solid rgba(255, 255, 255, 0.08) 3px;
+    padding: 0 4px 0;
+}
+
+.search-box input{
+    outline: none;
+    border: none;
+    background: none;
+    width: 120px;
+}
+
+.search-header i{
+    padding: 0 5px 5px;
+}
+
+.search-info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.search-info-first{
+    margin-bottom: 25px;
+}
+
+
+/* section 2 table*/
+.content__table{
+    /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
+    border-right: solid rgba(255, 255, 255, 0.08) 2px;
+    width: 150%;
+    margin-top: 20px;
+    padding: 0 15px 15px 15px;
+}
+.content__table td{
+    text-align: center;
+
+}
+
+/* section 3 features*/
+
+.content__features {
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 20px;
+    padding: 0 15px 15px 15px;
+}
+
+
+/* tables */
+
+.item p{
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+table, th, td {
+    border: 0;
+    border-collapse: collapse;
+    padding: 6px 6px 6px 8px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    font-weight: 400;
+}
+
+td{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td input{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    outline: none;
+}
+
+select{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    outline: none;
+}
+
+td p{
+    margin: 0;
+}
+
+tr td p {
+    color: #fff;
+}

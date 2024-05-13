@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<link type = "text/css" href="{%static 'css/reagent_base/reagent_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+<title>База реагентов</title>
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+    <!-- header and sidebar ended-->
+    <main class="main__content">
+        <section class="content__search">
+            <div>
+                <div class="search-header"> 
+                    <div class="search-box">  <!-- косяк с иконками, переносятся при масштабировании посмоотреть шаблоны исправить-->
+                        <i class="bx bx-search icon" ></i>
+                        <input type="text" name="search-box" id="" placeholder="Поиск">
+                        <i class="bx bx-plus icon" ></i>
+                    </div>
+                </div>
+                <div class="search-info"> <!-- сделать выподающий список -->
+                    <div class="search-info-first">
+                        <i class="bx bx-chevron-down"></i>
+                        Системные
+                    </div>
+                    <div class="search-info-first">
+                        <i class="bx bx-chevron-down"></i>
+                        База солей
+                    </div>
+                    <div class="search-info-first">
+                        <i class="bx bx-chevron-down"></i>
+                        Пользовательские
+                    </div>
+                </div> 
+
+            </div>
+            
+        </section>
+        <section class="content__table">
+            <p class="header">Расходная норма</p>
+            <p class="header" style="color: rgba(255, 255, 255, 0.64);">CaCl / Данные по приготовлению</p>
+            <div class="table-main">
+                <table>
+                    <tr style="background: #5C606A;">
+                        <td>
+                            Плотность раствора, г/см³
+                        </td>
+                        <td>
+                            Расход соли, кг/м³
+                        </td>
+                        <td>
+                            Расход пресной воды, л/м³
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.01</p>
+                        </td>
+                        <td>
+                            <p>14.9</p>
+                        </td>
+                        <td>
+                            <p>995.1</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.02</p>
+                        </td>
+                        <td>
+                            <p>29.5</p>
+                        </td>
+                        <td>
+                            <p>993.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.03</p>
+                        </td>
+                        <td>
+                            <p>44.2</p>
+                        </td>
+                        <td>
+                            <p>992.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.04</p>
+                        </td>
+                        <td>
+                            <p>58.0</p>
+                        </td>
+                        <td>
+                            <p>988.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.05</p>
+                        </td>
+                        <td>
+                            <p>67.3</p>
+                        </td>
+                        <td>
+                            <p>982.3</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.06</p>
+                        </td>
+                        <td>
+                            <p>84.3</p>
+                        </td>
+                        <td>
+                            <p>975.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.07</p>
+                        </td>
+                        <td>
+                            <p>97.6</p>
+                        </td>
+                        <td>
+                            <p>972.6</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.08</p>
+                        </td>
+                        <td>
+                            <p>104.5</p>
+                        </td>
+                        <td>
+                            <p>973.2</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.09</p>
+                        </td>
+                        <td>
+                            <p>117.4</p>
+                        </td>
+                        <td>
+                            <p>965.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.10</p>
+                        </td>
+                        <td>
+                            <p>126.8</p>
+                        </td>
+                        <td>
+                            <p>959.5</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #292e3c;">
+                        <td>
+                            <p>1.11</p>
+                        </td>
+                        <td>
+                            <p>160.5</p>
+                        </td>
+                        <td>
+                            <p>955</p>
+                        </td>
+                    </tr>
+                    <tr style="background: #363A47;">
+                        <td>
+                            <p>1.12</p>
+                        </td>
+                        <td>
+                            <p>175.0</p>
+                        </td>
+                        <td>
+                            <p>944.7</p>
+                        </td>
+                    </tr>                                    
+                </table>
+            </div>
+        </section>
+        <section class="content__features">
+            <p class="header">Свойства жидкости</p>
+            <table>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Название
+                    </td>
+                    <td>
+                        <p>CaCl</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Описание
+                    </td>
+                    <td>
+                        <p>Соль</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Мин. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1,01</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Макс. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1,30</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Стоимость реаг. руб/кг
+                    </td>
+                    <td>
+                        <p>500</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Примечание
+                    </td>
+                    <td>
+                        <p>-</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </main>
+{% endblock %}

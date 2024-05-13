@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from django.contrib.auth import get_user_model
 
 
@@ -25,9 +26,7 @@ class Scale_Calculator_form_1(forms.Form):
         attrs={"type":"text", "id":"ph_1", "style":"width: 60px border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;"}))
     ro_1 = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type":"text", "id":"density_1" ,"style":"width: 60px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;"}))
-
     # Параметры второго вещества
-
     Cl_2 = forms.FloatField(label = "", widget = forms.NumberInput(
         attrs = {'class':"input","for":"Cl_2","type":"text", "style":"background: #292e3c;"}))
     SO4_2 = forms.FloatField(label = "", widget = forms.NumberInput(
@@ -52,6 +51,7 @@ class Scale_Calculator_form_1(forms.Form):
         attrs={"type":"text", "id":"density_2" ,
                "style":"width: 60px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none;"
                        " outline: none; color: #fff;"}))
+    # Параметры смеси
     Temperature = forms.FloatField (label='',widget=forms.NumberInput(
         attrs={"type":"text", "id":"ph_1", "style":"width: 60px border-radius: 4px; "
         "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
@@ -62,7 +62,13 @@ class Scale_Calculator_form_1(forms.Form):
         attrs={"type":"text", "id":"ph_1", "style":"width: 60px border-radius: 4px; "
         "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
 
-
+class Scale_Calculator_select(forms.Form):
+    # Переключение между моль/кг или мг/л
+    CHOICES = [
+        ('Масса','моль/кг'),
+        ('MASS','мг/л')
+    ]
+    Chosen_concentration = forms.ChoiceField(widget=forms.Select(attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "background": "black","color": "black"}), choices=CHOICES)
 class Scale_Calculator_form_2(forms.Form):
     # Параметры первого вещества
     Cl_1_another = forms.FloatField(label="", widget=forms.NumberInput(
