@@ -62,8 +62,9 @@ table, th, td {
     font-weight: 400;
 }
 
+
+
 td{
-    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

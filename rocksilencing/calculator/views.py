@@ -58,8 +58,9 @@ def scale_calculator_page(request):
                                                             'graph': graph})
     else:
         form = Scale_Calculator_form_1()
+        form_2 = Scale_Calculator_form_2()
         select = Scale_Calculator_select()
-    return render(request,"calculator/salt.html", {"form": form, "select":select})
+    return render(request,"calculator/salt.html", {"form": form, "select":select, "form_2":form_2})
 
 def reagent_base_page(request):
     return render(request, 'calculator/reagent_page.html')
