@@ -1,0 +1,181 @@
+/* common */
+
+body{
+    background: #292e3c;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+} 
+
+/* main content */
+
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+    margin-right: 25px;
+    margin-top: 27px;
+    margin-bottom: 16px;
+    margin-left: 0px;
+}
+
+.container__tab{
+    max-width: 800px;
+    padding: 0 25px 0;
+    border-right: solid rgba(255, 255, 255, 0.08) 2px; 
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* header inputs */
+
+.headerContainer{
+    position: static;
+    height: 52px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 0px 12px 0px;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.headerContainer h1{
+    margin-left: 20px;
+}
+
+.headerContainer svg{
+    cursor: pointer;
+}
+
+/* header 2 section for results, plot/graph */
+
+.headerContainer__info{
+    height: 65px;
+    padding: 12px 24px 12px 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    align-items: center;
+}
+
+.info-name{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 2px;
+    margin-top: 0px;
+}
+
+.info-spec{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+
+/* tables */
+
+.tabs .tab{
+    display:inline-block;
+    padding:20px;
+    margin:0 0px 20px 0px;
+    cursor:pointer;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.tabs .tab.on{
+    border-bottom:  4px solid rgb(29, 154, 108);
+}
+
+.tabs-items .item{
+    display:none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.tabs-items .item.on{
+    display:block;
+}
+
+.item p{
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+table, th, td {
+    border: 0;
+    border-collapse: collapse;
+    padding: 6px 6px 6px 40px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    font-weight: 400;
+}
+
+td{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td input{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 15px;
+    outline: none;
+}
+
+select{
+    width: 120px;
+    border: none;
+    color: rgba(255, 255, 255, 0.64);
+    outline: none;
+}
+
+td p{
+    margin: 0;
+}
+
+/* button */
+
+.text{
+    font-size: 14px;
+    line-height: 24px;
+}
+
+button{
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px 12px 8px 12px;
+    border-radius: 8px;
+    background: rgb(29, 154, 108);
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: rgba(29, 154, 108, 0.74);
+    transition: all .2s;
+    animation: shadow .6s infinite linear;
+}
+
+.tabs-first__footer-buttons{
+    margin-top: auto;
+    margin-bottom: 40px;
+}

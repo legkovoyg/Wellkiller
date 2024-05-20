@@ -1,14 +1,60 @@
 import plotly.express as px
 from django.shortcuts import render
 from django.http import HttpResponse
-from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2, Scale_Calculator_select
+from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2, Scale_Calculator_select, ModelGlushForm
 from calculator.custom_fuctions.Method_for_salt_calculator import calculate_full_result
 from calculator.custom_fuctions.graph_method import create_plot
+from calculator.custom_fuctions.matmodel_glush.Matmodel import matmodel_glush
+from calculator.custom_fuctions.matmodel_glush.matmodel_graph.graph_pressures import create_matmodel_plot
+from calculator.models import Salt, Solution
 # from .Main import calculate
 # Create your views here.
 
 def calculator_page(request):
-    return render(request,"calculator/main_page.html")
+    if request.method == 'POST':
+        form = ModelGlushForm(request.POST)
+        if form.is_valid():
+            print("ns lolbr")
+            Plast_pressure = float(request.POST["Plast_pressure"])
+            h = float(request.POST["Plast_thickness"])
+            Length_of_Well = float(request.POST["Well_length"])
+            L_of_Wells = float(request.POST["NKT_length"])
+            ro_oil = float(request.POST["Oil_density"])
+            # ro_jgs = float(request.POST["Jgs_density"])
+            d_NKT = float(request.POST["NKT_inner_diameter"])
+            D_NKT = float(request.POST["NKT_external_diameter"])
+            d_exp = float(request.POST["EXP_inner_diameter"])
+            D_exp = float(request.POST["EXP_external_diameter"])
+            Q = float(request.POST["Debit"])
+            k_jg = float(request.POST["Phase_jgs_permeability"])/10**12
+            mu_jg = float(request.POST["Jgs_viscosity"])
+            k_oil = float(request.POST["Phase_oil_permeability"])/10**12
+            mu_oil = float(request.POST["Oil_viscosity"])
+            Rk = float(request.POST['Radius_countour'])
+            m = float(request.POST['Porosity'])
+            YV_density = float(request.POST["YV_density"])
+            YV_dole = float(request.POST["YV_dole"])
+            emul_density = float(request.POST["Emul_density"])
+            emul_dole = float(request.POST["Emul_dole"])
+            zapas = float(request.POST["Zapas"])
+            car_volume = float(request.POST['Volume_of_car'])
+            jgs_type = str(request.POST['Type_of_jgs'])
+            bd_CaCl = Solution.objects.filter(salt__name = "CaCl")
+            bd_CaJG = Solution.objects.filter(salt__name="CaЖГ")
+            bd_CaKCl = Solution.objects.filter(salt__name="KCl")
+            results = matmodel_glush(Plast_pressure*101325, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT, D_NKT, d_exp, D_exp, Q,
+                           k_jg, mu_jg, k_oil, mu_oil, Rk, m, 20, YV_density, YV_dole, emul_density, emul_dole, zapas,bd_CaCl, bd_CaJG, chosen_salt = jgs_type, volume_car=car_volume)
+            current_results = results[0]
+            graph = create_matmodel_plot(results[1], results[2])
+            design = results[3]
+            stages = results[4]
+            return render(request, "calculator/main_page.html", {"form": form, "results": results,"current_results":current_results, "graph":graph, "design":design, "stages":stages})
+        else:
+            print(form.errors)
+    else:
+        form = ModelGlushForm()
+
+    return render(request,"calculator/main_page.html", {"form":form})
 
 def scale_calculator_page(request):
     if request.method == 'POST':
@@ -60,6 +106,8 @@ def scale_calculator_page(request):
         form = Scale_Calculator_form_1()
         form_2 = Scale_Calculator_form_2()
         select = Scale_Calculator_select()
+
+
     return render(request,"calculator/salt.html", {"form": form, "select":select, "form_2":form_2})
 
 def reagent_base_page(request):

@@ -13,8 +13,12 @@
 
 </head>
 {% block content %}
+
 <body>
+
+<form method="POST" action=''>
     <main class="mainContainer">
+
         <section class="container__tab">
         <div class="headerContainer">
             <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +45,7 @@
                                                 Месторождение
                                             </td>
                                             <td>
-                                                <p id="field">Месторождение</p>  
+                                                {{ form.Oil_field_name }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
@@ -49,7 +53,7 @@
                                                 Куст
                                             </td>
                                             <td>
-                                                <p id="bush">Куст</p>   
+                                                {{ form.Bush_name }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
@@ -57,7 +61,7 @@
                                                 Скважина
                                             </td>
                                             <td>
-                                                <p id="well">Скважина</p> 
+                                                {{ form.Well_name }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
@@ -65,7 +69,7 @@
                                                 Название дизайна
                                             </td>
                                             <td>
-                                                <p id="design">Дизайн</p>
+                                                {{ form.Design_name }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
@@ -73,29 +77,24 @@
                                                 Способ эксплуатации
                                             </td>
                                             <td>
-                                                <select style="background: #363A47;">
-                                                    <option id="UECN" value="1">УЭЦН</option>
-                                                    <option id="USHGN" value="2">УШГН</option>
-                                                </select>
+                                                {{ form.EXP_type }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
                                             <td>
                                                 Способ глушения
+                                                {{ salts }}
                                             </td>
                                             <td>
-                                                <select style="background: #292e3c;">
-                                                    <option id="NKT" value="1">НКТ</option>
-                                                    <option id="zatryb" value="2">Затруб</option>
-                                                </select>
+                                                {{ form.Glush_type }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
                                             <td>
-                                                Плотность нефти в поверхностных условиях, г/см³
+                                                Плотность нефти в поверхностных условиях, кг/м³
                                             </td>
                                             <td>
-                                                <input id="density" type="text" style="background: #363A47;">
+                                                {{ form.Oil_density }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
@@ -103,31 +102,31 @@
                                                 Пластовое давление, атм
                                             </td>
                                             <td>
-                                                <input id="form-pressure" type="text" style="background: #292e3c;">
+                                                {{ form.Plast_pressure }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
                                             <td>
-                                                Максимальное устьевое давление, атм
+                                                Радиус контура питания, м
                                             </td>
                                             <td>
-                                                <input id="max-pressure" type="text" style="background: #363A47;">
+                                                {{ form.Radius_countour }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
                                             <td>
-                                                Кровля пласта по вертикали, м
+                                                Толщина пласта, м
                                             </td>
                                             <td>
-                                                <input id="roof-form" type="text" style="background: #292e3c;">
+                                                {{ form.Plast_thickness }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
                                             <td>
-                                                Подошва пласта по вертикали, м
+                                                Расстояние до пласта по вертикали, м
                                             </td>
                                             <td>
-                                                <input id="sole-form" type="text" style="background: #363A47;">
+                                                {{ form.From_yst_to_plast }}
                                             </td>
                                         </tr>
                                         <tr style="background: #292e3c;">
@@ -135,7 +134,7 @@
                                                 Искусственный забой, м
                                             </td>
                                             <td>
-                                                <input id="artificial-bottom" type="text" style="background: #292e3c;">
+                                                {{ form.False_zaboi }}
                                             </td>
                                         </tr>
                                         <tr style="background: #363A47; ">
@@ -143,22 +142,85 @@
                                                 Текущий забой, м
                                             </td>
                                             <td>
-                                                <input id="current-bottom" type="text" style="background: #363A47;">
+                                                {{ form.True_zaboi }}
                                             </td>
                                         </tr>
-                                        <tr style="background: #292e3c;">
+                                         <tr style="background: #292e3c; ">
                                             <td>
-                                                Глубина контрольной точки по давлению, м
+                                                Пористость, доли ед.
                                             </td>
                                             <td>
-                                                <input id="depth-pressure" type="text" style="background: #292e3c;">
+                                                {{ form.Porosity }}
                                             </td>
                                         </tr>
+
+
                                     </table>
                             </div>
                         </div>
                         <div class="item">
                             <p>Общие данные</p>
+                            <div class="item__tables">
+                                <table>
+                                    <tr style="background:  #363A47;">
+                                        <td>
+                                            Вертикальная длина скважины, м
+                                        </td>
+                                        <td>
+                                            {{ form.Well_length }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #292e3c;">
+                                        <td>
+                                            Вертикальная длина труб НКТ, м
+                                        </td>
+                                        <td>
+                                            {{ form.NKT_length }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background:  #363A47;">
+                                        <td>
+                                            Внутренний диаметр НКТ, м
+                                        </td>
+                                        <td>
+                                            {{ form.NKT_inner_diameter }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #292e3c;">
+                                        <td>
+                                            Внешний диаметр НКТ, м
+                                        </td>
+                                        <td>
+                                            {{ form.NKT_external_diameter }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background:  #363A47;">
+                                        <td>
+                                            Вертикальная длина ЭК, м
+                                        </td>
+                                        <td>
+                                            {{ form.EXP_length }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #292e3c;">
+                                        <td>
+                                            Внутренний диаметр ЭК, м
+                                        </td>
+                                        <td>
+                                            {{ form.EXP_inner_diameter }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #363A47;">
+                                        <td>
+                                            Внешний диаметр ЭК, м
+                                        </td>
+                                        <td>
+                                            {{ form.EXP_external_diameter }}
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </div>
+                            <p></p>
                             <div class="item__tables">
                                 <table>
                                     <tr style="background: #5C606A;">
@@ -306,7 +368,7 @@
                                             MD низ
                                         </td>
                                         <td  title="единица измерения мм">
-                                            Внешний диаметр
+                                            Внешний диаметр, м
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -349,7 +411,7 @@
                                             Объем емкости, м³
                                         </td>
                                         <td>
-                                            <input id="cap-volume" type="text" style="background: #363A47;">
+                                            {{ form.Volume_of_car }}
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -357,15 +419,15 @@
                                             Расход, м³/мин
                                         </td>
                                         <td>
-                                            <input id="expense" type="text" style="background: #292e3c;">
+                                            {{ form.Debit }}
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
                                         <td>
-                                            Плотность углеводородной основы, г/м³
+                                            Плотность УВ, г/м³
                                         </td>
                                         <td>
-                                            <input id="density-hydro" type="text" style="background: #363A47;">
+                                            {{ form.YV_density }}
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -373,79 +435,93 @@
                                             Доля углеводородной основы в объеме блок-пачки
                                         </td>
                                         <td>
-                                            <input id="density-fraction" type="text" style="background: #292e3c;">
+                                            {{ form.YV_dole }}
+
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
                                         <td>
-                                            Плотность эмульгатора, г/см³
+                                            Плотность эмульгатора, г/м³
                                         </td>
                                         <td>
-                                            <input id="density-emuls" type="text" style="background: #363A47;">
+                                            {{ form.Emul_density }}
+
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #292e3c; ">
+                                        <td>
+                                            Доля эмульгатора, доля ед.
+                                        </td>
+                                        <td>
+                                            {{ form.Emul_dole }}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #363A47; ">
+                                        <td>
+                                            Рекомендуемый тип соли
+                                        </td>
+                                        <td>
+                                            {{ form.Type_of_jgs }}
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
                                         <td>
-                                            Доля эмульгатора в объеме блок-пачки
+                                            Фазовая проницаемость по нефти, мкм²
                                         </td>
                                         <td>
-                                            <input id="emuls-fraction" type="text" style="background: #292e3c;">
+                                            {{ form.Phase_oil_permeability }}
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
                                         <td>
-                                            Тип соли
+                                            Фазовая проницаемость по ЖГС, мкм²
                                         </td>
                                         <td>
-                                            <select style="background: #363A47;">
-                                                <option id="cacl" value="1">CaCl</option>
-                                                <option id="kcl" value="2">KCl</option>
-                                                <option id="cajg" value="2">CaЖГ</option>
-                                            </select>
+                                            {{ form.Phase_jgs_permeability }}
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
                                         <td>
-                                            Буферная жидкость, м³
+                                            Вязкость нефти, Па∙с
                                         </td>
                                         <td>
-                                            <input id="buffer-liquid" type="text" style="background: #292e3c;">
+                                            {{ form.Oil_viscosity }}
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
                                         <td>
-                                            Тех. жидкость с добавками, м³
+                                            Вязкость ЖГС, Па∙с
                                         </td>
                                         <td>
-                                            <input id="tech-liquid-add" type="text" style="background: #363A47;">
+                                            {{ form.Jgs_viscosity }}
                                         </td>
                                     </tr>
-                                    <tr style="background: #292e3c;">
+                                    <tr style="background: #292e3c; ">
                                         <td>
-                                            Тех. жидкость, м³
+                                            Запас, доля ед.
                                         </td>
                                         <td>
-                                            <input id="tech-liquid" type="text" style="background: #292e3c;">
-                                        </td>
-                                    </tr>
-                                    <tr style="background: #363A47; ">
-                                        <td>
-                                            Тех. жидкость для циркуляции, м³
-                                        </td>
-                                        <td>
-                                            <input id="tech-liquid-circulation" type="text" style="background: #363A47;">
+                                            {{ form.Zapas }}
                                         </td>
                                     </tr>
+
+
                                 </table>
                             </div>
                         </div> 
                         </div>
                         </div>
+
+                {% csrf_token %}
             <footer class="tabs-first__footer-buttons">
+
                 <button>Произвести расчет</button>
+
             </footer>
+
         <!---->
         </section>
+
 
         <section style="width: 1250px; padding: 0 25px 0; border-right: solid rgba(255, 255, 255, 0.08) 2px; ">
             <header class="headerContainer">
@@ -457,28 +533,27 @@
             <div class="headerContainer__info">
                 <div style="margin: 0;">
                     <p class="info-name">V обс. колонны</p>
-                    <p id="total-column-volume" class="info-spec">3,12 м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
+                    <p id="total-column-volume" class="info-spec">{{current_results.FULL_EXP_volume}} м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
                 <div>
                     <p class="info-name">V НКТ</p>
-                    <p id="total-nkt-volume" class="info-spec">4,2 м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
+                    <p id="total-nkt-volume" class="info-spec">{{current_results.NKT_volume}} м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
                 <div>
-                    <p class="info-name">Тип соли</p>
-                    <p id="total-salt-type" class="info-spec">KCl</p>
+                    <p class="info-name">Рекомендуемый тип соли</p>
+                    <p id="total-salt-type" class="info-spec">{{ design.DESIGN_chosen_salt_name }}</p>
                 </div>
                 <div>
                     <p class="info-name">V жидкости глушения</p>
-                    <p id="total-jamming-liquid-volume" class="info-spec">19,59 м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
+                    <p id="total-jamming-liquid-volume" class="info-spec">{{current_results.Vjg}} м³</p> <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
                 <div>
                     <p class="info-name">Плотность жидкости глушения</p>
-                    <p id="total-liqiud-pressure" class="info-spec">1,12 г/см³</p> <!--в коде нужно сокранить г/см3 чтобы только число менялось!!!-->
+                    <p id="total-liqiud-pressure" class="info-spec">{{ design.DESIGN_true_jgs_density}} г/см³</p> <!--в коде нужно сокранить г/см3 чтобы только число менялось!!!-->
                 </div>
             </div>
             <section id="testtooltip" style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 25px; border-radius: 8px;">
-                <div id="chart-container"></div>
-                <!-- <div id="tooltip"></div> -->
+                {{ graph|safe }}
             </section>
         <section>
             <!-- ТАБЫ -->
@@ -499,7 +574,7 @@
                                 Объем углеводородной основы, м³
                             </td>
                             <td>
-                                <p id="hydro-volume" style="background: #363A47;"></p>
+                                {{ design.DESIGN_volume_oil }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -507,7 +582,7 @@
                                 Объем эмульгатора, м³
                             </td>
                             <td>
-                                <p id="emuls_volume" style="background: #292e3c;"></p>
+                                {{ design.DESIGN_volume_emul }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -515,7 +590,7 @@
                                 Объем воды, м³
                             </td>
                             <td>
-                                <p id="water-volume" style="background: #363A47;"></p>
+                                {{ design.DESIGN_water_volume }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -523,7 +598,7 @@
                                 Масса соли, т
                             </td>
                             <td>
-                                <p id="salt-weight" style="background: #292e3c;"></p>
+                                {{ design.DESIGN_salt_mass }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -531,7 +606,7 @@
                                 Объем солевого раствора, м³
                             </td>
                             <td>
-                                <p id="salt-solution-volume" style="background: #363A47;"></p>
+                                {{ design.DESIGN_volume_glush }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -539,7 +614,7 @@
                                 Плотность солевого раствора, г/м³
                             </td>
                             <td>
-                                <p id="salt-solution-density" style="background: #292e3c;"></p>
+                                {{ design.DESIGN_true_jgs_density }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -547,7 +622,7 @@
                                 Запас по давлению при глушении, атм
                             </td>
                             <td>
-                                <p id="jamming-pressure" style="background: #363A47;"></p>
+                                {{ design.DESIGN_pressure_zapas }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -555,7 +630,7 @@
                                 Количество циклов, шт
                             </td>
                             <td>
-                                <p id="quantity-cycles" style="background: #292e3c;"></p>
+                                <p id="quantity-cycles" style="background: #292e3c;">{{ design.DESIGN_counts_of_zak }}</p>
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -563,7 +638,7 @@
                                 Тип соли
                             </td>
                             <td>
-                                <p id="salt-type" style="background: #363A47;"></p>
+                                {{ design.DESIGN_chosen_salt_name }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -571,7 +646,7 @@
                                 Расход соли, кг
                             </td>
                             <td>
-                                <p id="salt-expense" style="background: #292e3c;"></p>
+                                {{ design.DESIGN_chosen_salt_debit }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -579,7 +654,7 @@
                                 Расход воды, л/м³
                             </td>
                             <td>
-                                <p id="water-expense" style="background: #363A47;"></p>
+                                {{ design.DESIGN_recommended_water_debit }}
                             </td>
                         </tr>
                     </table>
@@ -594,7 +669,7 @@
                                 Объем экп. колонны, м³
                             </td>
                             <td>
-                                <p id="ekp-column-volume" style="background: #363A47;"></p>
+                                {{current_results.FULL_EXP_volume}}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -602,7 +677,7 @@
                                 Объем НКТ, м³
                             </td>
                             <td>
-                                <p id="nkt-volume" style="background: #292e3c;"></p>
+                                {{current_results.NKT_volume}}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -610,7 +685,7 @@
                                 Объем штанг, м³
                             </td>
                             <td>
-                                <p id="rods-volume" style="background: #363A47;"></p>
+                                <p id="rods-volume" style="background: #363A47;">-</p>
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -618,7 +693,7 @@
                                 Объем затрубья в интервале устье-низ НКТ, м³
                             </td>
                             <td>
-                                <p id="annulus-volume" style="background: #292e3c;"></p>
+                                {{current_results.KP_volume}}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -626,7 +701,7 @@
                                 Объем колонны в интервале низ НКТ-забой, м³
                             </td>
                             <td>
-                                <p id="column-volume" style="background: #363A47;"></p>
+                                {{current_results.EXP_volume}}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -634,7 +709,7 @@
                                 Расчетный объем глушения, м³
                             </td>
                             <td>
-                                <p id="jamming-volume" style="background: #292e3c;"></p>
+                                {{ design.DESIGN_volume_bez_zapasa }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -642,7 +717,7 @@
                                 Запас жидкости - 10% от расчетного объема глушения, м³
                             </td>
                             <td>
-                                <p id="supp-liquid" style="background: #363A47;"></p>
+                                {{ design.DESIGN_volume_zapas }}
                             </td>
                         </tr>
                     </table>
@@ -767,15 +842,19 @@
                             </td>
                             <td>
                                 <p id="stage-hydro-base_1" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_YV_st1 }}
                             </td>
                             <td>
                                 <p id="stage-hydro-base_2" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_EMUL_st1 }}
                             </td>
                             <td>
                                 <p id="stage-hydro-base_3" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_SOLERAST_st1 }}
                             </td>
                             <td>
                                 <p id="stage-hydro-base_4" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_BP_st1 }}
                             </td>
                         </tr>
                         <tr style="background: #363A47;">
@@ -784,15 +863,19 @@
                             </td>
                             <td>
                                 <p id="stage-emuls_1" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_YV_st2 }}
                             </td>
                             <td>
                                 <p id="stage-emuls_2" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_EMUL_st2 }}
                             </td>
                             <td>
                                 <p id="stage-emuls_3" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_SOLERAST_st2 }}
                             </td>
                             <td>
                                 <p id="stage-emuls_4" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_BP_st2 }}
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -801,15 +884,19 @@
                             </td>
                             <td>
                                 <p id="stage-salt-volume_1" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_YV_st3 }}
                             </td>
                             <td>
                                 <p id="stage-salt-volume_2" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_EMUL_st3 }}
                             </td>
                             <td>
                                 <p id="stage-salt-volume_3" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_SOLERAST_st3 }}
                             </td>
                             <td>
                                 <p id="stage-salt-volume_4" style="background: #292e3c;"></p>
+                                {{ stages.RECIPE_BP_st3 }}
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -818,15 +905,19 @@
                             </td>
                             <td>
                                 <p id="stage-block-volume_1" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_YV_st4 }}
                             </td>
                             <td>
                                 <p id="stage-block-volume_2" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_EMUL_st4 }}
                             </td>
                             <td>
                                 <p id="stage-block-volume_3" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_SOLERAST_st4 }}
                             </td>
                             <td>
                                 <p id="stage-block-volume_4" style="background: #363A47;"></p>
+                                {{ stages.RECIPE_BP_st4 }}
                             </td>
                         </tr>
                     </table>
@@ -846,9 +937,13 @@
             </div>
             <img src="{%static 'images/main/main_page_skvajina.jpg'%}" width="120%">
         </section>
+
     </main>
+    </form>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="{%static 'js/main/main_page.js'%}" defer></script>
+
 </body>
+
 {% endblock %}
 </html>
