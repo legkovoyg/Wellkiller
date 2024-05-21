@@ -37,7 +37,7 @@ def create_matmodel_plot(Pressures, time):
                      tickcolor="rgb(170, 174, 185)",
                      griddash='dash',
                      )
-    fig.update_yaxes(title_text="Давление, МПа",
+    fig.update_yaxes(title_text="Давление, атм",
                      ticks="outside",
                      showline=False,
                      zeroline=False,

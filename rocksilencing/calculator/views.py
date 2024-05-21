@@ -1,7 +1,7 @@
 import plotly.express as px
 from django.shortcuts import render
 from django.http import HttpResponse
-from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2, Scale_Calculator_select, ModelGlushForm
+from calculator.forms import Scale_Calculator_form_1, Scale_Calculator_form_2, ModelGlushForm
 from calculator.custom_fuctions.Method_for_salt_calculator import calculate_full_result
 from calculator.custom_fuctions.graph_method import create_plot
 from calculator.custom_fuctions.matmodel_glush.Matmodel import matmodel_glush
@@ -105,13 +105,16 @@ def scale_calculator_page(request):
     else:
         form = Scale_Calculator_form_1()
         form_2 = Scale_Calculator_form_2()
-        select = Scale_Calculator_select()
 
 
-    return render(request,"calculator/salt.html", {"form": form, "select":select, "form_2":form_2})
+    return render(request,"calculator/salt.html", {"form": form, "form_2":form_2})
 
 def reagent_base_page(request):
-    return render(request, 'calculator/reagent_page.html')
+    bd_all_salts = Solution.objects.all()
+    bd_names_salts = Salt.objects.all()
+    # print(bd_all_salts)
+    print(bd_names_salts)
+    return render(request, 'calculator/reagent_page.html',{"bd_all_salts":bd_all_salts, "bd_names_salts":bd_names_salts})
 
 def history_page(request):
     return HttpResponse("Страница истории")

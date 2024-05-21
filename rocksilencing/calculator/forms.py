@@ -31,7 +31,7 @@ class Scale_Calculator_form_1(forms.Form):
                "style": "background:  #363A47;"}))
     pH_1 = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 60px border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;"}))
+               "style": "width: 60px; border-radius: 30px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;"}))
     ro_1 = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "density_1",
                "style": "width: 60px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff;"}))
@@ -54,7 +54,7 @@ class Scale_Calculator_form_1(forms.Form):
         attrs={'class': "input", "for": "Sr_2", "type": "text", "style": "background: #363A47;"}))
     pH_2 = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "id": "ph_2",
-               "style": "width: 60px border-radius: 4px; background: rgba(255, 255, 255, 0.06); border: none;"
+               "style": "width: 60px; border-radius: 30px; background: rgba(255, 255, 255, 0.06); border: none;"
                         " outline: none; color: #fff;"}))
     ro_2 = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "id": "density_2",
@@ -63,27 +63,19 @@ class Scale_Calculator_form_1(forms.Form):
     # Параметры смеси
     Temperature = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 60px border-radius: 4px; "
+               "style": "width: 120px; border-radius: 4px; "
                         "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
     Pressure = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 60px border-radius: 4px; "
+               "style": "width: 120px; border-radius: 4px; "
                         "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
     Part_of_Mixture = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 60px border-radius: 4px; "
+               "style": "width: 120px; border-radius: 4px; "
                         "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
 
 
-class Scale_Calculator_select(forms.Form):
-    # Переключение между моль/кг или мг/л
-    CHOICES = [
-        ('Масса', 'моль/кг'),
-        ('MASS', 'мг/л')
-    ]
-    Chosen_concentration = forms.ChoiceField(widget=forms.Select(
-        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "background": "black", "color": "black"}),
-                                             choices=CHOICES)
+
 
 
 class Scale_Calculator_form_2(forms.Form):
@@ -212,16 +204,16 @@ class ModelGlushForm(forms.Form):
     YV_dole = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     YV_density = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     Emul_dole = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     Emul_density = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
     Zapas = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     False_zaboi = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     True_zaboi = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
     From_yst_to_plast = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))

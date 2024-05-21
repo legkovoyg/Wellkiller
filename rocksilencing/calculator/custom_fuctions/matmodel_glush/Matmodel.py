@@ -2,6 +2,7 @@ from calculator.custom_fuctions.matmodel_glush.matmodel_functions import mf_pres
 from calculator.custom_fuctions.matmodel_glush.matmodel_functions import mf_heights as mfH
 from calculator.custom_fuctions.matmodel_glush.matmodel_functions import mf_commons as mfCom
 from calculator.custom_fuctions.matmodel_glush.matmodel_functions import mf_constructions as mfCon
+from calculator.custom_fuctions.matmodel_glush.matmodel_functions import mf_instruments as mfIn
 import calculator.custom_fuctions.matmodel_glush.matmodel_classes as mc
 import math
 from scipy.interpolate import interp1d
@@ -529,12 +530,12 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         #       f"Это объем жидкости нефть в ЭКСПЛ {EXP_params.oil_volume}\n"
         #       f"Это объем жидкости ЖГС в ЭКСПЛ {EXP_params.jgs_volume}\n"
         #       )
-    P_yst = [x / 10 ** 6 for x in P_yst]
-    P_friction = [x / 10 ** 6 for x in P_friction]
-    P_NKT = [x / 10 ** 6 for x in P_NKT]
-    P_KP = [x / 10 ** 6 for x in P_KP]
-    P_EXP = [x / 10 ** 6 for x in P_EXP]
-    p_overall = [x / 10 ** 6 for x in p_overall]
+    P_yst = [mfIn.pressure_format(x)  for x in P_yst]
+    P_friction = [mfIn.pressure_format(x) for x in P_friction]
+    P_NKT = [mfIn.pressure_format(x) for x in P_NKT]
+    P_KP = [mfIn.pressure_format(x) for x in P_KP]
+    P_EXP = [mfIn.pressure_format(x) for x in P_EXP]
+    p_overall = [mfIn.pressure_format(x) for x in p_overall]
     Pressures_array = [P_yst, p_overall, P_friction, P_NKT, P_KP, P_EXP]
 
     print(All_common_calculations.Vjg)
@@ -571,24 +572,25 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     }
 
     STAGES = {
-        "RECIPE_YV_st1" : round(RECIPE_YV_st1,2),
-        "RECIPE_EMUL_st1" : round(RECIPE_EMUL_st1,2),
-        "RECIPE_SOLERAST_st1" : round(RECIPE_SOLERAST_st1,2),
-        "RECIPE_BP_st1" : round(RECIPE_BP_st1,2),
-        "RECIPE_YV_st2" : round(RECIPE_YV_st2,2),
-        "RECIPE_EMUL_st2" : round(RECIPE_EMUL_st2,2),
-        "RECIPE_SOLERAST_st2" : round(RECIPE_SOLERAST_st2,2),
-        "RECIPE_BP_st2" : round(RECIPE_BP_st2,2),
-        "RECIPE_YV_st3" : round(RECIPE_YV_st3,2),
-        "RECIPE_EMUL_st3" : round(RECIPE_EMUL_st3,2),
-        "RECIPE_SOLERAST_st3" : round(RECIPE_SOLERAST_st3,2),
-        "RECIPE_BP_st3" : round(RECIPE_BP_st3,2),
-        "RECIPE_YV_st4" : round(RECIPE_YV_st4,2),
-        "RECIPE_EMUL_st4" : round(RECIPE_EMUL_st4,2),
-        "RECIPE_SOLERAST_st4" : round(RECIPE_SOLERAST_st4,2),
-        "RECIPE_BP_st4" : round(RECIPE_BP_st4,2)
+        "RECIPE_YV_st1" : mfIn.format_number(RECIPE_YV_st1),
+        "RECIPE_EMUL_st1" :  mfIn.format_number(RECIPE_EMUL_st1),
+        "RECIPE_SOLERAST_st1" :  mfIn.format_number(RECIPE_SOLERAST_st1),
+        "RECIPE_BP_st1" :  mfIn.format_number(RECIPE_BP_st1),
+        "RECIPE_YV_st2" :  mfIn.format_number(RECIPE_YV_st2),
+        "RECIPE_EMUL_st2" :  mfIn.format_number(RECIPE_EMUL_st2),
+        "RECIPE_SOLERAST_st2" :  mfIn.format_number(RECIPE_SOLERAST_st2),
+        "RECIPE_BP_st2" :  mfIn.format_number(RECIPE_BP_st2),
+        "RECIPE_YV_st3" :  mfIn.format_number(RECIPE_YV_st3),
+        "RECIPE_EMUL_st3" :  mfIn.format_number(RECIPE_EMUL_st3),
+        "RECIPE_SOLERAST_st3" :  mfIn.format_number(RECIPE_SOLERAST_st3),
+        "RECIPE_BP_st3" :  mfIn.format_number(RECIPE_BP_st3),
+        "RECIPE_YV_st4" :  mfIn.format_number(RECIPE_YV_st4),
+        "RECIPE_EMUL_st4" :  mfIn.format_number(RECIPE_EMUL_st4),
+        "RECIPE_SOLERAST_st4" :  mfIn.format_number(RECIPE_SOLERAST_st4),
+        "RECIPE_BP_st4" :  mfIn.format_number(RECIPE_BP_st4)
     }
     print(DESIGN)
+    print(STAGES)
     return results, Pressures_array, t_array, DESIGN, STAGES
 
     # stage_1_Speed_reduced = math.sqrt(2 * g * stage_1_Height_jg_reduced)

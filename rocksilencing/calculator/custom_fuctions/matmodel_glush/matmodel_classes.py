@@ -660,7 +660,7 @@ class DesignGlush():
                                                  self.volume_of_rast - self.stage_1_SOLE_RAST)
                 return self.stage_2_SOLE_RAST
             else:
-                self.stage_2_SOLE_RAST = self.volume_emul - self.stage_1_EMUL_volume
+                self.stage_2_SOLE_RAST = self.volume_of_rast - self.stage_1_SOLE_RAST
                 return self.stage_2_SOLE_RAST
         elif stage == 3:
             if (self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume) >= self.volume_car:
@@ -669,7 +669,7 @@ class DesignGlush():
                                                  self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST)
                 return self.stage_3_SOLE_RAST
             else:
-                self.stage_3_SOLE_RAST = self.volume_emul - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST
+                self.stage_3_SOLE_RAST = self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST
                 return self.stage_3_SOLE_RAST
         elif stage == 4:
             if (self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) >= self.volume_car:
@@ -678,12 +678,12 @@ class DesignGlush():
                                                  self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST - self.stage_3_SOLE_RAST)
                 return self.stage_4_SOLE_RAST
             else:
-                self.stage_4_SOLE_RAST = self.volume_emul - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST - self.stage_3_SOLE_RAST
+                self.stage_4_SOLE_RAST = self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST - self.stage_3_SOLE_RAST
                 return self.stage_4_SOLE_RAST
 
     def RECIPE_BP(self, stage):
         if stage == 1:
-            self.stage_1_BP_volume = self.volume_oil + self.volume_emul + self.volume_of_rast
+            self.stage_1_BP_volume = self.stage_1_YV_volume + self.stage_1_EMUL_volume + self.stage_1_SOLE_RAST
             return self.stage_1_BP_volume
         elif stage == 2:
             self.stage_2_BP_volume = self.stage_2_YV_volume + self.stage_2_EMUL_volume + self.stage_2_SOLE_RAST
