@@ -72,14 +72,15 @@ function form_update (concent_1, concent_2, ro_id, multiplier) {
     var mole_value = document.getElementById(concent_1);
     var mg_value = document.getElementById(concent_2);
     var ro_smesi_1 = document.getElementById(ro_id);
+
     if (mole_value && mg_value && ro_smesi_1) {
         mole_value.addEventListener('input', function() {
             var newValue = parseFloat(mole_value.value);
             mg_value.value = (newValue*(1000*multiplier*ro_smesi_1.value)).toFixed(5);
         });
-
         mg_value.addEventListener('input', function() {
             var newValue = parseFloat(mg_value.value);
+            console.log(newValue)
             mole_value.value = (newValue / (1000 * multiplier * ro_smesi_1.value)).toFixed(5);
         });
     }

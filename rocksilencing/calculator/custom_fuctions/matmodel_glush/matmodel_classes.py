@@ -80,26 +80,38 @@ class WellSpace(Operations):
             self.update_values("oil_height", calculated_oil_height)
             return self.oil_height
 
-    def calculate_level_jgs_NKT(self, Hjg):
+    def calculate_level_jgs_NKT(self, Hjg, NKT_params, EXP, dh_jg, V_pogl, NKT, KP):
         if self.jgs_height is None:
-            self.jgs_height = mfH.calculate_NKT_jg_height(self.oil_height, Hjg, self.construction.length)
+            self.jgs_height = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP, self.jgs_height_post)
             return self.jgs_height
         else:
-            calculated_jgs_height = mfH.calculate_NKT_jg_height(self.oil_height, Hjg, self.construction.length)
-            self.update_values("jgs_height", calculated_jgs_height)
+            calculated_value = mfH.calculate_NKT_jg_height(NKT_params, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
+                                                          self.jgs_height)
+            self.update_values('jgs_height', calculated_value)
             return self.jgs_height
 
-    def calculate_level_jgs_KP(self, NKT_params, tech_params, NKT_construction):
+    def calculate_level_jgs_KP(self, NKT_params, All_common_calculations, tech_params, NKT_construction,
+                               EXP_construction, KP_construction):
         if self.jgs_height is None:
-            self.jgs_height = mfH.calculate_KP_jg_height(NKT_params.oil_height, self.jgs_height_post, tech_params.Q,
-                                                         tech_params.Q_pogl, self.dt, self.construction.area,
-                                                         NKT_construction.length)
+            self.jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
+                                                         KP_jg_height_pred=self.jgs_height_post,
+                                                         dh_jg=All_common_calculations.dh_jg,
+                                                         V_pogl=tech_params.V_pogl,
+                                                         EXP_area=EXP_construction.area,
+                                                         NKT_area=NKT_construction.area,
+                                                         NKT_length=NKT_construction.length,
+                                                         KP_area=KP_construction.area)
+
             return self.jgs_height
         else:
-            calculated_jgs_height = mfH.calculate_KP_jg_height(NKT_params.oil_height, self.jgs_height,
-                                                               tech_params.Q,
-                                                               tech_params.Q_pogl, self.dt, self.construction.area,
-                                                               NKT_construction.length)
+            calculated_jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
+                                                               KP_jg_height_pred=self.jgs_height,
+                                                               dh_jg=All_common_calculations.dh_jg,
+                                                               V_pogl=tech_params.V_pogl,
+                                                               EXP_area=EXP_construction.area,
+                                                               NKT_area=NKT_construction.area,
+                                                               NKT_length=NKT_construction.length,
+                                                               KP_area=KP_construction.area)
             self.update_values("jgs_height", calculated_jgs_height)
             return self.jgs_height
 
@@ -253,14 +265,33 @@ class CommonCalculations(Operations):
             return self.speed
 
     def calculate_h_yr(self, NKT_params, KP_params, NKT, KP, tech_params):
+
         if self.h_yr is None:
             self.h_yr = mfH.calculate_h_yr(self.Vjg_reduced_post, NKT_params.oil_volume_post, KP_params.oil_volume_post,
-                                           tech_params.dV_pogl_post, NKT.area, KP.area, NKT.length)
+                                           tech_params.V_pogl_post, NKT.area, KP.area, NKT.length)
+            # print(f"Я ТАМ ГДЕ NONE\n"
+            #     f"self.VJG_reduced_post = {self.Vjg_reduced_post}\n"
+            #       f"NKT OIL VOLUME_POST  = {NKT_params.oil_volume_post}\n"
+            #       f"KP OIL VOLUME POST = {KP_params.oil_volume_post}\n"
+            #       f"TECH dV_pogl_post = {tech_params.dV_pogl_post}\n"
+            #       f"TECH V_pogl_post = {tech_params.V_pogl_post}\n"
+            #       f"NKT AREa = {NKT.area}\n"
+            #       f"KP Area = {KP.area}\n"
+            #       f"NKT length = {NKT.length}\n")
             return self.h_yr
         else:
             h_yr_calculated = mfH.calculate_h_yr(self.Vjg_reduced_post, NKT_params.oil_volume,
-                                                 KP_params.oil_volume, tech_params.dV_pogl_post, NKT.area, KP.area,
+                                                 KP_params.oil_volume, tech_params.V_pogl_post, NKT.area, KP.area,
                                                  NKT.length)
+            # print(f"Я ТАМ ГДЕ NE NONE\n"
+            #     f"self.VJG_reduced_post = {self.Vjg_reduced_post}\n"
+            #       f"NKT OIL VOLUME_POST  = {NKT_params.oil_volume}\n"
+            #       f"KP OIL VOLUME POST = {KP_params.oil_volume}\n"
+            #       f"TECH dV_pogl_post = {tech_params.dV_pogl}\n"
+            #       f"TECH V_pogl_post = {tech_params.V_pogl_post}\n"
+            #       f"NKT AREa = {NKT.area}\n"
+            #       f"KP Area = {KP.area}\n"
+            #       f"NKT length = {NKT.length}\n")
             self.update_values("h_yr", h_yr_calculated)
             return self.h_yr
 
@@ -289,6 +320,15 @@ class TechnicalCalculations(Operations):
         self.Q = Q
 
     def calculate_Q_pogl(self, plast_thickness, Fluid_oil, Fluid_jgs, EXP_construction):
+        # print(f" plast_thickness : {plast_thickness}\n"
+        #       f"FLUID OIL.phase_permeability : {Fluid_oil.phase_permeability}\n"
+        #       f"Fluid JGS.phase_permeability {Fluid_jgs.phase_permeability}\n"
+        #       f"FLUID OIL.viscosity : {Fluid_oil.viscosity}\n"
+        #       f"Fluid JGS.viscosity {Fluid_jgs.viscosity}\n"
+        #       f"EXP_CONSTRUCTION : {EXP_construction.inner_radius}\n"
+        #       f"self.pressure_overall_post {self.pressure_overall_post}\n"
+        #       f"self.pressure_overall_post_post {self.pressure_overall_post_post}\n"
+        #       f"self.RN_POST {self.Rn_post}\n")
         if self.Q_pogl is None:
             self.Q_pogl = mfCom.Q(plast_thickness, self.pressure_overall_post, self.pressure_overall_post_post,
                                   self.Rn_post,
@@ -636,7 +676,8 @@ class DesignGlush():
                 self.stage_3_EMUL_volume = self.volume_emul - self.stage_1_EMUL_volume - self.stage_2_EMUL_volume
                 return self.stage_3_EMUL_volume
         elif stage == 4:
-            if (self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) >= self.volume_car:
+            if (
+                    self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) >= self.volume_car:
                 self.stage_4_EMUL_volume = self.volume_car / (
                         self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) * (
                                                    self.volume_emul - self.stage_1_EMUL_volume - self.stage_2_EMUL_volume - self.stage_3_EMUL_volume)
@@ -646,7 +687,7 @@ class DesignGlush():
                 return self.stage_4_EMUL_volume
 
     def RECIPE_SOLE_RAST(self, stage):
-        if stage is 1:
+        if stage == 1:
             if self.rash_glush_volume_with_zapas >= self.volume_car:
                 self.stage_1_SOLE_RAST = self.volume_car / self.rash_glush_volume_with_zapas * self.volume_of_rast
                 return self.stage_1_SOLE_RAST
@@ -672,7 +713,8 @@ class DesignGlush():
                 self.stage_3_SOLE_RAST = self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST
                 return self.stage_3_SOLE_RAST
         elif stage == 4:
-            if (self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) >= self.volume_car:
+            if (
+                    self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) >= self.volume_car:
                 self.stage_4_SOLE_RAST = self.volume_car / (
                         self.rash_glush_volume_with_zapas - self.stage_1_BP_volume - self.stage_2_BP_volume - self.stage_3_BP_volume) * (
                                                  self.volume_of_rast - self.stage_1_SOLE_RAST - self.stage_2_SOLE_RAST - self.stage_3_SOLE_RAST)

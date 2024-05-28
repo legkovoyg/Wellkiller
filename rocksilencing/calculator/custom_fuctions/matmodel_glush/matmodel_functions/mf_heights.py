@@ -17,24 +17,45 @@ def calculate_NKT_oil_height(h_yr, Hjg_reduced_post):
     else:
         return calculated_height
 # Высота ЖГ в НКТ
-def calculate_NKT_jg_height(NKT_oil_height, Hjg, NKT_length):
-    calculated_check = NKT_oil_height + Hjg
-    if calculated_check > NKT_length:
-        return NKT_length-NKT_oil_height
-    else:
-        return Hjg
-# Высота ЖГ в КП
-def calculate_KP_jg_height(NKT_oil_height, KP_jg_height_pred,Q_of_car, Q_pogl, dt, KP_area, NKT_length):
-    if NKT_oil_height > 0:
-        KP_jg_height = 0
-        return KP_jg_height
-    else:
-        KP_jg_height =  KP_jg_height_pred +((Q_of_car - Q_pogl)*dt/KP_area)
-        if KP_jg_height > NKT_length:
-            KP_jg_height = NKT_length
-            return KP_jg_height
+def calculate_NKT_jg_height(NKT_params_oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP, jgs_height_post):
+    if NKT_params_oil_height == 0:
+        calculated_value = jgs_height_post + (dh_jg - V_pogl / EXP.area) * (
+                NKT.area / (NKT.area + KP.area))
+        if calculated_value > NKT.length:
+            jgs_height_post = NKT.length
+            return jgs_height_post
         else:
-            return KP_jg_height
+            calculated_value_2 = jgs_height_post + dh_jg * (NKT.area / (NKT.area + KP.area))
+            jgs_height_post = calculated_value_2
+            return jgs_height_post
+    else:
+        jgs_height_post = Hjg
+        return jgs_height_post
+# Высота ЖГ в КП
+def calculate_KP_jg_height(NKT_oil_height, KP_jg_height_pred,dh_jg, V_pogl, EXP_area, NKT_area, NKT_length, KP_area):
+    # if NKT_oil_height > 0:
+    #     KP_jg_height = 0
+    #     return KP_jg_height
+    # else:
+    #     KP_jg_height =  KP_jg_height_pred +((Q_of_car - Q_pogl)*dt/KP_area)
+    #     if KP_jg_height > NKT_length:
+    #         KP_jg_height = NKT_length
+    #         return KP_jg_height
+    #     else:
+    #         return KP_jg_height
+    if NKT_oil_height > 0:
+        return 0
+    else:
+        if KP_jg_height_pred + (dh_jg - V_pogl/EXP_area)*(NKT_area/(NKT_area+KP_area)) > NKT_length:
+            return NKT_length
+        else:
+            if NKT_oil_height == NKT_length:
+                calculated_value = KP_jg_height_pred + (dh_jg - V_pogl/EXP_area)*(NKT_area/EXP_area)
+                return calculated_value
+            else:
+                calculated_value = KP_jg_height_pred + (dh_jg-V_pogl/EXP_area)*(NKT_area/(NKT_area + EXP_area))
+                return calculated_value
+
 # Высота нефти в КП
 def calculate_KP_oil_height(h_yr, KP_jg_height):
     return h_yr - KP_jg_height

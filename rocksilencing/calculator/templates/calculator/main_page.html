@@ -657,6 +657,11 @@
                                 {{ design.DESIGN_recommended_water_debit }}
                             </td>
                         </tr>
+                        {% if show_download_button %}
+                        <tr style="background: #363A47; ">
+                            <a href="{% url 'download_report' %}">Скачать отчет</a>
+                        </tr>
+                        {% endif %}
                     </table>
                 </div> 
             </div>
@@ -749,16 +754,16 @@
                                 Углеводородная основа, м³
                             </td>
                             <td>
-                                <p id="hydro-base_1" style="background: #292e3c;"></p>
+                                <p id="hydro-base_1" style="background: #292e3c;">{{ recipes_all.RECIPE_YV_ALL }}</p>
                             </td>
                             <td>
-                                <p id="hydro-base_2" style="background: #292e3c;"></p>
+                                <p id="hydro-base_2" style="background: #292e3c;">{{ recipes_all.RECIPE_DEBIT }}</p>
                             </td>
                             <td>
-                                <p id="hydro-base_3" style="background: #292e3c;"></p>
+                                <p id="hydro-base_3" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_ALL }}</p>
                             </td>
                             <td>
-                                <p id="hydro-base_4" style="background: #292e3c;"></p>
+                                <p id="hydro-base_4" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -766,16 +771,16 @@
                                 Эмульгатор, м³
                             </td>
                             <td>
-                                <p id="emuls_1" style="background: #363A47;"></p>
+                                <p id="emuls_1" style="background: #363A47;">{{ recipes_all.RECIPE_EMUL_ALL }}</p>
                             </td>
                             <td>
-                                <p id="emuls_2" style="background: #363A47;"></p>
+                                <p id="emuls_2" style="background: #363A47;">{{ recipes_all.RECIPE_DEBIT }}</p>
                             </td>
                             <td>
-                                <p id="emuls_3" style="background: #363A47;"></p>
+                                <p id="emuls_3" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_EMUL_ALL }}</p>
                             </td>
                             <td>
-                                <p id="emuls_4" style="background: #363A47;"></p>
+                                <p id="emuls_4" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                             </td>
                         </tr>
                         <tr style="background: #292e3c;">
@@ -783,16 +788,16 @@
                                 Объем сол. раствора, м³
                             </td>
                             <td>
-                                <p id="salt-volume_1" style="background: #292e3c;"></p>
+                                <p id="salt-volume_1" style="background: #292e3c;">{{ recipes_all.RECIPE_SOLERAST_ALL }}</p>
                             </td>
                             <td>
-                                <p id="salt-volume_2" style="background: #292e3c;"></p>
+                                <p id="salt-volume_2" style="background: #292e3c;">{{ recipes_all.RECIPE_DEBIT }}</p>
                             </td>
                             <td>
-                                <p id="salt-volume_3" style="background: #292e3c;"></p>
+                                <p id="salt-volume_3" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_SOLERAST_ALL }}</p>
                             </td>
                             <td>
-                                <p id="salt-volume_4" style="background: #292e3c;"></p>
+                                <p id="salt-volume_4" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                             </td>
                         </tr>
                         <tr style="background: #363A47; ">
@@ -800,16 +805,16 @@
                                 Объем блок-пачки, м³
                             </td>
                             <td>
-                                <p id="block-volume_1" style="background: #363A47;"></p>
+                                <p id="block-volume_1" style="background: #363A47;">{{ recipes_all.RECIPE_BP_ALL }}</p>
                             </td>
                             <td>
-                                <p id="block-volume_2" style="background: #363A47;"></p>
+                                <p id="block-volume_2" style="background: #363A47;">{{ recipes_all.RECIPE_DEBIT }}</p>
                             </td>
                             <td>
-                                <p id="block-volume_3" style="background: #363A47;"></p>
+                                <p id="block-volume_3" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_BP_ALL }}</p>
                             </td>
                             <td>
-                                <p id="block-volume_4" style="background: #363A47;"></p>
+                                <p id="block-volume_4" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                             </td>
                         </tr>
                     </table>
