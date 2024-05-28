@@ -445,7 +445,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     time_to_glush = DESIGN_volume_glush / Q
     print(f'pressure_friction {init_Pressure_overall}')
     print(f'pressure_friction {stage_1_Pressure_overall}')
-    while t < 360:
+    while t < time_to_glush:
         t = t + dt
         print(f"ВРЕМЯ РАВНО {t}")
         t_array.append(t)
@@ -533,18 +533,18 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             f"Это NKT jgs_height {NKT_params.jgs_height} \n"
             f"Это KP jgs_height {KP_params.jgs_height} \n"
             f"Это EXP jgs_height {EXP_params.jgs_height} \n"
-            f"Это Pressure friction {tech_params.pressure_friction} \n"
-            f"Это Pressure wellhead {tech_params.pressure_wellhead} \n"
-            f"Это Pressure NKT {NKT_params.pressure} \n"
-            f"Это Pressure KP {KP_params.pressure} \n"
-            f"Это Pressure EXP {EXP_params.pressure} \n"
-            f"Это Pressure overall {tech_params.pressure_overall} \n"
-            f"Это объем жидкости нефть в НКТ {NKT_params.oil_volume}\n"
-            f"Это объем жидкости нефть в КП {KP_params.oil_volume}\n"
-            f"Это объем жидкости нефть в ЭКСПЛ {EXP_params.oil_volume}\n"
-            f"Это объем жидкости ЖГС в НКТ {NKT_params.jgs_volume}\n"
-            f"Это объем жидкости ЖГС в КП {KP_params.jgs_volume}\n"
-            f"Это объем жидкости ЖГС в ЭКСПЛ {EXP_params.jgs_volume}\n"
+            # f"Это Pressure friction {tech_params.pressure_friction} \n"
+            # f"Это Pressure wellhead {tech_params.pressure_wellhead} \n"
+            # f"Это Pressure NKT {NKT_params.pressure} \n"
+            # f"Это Pressure KP {KP_params.pressure} \n"
+            # f"Это Pressure EXP {EXP_params.pressure} \n"
+            # f"Это Pressure overall {tech_params.pressure_overall} \n"
+            # f"Это объем жидкости нефть в НКТ {NKT_params.oil_volume}\n"
+            # f"Это объем жидкости нефть в КП {KP_params.oil_volume}\n"
+            # f"Это объем жидкости нефть в ЭКСПЛ {EXP_params.oil_volume}\n"
+            # f"Это объем жидкости ЖГС в НКТ {NKT_params.jgs_volume}\n"
+            # f"Это объем жидкости ЖГС в КП {KP_params.jgs_volume}\n"
+            # f"Это объем жидкости ЖГС в ЭКСПЛ {EXP_params.jgs_volume}\n"
               )
     P_yst = [mfIn.pressure_format(x) for x in P_yst]
     P_friction = [mfIn.pressure_format(x) for x in P_friction]

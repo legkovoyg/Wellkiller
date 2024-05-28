@@ -82,11 +82,13 @@ class WellSpace(Operations):
 
     def calculate_level_jgs_NKT(self, Hjg, NKT_params, EXP, dh_jg, V_pogl, NKT, KP):
         if self.jgs_height is None:
-            self.jgs_height = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP, self.jgs_height_post)
+            self.jgs_height = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
+                                                          self.jgs_height_post)
             return self.jgs_height
         else:
-            calculated_value = mfH.calculate_NKT_jg_height(NKT_params, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
-                                                          self.jgs_height)
+
+            calculated_value = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
+                                                           self.jgs_height)
             self.update_values('jgs_height', calculated_value)
             return self.jgs_height
 
@@ -100,7 +102,8 @@ class WellSpace(Operations):
                                                          EXP_area=EXP_construction.area,
                                                          NKT_area=NKT_construction.area,
                                                          NKT_length=NKT_construction.length,
-                                                         KP_area=KP_construction.area)
+                                                         KP_area=KP_construction.area,
+                                                         NKT_jg_height=NKT_params.jgs_height)
 
             return self.jgs_height
         else:
@@ -111,7 +114,8 @@ class WellSpace(Operations):
                                                                EXP_area=EXP_construction.area,
                                                                NKT_area=NKT_construction.area,
                                                                NKT_length=NKT_construction.length,
-                                                               KP_area=KP_construction.area)
+                                                               KP_area=KP_construction.area,
+                                                               NKT_jg_height=NKT_params.jgs_height)
             self.update_values("jgs_height", calculated_jgs_height)
             return self.jgs_height
 
