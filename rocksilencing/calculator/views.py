@@ -48,10 +48,11 @@ def calculator_page(request):
             bd_CaCl = Solution.objects.filter(salt__name="CaCl")
             bd_CaJG = Solution.objects.filter(salt__name="CaЖГ")
             bd_CaKCl = Solution.objects.filter(salt__name="KCl")
+            type_of_glush = 'back'
             results = matmodel_glush(Plast_pressure * 101325, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT, D_NKT,
                                      d_exp, D_exp, Q,
-                                     k_jg, mu_jg, k_oil, mu_oil, Rk, m, 20, YV_density, YV_dole, emul_density,
-                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume)
+                                     k_jg, mu_jg, k_oil, mu_oil, Rk, m, 10, YV_density, YV_dole, emul_density,
+                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume, type_of_glush=type_of_glush)
             current_results = results[0]
             graph = create_matmodel_plot(results[1], results[2])
             design = results[3]
