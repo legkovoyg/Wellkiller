@@ -45,14 +45,14 @@ def calculator_page(request):
             zapas = float(request.POST["Zapas"])
             car_volume = float(request.POST['Volume_of_car'])
             jgs_type = str(request.POST['Type_of_jgs'])
+            Type_of_jamming = str(request.POST['Type_of_jamming'])
             bd_CaCl = Solution.objects.filter(salt__name="CaCl")
             bd_CaJG = Solution.objects.filter(salt__name="CaЖГ")
             bd_CaKCl = Solution.objects.filter(salt__name="KCl")
-            type_of_glush = 'back'
             results = matmodel_glush(Plast_pressure * 101325, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT, D_NKT,
                                      d_exp, D_exp, Q,
                                      k_jg, mu_jg, k_oil, mu_oil, Rk, m, 10, YV_density, YV_dole, emul_density,
-                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume, type_of_glush=type_of_glush)
+                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume, type_of_glush=Type_of_jamming)
             current_results = results[0]
             graph = create_matmodel_plot(results[1], results[2])
             design = results[3]

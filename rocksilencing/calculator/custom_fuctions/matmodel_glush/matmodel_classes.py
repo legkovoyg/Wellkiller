@@ -51,88 +51,91 @@ class WellSpace(Operations):
         self.construction = construction
         self.pressure = pressure
 
-    def calculate_level_oil_NKT(self, common, type_of_glush = 'direct'):
-            if self.oil_height is None:
-                self.oil_height = mfH.calculate_NKT_oil_height(common.h_yr, common.Hjg_reduced_post)
-                return self.oil_height
-            else:
-                calculated_oil_height = mfH.calculate_NKT_oil_height(common.h_yr, common.Hjg_reduced_post)
-                self.update_values('oil_height', calculated_oil_height)
-                return self.oil_height
+    def calculate_level_oil_NKT(self, common, type_of_glush='direct'):
+        if self.oil_height is None:
+            self.oil_height = mfH.calculate_NKT_oil_height(common.h_yr, common.Hjg_reduced_post)
+            return self.oil_height
+        else:
+            calculated_oil_height = mfH.calculate_NKT_oil_height(common.h_yr, common.Hjg_reduced_post)
+            self.update_values('oil_height', calculated_oil_height)
+            return self.oil_height
 
-    def calculate_level_oil_KP(self, common, type_of_glush = 'direct'):
-            if self.oil_height is None:
-                self.oil_height = mfH.calculate_KP_oil_height(common.h_yr, self.jgs_height)
-                return self.oil_height
-            else:
-                calculated_oil_height = mfH.calculate_KP_oil_height(common.h_yr, self.jgs_height)
-                self.update_values('oil_height', calculated_oil_height)
-                return self.oil_height
+    def calculate_level_oil_KP(self, common, type_of_glush='direct'):
+        if self.oil_height is None:
+            self.oil_height = mfH.calculate_KP_oil_height(common.h_yr, self.jgs_height)
+            return self.oil_height
+        else:
+            calculated_oil_height = mfH.calculate_KP_oil_height(common.h_yr, self.jgs_height)
+            self.update_values('oil_height', calculated_oil_height)
+            return self.oil_height
 
-    def calculate_level_oil_EXP(self, NKT_params, EXP_params, type_of_glush = 'direct'):
-            if self.oil_height is None:
-                self.oil_height = mfH.calculate_EXP_oil_height(NKT_params.oil_height, self.construction.length,
-                                                               EXP_params.jgs_height)
-                return self.oil_height
-            else:
-                calculated_oil_height = mfH.calculate_EXP_oil_height(NKT_params.oil_height, self.construction.length,
-                                                                     EXP_params.jgs_height)
-                self.update_values("oil_height", calculated_oil_height)
-                return self.oil_height
+    def calculate_level_oil_EXP(self, NKT_params, EXP_params, type_of_glush='direct'):
+        if self.oil_height is None:
+            self.oil_height = mfH.calculate_EXP_oil_height(NKT_params.oil_height, self.construction.length,
+                                                           EXP_params.jgs_height)
+            return self.oil_height
+        else:
+            calculated_oil_height = mfH.calculate_EXP_oil_height(NKT_params.oil_height, self.construction.length,
+                                                                 EXP_params.jgs_height)
+            self.update_values("oil_height", calculated_oil_height)
+            return self.oil_height
 
-    def calculate_level_jgs_NKT(self, Hjg, NKT_params, EXP, dh_jg, V_pogl, NKT, KP, type_of_glush = "direct"):
-            if self.jgs_height is None:
-                self.jgs_height = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
-                                                              self.jgs_height_post)
-                return self.jgs_height
-            else:
+    def calculate_level_jgs_NKT(self, Hjg, NKT_params, EXP, dh_jg, V_pogl, NKT, KP, type_of_glush="direct"):
+        if self.jgs_height is None:
+            self.jgs_height = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
+                                                          self.jgs_height_post, type_of_glush)
+            return self.jgs_height
+        else:
+            calculated_value = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
+                                                           self.jgs_height, type_of_glush)
+            self.update_values('jgs_height', calculated_value)
+            return self.jgs_height
 
-                calculated_value = mfH.calculate_NKT_jg_height(NKT_params.oil_height, Hjg, dh_jg, V_pogl, EXP, NKT, KP,
-                                                               self.jgs_height)
-                self.update_values('jgs_height', calculated_value)
-                return self.jgs_height
+    def Pochistit_apelsin(self):
+        self.poverhnost = self.kojura - self.ochistki
+        return self.poverhnost
 
     def calculate_level_jgs_KP(self, NKT_params, All_common_calculations, tech_params, NKT_construction,
-                               EXP_construction, KP_construction, type_of_glush = "direct"):
-            if self.jgs_height is None:
-                self.jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
-                                                             KP_jg_height_pred=self.jgs_height_post,
-                                                             dh_jg=All_common_calculations.dh_jg,
-                                                             V_pogl=tech_params.V_pogl,
-                                                             EXP_area=EXP_construction.area,
-                                                             NKT_area=NKT_construction.area,
-                                                             NKT_length=NKT_construction.length,
-                                                             KP_area=KP_construction.area,
-                                                             NKT_jg_height=NKT_params,
-                                                             type_of_glush= type_of_glush)
+                               EXP_construction, KP_construction, type_of_glush="direct"):
+        if self.jgs_height is None:
+            self.jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
+                                                         KP_jg_height_pred=self.jgs_height_post,
+                                                         dh_jg=All_common_calculations.dh_jg,
+                                                         V_pogl=tech_params.V_pogl,
+                                                         EXP_area=EXP_construction.area,
+                                                         NKT_area=NKT_construction.area,
+                                                         NKT_length=NKT_construction.length,
+                                                         KP_area=KP_construction.area,
+                                                         NKT_jg_height=NKT_params,
+                                                         type_of_glush=type_of_glush)
 
-                return self.jgs_height
-            else:
-                calculated_jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
-                                                                   KP_jg_height_pred=self.jgs_height,
-                                                                   dh_jg=All_common_calculations.dh_jg,
-                                                                   V_pogl=tech_params.V_pogl,
-                                                                   EXP_area=EXP_construction.area,
-                                                                   NKT_area=NKT_construction.area,
-                                                                   NKT_length=NKT_construction.length,
-                                                                   KP_area=KP_construction.area,
-                                                                   NKT_jg_height=NKT_params.jgs_height,
-                                                                   type_of_glush= type_of_glush)
-                self.update_values("jgs_height", calculated_jgs_height)
-                return self.jgs_height
+            return self.jgs_height
+        else:
+            calculated_jgs_height = mfH.calculate_KP_jg_height(NKT_oil_height=NKT_params.oil_height,
+                                                               KP_jg_height_pred=self.jgs_height,
+                                                               dh_jg=All_common_calculations.dh_jg,
+                                                               V_pogl=tech_params.V_pogl,
+                                                               EXP_area=EXP_construction.area,
+                                                               NKT_area=NKT_construction.area,
+                                                               NKT_length=NKT_construction.length,
+                                                               KP_area=KP_construction.area,
+                                                               NKT_jg_height=NKT_params.jgs_height,
+                                                               type_of_glush=type_of_glush)
+            self.update_values("jgs_height", calculated_jgs_height)
+            return self.jgs_height
 
-    def calculate_level_jgs_EXP(self, NKT_params, tech_params, type_of_glush = 'direct'):
-            if self.jgs_height is None:
-                self.jgs_height = mfH.calculate_EXP_jgs_height(NKT_params.oil_height, self.jgs_height_post,
-                                                               tech_params.V_pogl, self.construction.area,
-                                                               self.construction.length)
-                return self.jgs_height
-            else:
-                calculated_jgs_height = mfH.calculate_EXP_jgs_height(NKT_params.oil_height, self.jgs_height,
-                                                                     tech_params.V_pogl, self.construction.area,
-                                                                     self.construction.length)
-                self.update_values("jgs_height", calculated_jgs_height)
-                return self.jgs_height
+    def calculate_level_jgs_EXP(self, NKT_params, tech_params, type_of_glush='direct'):
+        if self.jgs_height is None:
+            self.jgs_height = mfH.calculate_EXP_jgs_height(NKT_params.oil_height, self.jgs_height_post,
+                                                           tech_params.V_pogl, self.construction.area,
+                                                           self.construction.length)
+            return self.jgs_height
+        else:
+            calculated_jgs_height = mfH.calculate_EXP_jgs_height(NKT_params.oil_height, self.jgs_height,
+                                                                 tech_params.V_pogl, self.construction.area,
+                                                                 self.construction.length)
+            self.update_values("jgs_height", calculated_jgs_height)
+            return self.jgs_height
 
     def calculate_pressure(self, Fluid_oil, Fluid_jgs, ):
         if self.pressure is None:
@@ -190,14 +193,23 @@ class WellSpace(Operations):
             self.update_values('oil_volume', calculated_oil_volume)
             return self.oil_volume
 
-    def calculate_volume_EXP_jgs(self, EXP_construction):
-        if self.jgs_volume is None:
-            self.jgs_volume = self.jgs_height * EXP_construction.area
-            return self.jgs_volume
-        else:
-            calculated_jgs_volume = self.jgs_height * EXP_construction.area
-            self.update_values('jgs_volume', calculated_jgs_volume)
-            return self.jgs_volume
+    def calculate_volume_EXP_jgs(self, EXP_construction, type_of_glush='direct'):
+        if type_of_glush == 'direct':
+            if self.jgs_volume is None:
+                self.jgs_volume = self.jgs_height * EXP_construction.area
+                return self.jgs_volume
+            else:
+                calculated_jgs_volume = self.jgs_height * EXP_construction.area
+                self.update_values('jgs_volume', calculated_jgs_volume)
+                return self.jgs_volume
+        if type_of_glush == 'back':
+            if self.jgs_volume is None:
+                self.jgs_volume = self.jgs_height * EXP_construction.area
+                return self.jgs_volume
+            else:
+                calculated_jgs_volume = self.jgs_height * EXP_construction.area
+                self.update_values('jgs_volume', calculated_jgs_volume)
+                return self.jgs_volume
 
 
 class Reservoir:

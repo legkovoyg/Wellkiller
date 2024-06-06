@@ -217,3 +217,10 @@ class ModelGlushForm(forms.Form):
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
     From_yst_to_plast = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
+    types_of_jamming = [
+        ("direct", "прямая"),
+        ("back", "обратная")
+    ]
+    Type_of_jamming = forms.ChoiceField(widget=forms.Select(
+        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
+                                   choices=types_of_jamming)

@@ -537,7 +537,8 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             NKT_params.oil_height = NKT_params.calculate_level_oil_NKT(All_common_calculations)
             # Изменено
             NKT_params.jgs_height = NKT_params.calculate_level_jgs_NKT(All_common_calculations.Hjg, NKT_params, EXP,
-                                                                       All_common_calculations.dh_jg, tech_params.V_pogl,
+                                                                       All_common_calculations.dh_jg,
+                                                                       tech_params.V_pogl,
                                                                        NKT, KP)
             # Изменено
             KP_params.jgs_height = KP_params.calculate_level_jgs_KP(NKT_params=NKT_params,
@@ -549,22 +550,20 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             # print(KP_params.jgs_height)
             EXP_params.jgs_height = EXP_params.calculate_level_jgs_EXP(NKT_params=NKT_params, tech_params=tech_params)
             EXP_params.oil_height = EXP_params.calculate_level_oil_EXP(NKT_params=NKT_params, EXP_params=EXP_params)
-            if type_of_glush == 'direct':
-                if iteration_count == 0:
-                    NKT_speed = (NKT_params.oil_height_post - NKT_params.oil_height) / dt
-                    KP_speed = (KP_params.oil_height - KP_params.oil_height_post) / dt
-                elif iteration_count == 1:
-                    NKT_speed = (NKT_params.oil_height_post - NKT_params.oil_height) / dt
-                    KP_speed = (KP_params.oil_height - KP_params.oil_height_post) / dt
-                else:
-                    NKT_speed = NKT_speed
-                    KP_speed = KP_speed
+            if iteration_count == 0:
+                NKT_speed = (NKT_params.oil_height_post - NKT_params.oil_height) / dt
+                KP_speed = (KP_params.oil_height - KP_params.oil_height_post) / dt
+            elif iteration_count == 1:
+                NKT_speed = (NKT_params.oil_height_post - NKT_params.oil_height) / dt
+                KP_speed = (KP_params.oil_height - KP_params.oil_height_post) / dt
+            else:
+                NKT_speed = NKT_speed
+                KP_speed = KP_speed
         else:
             KP_params.oil_height = KP_params.calculate_level_oil_NKT(All_common_calculations, type_of_glush = 'back')
-            KP_params.jgs_height = KP_params.calculate_level_jgs_NKT(All_common_calculations.Hjg, NKT_params, EXP,
+            KP_params.jgs_height = KP_params.calculate_level_jgs_NKT(All_common_calculations.Hjg, KP_params, EXP,
                                                                        All_common_calculations.dh_jg, tech_params.V_pogl,
                                                                        NKT, KP, type_of_glush = 'back')
-
             NKT_params.jgs_height = NKT_params.calculate_level_jgs_KP(NKT_params=KP_params,
                                                                     All_common_calculations=All_common_calculations,
                                                                     tech_params=tech_params,
@@ -573,8 +572,8 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
 
             NKT_params.oil_height = NKT_params.calculate_level_oil_KP(All_common_calculations, type_of_glush = 'back')
 
-            EXP_params.jgs_height = EXP_params.calculate_level_jgs_EXP(NKT_params=NKT_params, tech_params=tech_params, type_of_glush = 'back')
-            EXP_params.oil_height = EXP_params.calculate_level_oil_EXP(NKT_params=NKT_params, EXP_params=EXP_params, type_of_glush = 'back')
+            EXP_params.jgs_height = EXP_params.calculate_level_jgs_EXP(NKT_params=KP_params, tech_params=tech_params, type_of_glush = 'back')
+            EXP_params.oil_height = EXP_params.calculate_level_oil_EXP(NKT_params=KP_params, EXP_params=EXP_params, type_of_glush = 'back')
             if iteration_count == 0:
                 NKT_speed = (NKT_params.oil_height - NKT_params.oil_height_post) / dt
                 KP_speed = (KP_params.oil_height_post - KP_params.oil_height) / dt
@@ -590,8 +589,12 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         NKT_params.pressure = NKT_params.calculate_pressure(Oil, Jgs)
         KP_params.pressure = KP_params.calculate_pressure(Oil, Jgs)
         EXP_params.pressure = EXP_params.calculate_pressure(Oil, Jgs)
-        tech_params.pressure_overall = tech_params.calculate_pressure_overall(NKT_params=KP_params,
-                                                                              EXP_params=EXP_params)
+        if type_of_glush == 'direct':
+            tech_params.pressure_overall = tech_params.calculate_pressure_overall(NKT_params=NKT_params,
+                                                                                  EXP_params=EXP_params)
+        else:
+            tech_params.pressure_overall = tech_params.calculate_pressure_overall(NKT_params=KP_params,
+                                                                                  EXP_params=EXP_params)
         NKT_params.oil_volume = NKT_params.calculate_volume_NKT_oil(NKT)
         NKT_params.jgs_volume = NKT_params.calculate_volume_NKT_jgs(NKT)
         KP_params.oil_volume = KP_params.calculate_volume_KP_oil(KP)
