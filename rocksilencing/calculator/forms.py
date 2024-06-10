@@ -147,21 +147,14 @@ class ModelGlushForm(forms.Form):
     EXP_type = forms.ChoiceField(widget=forms.Select(
         attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
                                  choices=types_of_exp)
-    types_of_glush = [
-        ("НКТ", "НКТ"),
-        ("Затруб", " Затруб")
-    ]
-    Glush_type = forms.ChoiceField(widget=forms.Select(
-        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #292e3c;", "color": "black"}),
-                                   choices=types_of_glush)
     Oil_density = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     Plast_pressure = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     Plast_thickness = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
-    Well_length = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
+    # Well_length = forms.FloatField(label="", widget=forms.NumberInput(
+    #     attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     NKT_length = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
     EXP_length = forms.FloatField(label="", widget=forms.NumberInput(
@@ -218,9 +211,12 @@ class ModelGlushForm(forms.Form):
     From_yst_to_plast = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
     types_of_jamming = [
-        ("direct", "прямая"),
-        ("back", "обратная")
+        ("direct", "Прямая"),
+        ("back", "Обратная")
     ]
     Type_of_jamming = forms.ChoiceField(widget=forms.Select(
         attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
                                    choices=types_of_jamming)
+    Excel_load = forms.FileField(required= False)
+
+

@@ -27,7 +27,7 @@ def calculate_NKT_jg_height(NKT_params_oil_height, Hjg, dh_jg, V_pogl, EXP, NKT,
     else:
         changing_param = dh_jg - V_pogl / EXP.area
         changing_area = KP.area
-    print(f"ЭТО {jgs_height_post} + {changing_param} * ({changing_area} / ({NKT.area} + {KP.area}))")
+
     if NKT_params_oil_height == 0.0:
         calculated_value = jgs_height_post + (dh_jg - V_pogl / EXP.area) * (
                 changing_area / (NKT.area + KP.area))
@@ -75,11 +75,6 @@ def calculate_KP_oil_height(h_yr, KP_jg_height):
 
 # Высота ЖГС в ЭКСПЛ
 def calculate_EXP_jgs_height(NKT_oil_height, EXP_jg_height_pred, V_pogl, EXP_area, EXP_length):
-    print(f"NKT_oil_height = {NKT_oil_height}\n",
-          f"EXP_jg_height_pred = {EXP_jg_height_pred}\n",
-          f"V_pogl = {V_pogl}\n",
-          f"EXP_area = {EXP_area}\n",
-          f"EXP_length = {EXP_length}\n")
     if NKT_oil_height > 0:
         EXP_jg_height = 0
         return EXP_jg_height

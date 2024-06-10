@@ -1,6 +1,9 @@
 import plotly.express as px
 import os
 import logging
+import json
+import numpy as np
+import pandas as pd
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
@@ -11,6 +14,7 @@ from calculator.custom_fuctions.matmodel_glush.Matmodel import matmodel_glush
 from calculator.custom_fuctions.matmodel_glush.matmodel_graph.graph_pressures import create_matmodel_plot
 from docxtpl import DocxTemplate
 from calculator.models import Salt, Solution
+from sklearn.linear_model import LinearRegression
 
 
 # from .Main import calculate
@@ -18,12 +22,22 @@ from calculator.models import Salt, Solution
 # Страница калькулятора
 def calculator_page(request):
     if request.method == 'POST':
-        form = ModelGlushForm(request.POST)
+        form = ModelGlushForm(request.POST, request.FILES)
         if form.is_valid():
-            print("ns lolbr")
+            excel_file = request.FILES.get('file_upload', None)
+            if excel_file:
+                excel_df = pd.read_excel(excel_file, engine = 'openpyxl')
+                excel_datas = excel_df.to_dict(orient = "list")
+                result = [{'count': count, 'md_start': md_start, 'md_end': md_end, 'tvd_start': tvd_start, 'tvd_end': tvd_end, "ext_d":ext_d, 'thick':thick} for count, md_start, md_end, tvd_start, tvd_end, ext_d, thick in zip(excel_datas['count'], excel_datas['md_start'], excel_datas['md_end'], excel_datas['tvd_start'], excel_datas['tvd_end'], excel_datas['ext_d'], excel_datas['thick'])]
+                x = np.array(excel_datas['md_start'])
+                y = np.array(excel_datas['tvd_start'])
+                coefficients = np.polyfit(x, y, 1)
+                polynominal = np.poly1d(coefficients)
+            else:
+                polynominal = 1
             Plast_pressure = float(request.POST["Plast_pressure"])
             h = float(request.POST["Plast_thickness"])
-            Length_of_Well = float(request.POST["Well_length"])
+            Length_of_Well = float(request.POST["True_zaboi"])
             L_of_Wells = float(request.POST["NKT_length"])
             ro_oil = float(request.POST["Oil_density"])
             # ro_jgs = float(request.POST["Jgs_density"])
@@ -51,13 +65,15 @@ def calculator_page(request):
             bd_CaKCl = Solution.objects.filter(salt__name="KCl")
             results = matmodel_glush(Plast_pressure * 101325, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT, D_NKT,
                                      d_exp, D_exp, Q,
-                                     k_jg, mu_jg, k_oil, mu_oil, Rk, m, 10, YV_density, YV_dole, emul_density,
-                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume, type_of_glush=Type_of_jamming)
+                                     k_jg, mu_jg, k_oil, mu_oil, Rk, m, 30, YV_density, YV_dole, emul_density,
+                                     emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume,
+                                     type_of_glush=Type_of_jamming)
             current_results = results[0]
             graph = create_matmodel_plot(results[1], results[2])
             design = results[3]
             stages = results[4]
             recipes_all = results[5]
+            data_for_animation = results[6]
             request.session['report_context'] = {
                 'Q': Q,
                 'k_jg': k_jg,
@@ -76,22 +92,25 @@ def calculator_page(request):
                 'current_results': current_results,
                 'stages': stages,
                 'recipes_all': recipes_all,
-                "design": design, }
+                "design": design,
+                'excel_file': result}
             return render(request, "calculator/main_page.html", {
                 "form": form,
                 "results": results,
                 "current_results": current_results,
+                "type_of_glush": Type_of_jamming,
                 "graph": graph,
                 "design": design,
                 "stages": stages,
                 "recipes_all": recipes_all,
                 "show_download_button": True,
+                "data_for_animation": json.dumps(data_for_animation),
+                'excel_file': result
             })
         else:
             print(form.errors)
     else:
         form = ModelGlushForm()
-
     return render(request, "calculator/main_page.html", {"form": form})
 
 
@@ -102,7 +121,7 @@ def download_report(request):
         return redirect('calculator_page')  # Перенаправление, если контекста нет
     print(report_context['design']['DESIGN_chosen_salt_name'])
     if report_context['design']['DESIGN_chosen_salt_name'] != 'без соли':
-    # Построение пути к файлу шаблона
+        # Построение пути к файлу шаблона
         template_path = os.path.join(settings.BASE_DIR, 'calculator', 'report_templates', 'report_template_salt.docx')
         logging.debug(f"Template path: {template_path}")
     else:

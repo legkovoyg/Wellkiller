@@ -128,22 +128,6 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
                                         density=ro_oil,
                                         g=9.81)
     ro_jgs = Design.true_jgs_density * 1000
-    # print(f"ЭТО DESIGN_volume_glush - {DESIGN_volume_glush}")
-    # print(f"ЭТО DESIGN_volume_oil - {DESIGN_volume_oil}")
-    # print(f"ЭТО DESIGN_volume_emul - {DESIGN_volume_emul}")
-    # print(f"ЭТО DESIGN_volume_rast - {DESIGN_volume_rast}")
-    # print(f"ЭТО DESIGN_jgs_density - {DESIGN_jgs_density}")
-    # print(f"ЭТО DESIGN_pressure_zapas - {DESIGN_pressure_zapas}")
-    # print(f"ЭТО DESIGN_safe_jgs_density - {DESIGN_safe_jgs_density}")
-    # print(f"ЭТО DESIGN_recommended_salt_name - {DESIGN_recommended_salt_name}")
-    # print(f"ЭТО DESIGN_recommended_salt_debit - {DESIGN_recommended_salt_debit}")
-    # print(f"ЭТО DESIGN_recommended_water_debit - {DESIGN_recommended_water_debit}")
-    # print(f"ЭТО DESIGN_chosen_salt_name - {DESIGN_chosen_salt_name}")
-    # print(f"ЭТО DESIGN_chosen_salt_debit - {DESIGN_chosen_salt_debit}")
-    # print(f"ЭТО DESIGN_chosen_water_debit - {DESIGN_chosen_water_debit}")
-    # print(f"ЭТО DESIGN_water_mass - {DESIGN_water_mass}")
-    # print(f"ЭТО DESIGN_salt_mass - {DESIGN_salt_mass}")
-    # dt = input()
 
     # Этап инициализации - глушение началось, прошло 0 сек
     t_0 = 0
@@ -192,6 +176,18 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     )
     init_Pressure_overall = init_Pressure_yst + init_Pressure_NKT + init_Pressure_EXP
 
+
+    data_for_animation = []
+    data_for_animation.append({
+            "t":t_0,
+            "hnkt":init_oil_level_NKT,
+            "hkp":init_oil_level_KP,
+            "hek":init_oil_level_EXP,
+            "hnktjg":init_jgs_level_NKT,
+            "hkpjg":init_jgs_level_KP,
+            "hekjg":init_jgs_level_EXP,
+            "height":init_usl_h_yr
+    })
     # Этап после инициализации, глушение началось
     t_1 = t_0 + dt
     stage_1_Vjg, stage_1_Vjg_reduced = mfCom.calculate_com_volume_of_jgs(debit=Q,
@@ -232,7 +228,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         ## Уровни ЖГС в участках скважины (этап 1)
         stage_1_jgs_level_NKT = mfH.calculate_NKT_jg_height(stage_1_oil_level_NKT, stage_1_Height_jg, stage_1_dh_jg,
                                                             stage_1_V_pogl, EXP, NKT, KP, init_jgs_level_NKT)
-        print(f"ЭТО STAGE 1 JGS NKT {stage_1_jgs_level_NKT}")
+
         stage_1_jgs_level_KP = 0
         stage_1_jgs_level_EXP = 0
     else:
@@ -272,7 +268,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     stage_1_v_NKT = 0
     stage_1_v_KP = 0
     stage_1_v_EXP = 0
-    print(f'ЭТО STAGE 1 NKT OIL HEIGHT  {stage_1_oil_level_NKT}')
+
     ## Давления
     stage_1_Pressure_friction = mfP.calculate_Pressure_friction(stage_1_oil_level_NKT, stage_1_jgs_level_NKT,
                                                                 stage_1_oil_level_KP,
@@ -298,17 +294,15 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             Pressure_wellhead=stage_1_Pressure_yst, Pressure_NKT=stage_1_Pressure_NKT, Pressure_EXP=stage_1_Pressure_EXP
         )
         stage_1_Pressure_overall = stage_1_Pressure_yst + stage_1_Pressure_NKT + stage_1_Pressure_EXP
-        print(f"stage_1_Pressure_yst = {stage_1_Pressure_yst} \n"
-              f"stage_1_Pressure_NKT = {stage_1_Pressure_NKT} \n"
-              f"stage_1_Pressure_EXP = {stage_1_Pressure_EXP} \n")
+
     else:
         stage_1_Pressure_downhole = mfP.calculate_Pressure_downhole(
             Pressure_wellhead=stage_1_Pressure_yst, Pressure_NKT=stage_1_Pressure_KP, Pressure_EXP=stage_1_Pressure_EXP
         )
         stage_1_Pressure_overall = stage_1_Pressure_yst + stage_1_Pressure_KP + stage_1_Pressure_EXP
-        print(f"stage_1_Pressure_yst = {stage_1_Pressure_yst} \n"
-              f"stage_1_Pressure_NKT = {stage_1_Pressure_NKT} \n"
-              f"stage_1_Pressure_EXP = {stage_1_Pressure_EXP} \n")
+
+
+
     ## Объявление классов участков скважины (этап 1)
     NKT_params = mc.WellSpace(name="NKT",
                               t=None,
@@ -486,12 +480,17 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     P_EXP = [init_Pressure_EXP, stage_1_Pressure_EXP]
     time_to_glush = DESIGN_volume_glush / Q
 
-    print(f"P_yst = {P_yst} \n"
-          f"p_overall = {p_overall} \n"
-          f"P_friction = {P_friction} \n"
-          f"P_NKT = {P_NKT} \n"
-          f"P_KP = {P_KP} \n"
-          f"P_EXP = {P_EXP} \n")
+    data_for_animation.append({
+        "t": t_1,
+        "hnkt": stage_1_oil_level_NKT,
+        "hkp": stage_1_oil_level_KP,
+        "hek": stage_1_oil_level_EXP,
+        "hnktjg": stage_1_jgs_level_NKT,
+        "hkpjg": stage_1_jgs_level_KP,
+        "hekjg": stage_1_jgs_level_EXP,
+        "height": stage_1_h_yr
+    })
+
 
     while t < time_to_glush:
         t = t + dt
@@ -608,37 +607,47 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         P_NKT.append(NKT_params.pressure)
         P_KP.append(KP_params.pressure)
         P_EXP.append(EXP_params.pressure)
-        print(
-        f"Это Vjg {All_common_calculations.Vjg}\n"
-        f"Это Hjg {All_common_calculations.Hjg}\n"
-        f"Это dh_jg {All_common_calculations.dh_jg}\n"
-        f"Это скорость {All_common_calculations.speed}\n"
-        f"Это h_yr {All_common_calculations.h_yr} \n"
-        f"Это объем жидкости нефть в НКТ {NKT_params.oil_volume}\n"
-        f"Это объем жидкости нефть в КП {KP_params.oil_volume}\n"
-        f"Это объем жидкости нефть в ЭКСПЛ {EXP_params.oil_volume}\n"
-        f"Это объем жидкости ЖГС в НКТ {NKT_params.jgs_volume}\n"
-        f"Это объем жидкости ЖГС в КП {KP_params.jgs_volume}\n"
-        f"Это объем жидкости ЖГС в ЭКСПЛ {EXP_params.jgs_volume}\n"
-        f"Это NKT oil_height {NKT_params.oil_height} \n"
-        f"Это KP oil_height {KP_params.oil_height} \n"
-        f"Это EXP oil_height {EXP_params.oil_height} \n"
-        f"Это NKT jgs_height {NKT_params.jgs_height} \n"
-        f"Это KP jgs_height {KP_params.jgs_height} \n"
-        f"Это EXP jgs_height {EXP_params.jgs_height} \n"
-        f"Это Q_pogl {tech_params.Q_pogl}\n"
-        f"Это dV_pogl {tech_params.dV_pogl}\n"
-        f"Это V_pogl {tech_params.V_pogl}\n"
-        f"Это Rn {tech_params.Rn} \n "
-        f"Это Pressure wellhead {tech_params.pressure_wellhead} \n"
-        f"Это Pressure friction {tech_params.pressure_friction} \n"
-        f"Это Pressure NKT {NKT_params.pressure} \n"
-        f"Это Pressure KP {KP_params.pressure} \n"
-        f"Это Pressure EXP {EXP_params.pressure} \n"
-        f"Это Pressure overall {tech_params.pressure_overall} \n"
-        f"ЭТО NKT_SPEED {NKT_speed}\n"
-        f"ЭТО KP SPEED {KP_speed}\n"
-        )
+        # print(
+        # f"Это Vjg {All_common_calculations.Vjg}\n"
+        # f"Это Hjg {All_common_calculations.Hjg}\n"
+        # f"Это dh_jg {All_common_calculations.dh_jg}\n"
+        # f"Это скорость {All_common_calculations.speed}\n"
+        # f"Это h_yr {All_common_calculations.h_yr} \n"
+        # f"Это объем жидкости нефть в НКТ {NKT_params.oil_volume}\n"
+        # f"Это объем жидкости нефть в КП {KP_params.oil_volume}\n"
+        # f"Это объем жидкости нефть в ЭКСПЛ {EXP_params.oil_volume}\n"
+        # f"Это объем жидкости ЖГС в НКТ {NKT_params.jgs_volume}\n"
+        # f"Это объем жидкости ЖГС в КП {KP_params.jgs_volume}\n"
+        # f"Это объем жидкости ЖГС в ЭКСПЛ {EXP_params.jgs_volume}\n"
+        # f"Это NKT oil_height {NKT_params.oil_height} \n"
+        # f"Это KP oil_height {KP_params.oil_height} \n"
+        # f"Это EXP oil_height {EXP_params.oil_height} \n"
+        # f"Это NKT jgs_height {NKT_params.jgs_height} \n"
+        # f"Это KP jgs_height {KP_params.jgs_height} \n"
+        # f"Это EXP jgs_height {EXP_params.jgs_height} \n"
+        # f"Это Q_pogl {tech_params.Q_pogl}\n"
+        # f"Это dV_pogl {tech_params.dV_pogl}\n"
+        # f"Это V_pogl {tech_params.V_pogl}\n"
+        # f"Это Rn {tech_params.Rn} \n "
+        # f"Это Pressure wellhead {tech_params.pressure_wellhead} \n"
+        # f"Это Pressure friction {tech_params.pressure_friction} \n"
+        # f"Это Pressure NKT {NKT_params.pressure} \n"
+        # f"Это Pressure KP {KP_params.pressure} \n"
+        # f"Это Pressure EXP {EXP_params.pressure} \n"
+        # f"Это Pressure overall {tech_params.pressure_overall} \n"
+        # f"ЭТО NKT_SPEED {NKT_speed}\n"
+        # f"ЭТО KP SPEED {KP_speed}\n"
+        # )
+        data_for_animation.append({
+            "t": t,
+            "hnkt": NKT_params.oil_height,
+            "hkp": KP_params.oil_height,
+            "hek": EXP_params.oil_height,
+            "hnktjg": NKT_params.jgs_height,
+            "hkpjg": KP_params.jgs_height,
+            "hekjg": EXP_params.jgs_height,
+            "height": All_common_calculations.h_yr
+        })
     P_yst = [mfIn.pressure_format(x) for x in P_yst]
     P_friction = [mfIn.pressure_format(x) for x in P_friction]
     P_NKT = [mfIn.pressure_format(x) for x in P_NKT]
@@ -712,7 +721,8 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         "RECIPE_TIME_BP_ALL": round((RECIPE_BP_st1 + RECIPE_BP_st2 + RECIPE_BP_st3 + RECIPE_BP_st4) / Q, 2),
         "RECIPE_TIME_YV_PER": '-'
     }
-    return results, Pressures_array, t_array, DESIGN, RECIPE, RECIPE_ALL
+
+    return results, Pressures_array, t_array, DESIGN, RECIPE, RECIPE_ALL, data_for_animation
 
     # stage_1_Speed_reduced = math.sqrt(2 * g * stage_1_Height_jg_reduced)
     # h_yr = mfH.calculate_h_yr()
