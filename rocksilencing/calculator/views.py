@@ -25,22 +25,11 @@ def calculator_page(request):
         form = ModelGlushForm(request.POST, request.FILES)
         if form.is_valid():
             excel_file = request.FILES.get('file_upload', None)
-            if excel_file:
-                excel_df = pd.read_excel(excel_file, engine = 'openpyxl')
-                excel_datas = excel_df.to_dict(orient = "list")
-                result = [{'count': count, 'md_start': md_start, 'md_end': md_end, 'tvd_start': tvd_start, 'tvd_end': tvd_end, "ext_d":ext_d, 'thick':thick} for count, md_start, md_end, tvd_start, tvd_end, ext_d, thick in zip(excel_datas['count'], excel_datas['md_start'], excel_datas['md_end'], excel_datas['tvd_start'], excel_datas['tvd_end'], excel_datas['ext_d'], excel_datas['thick'])]
-                x = np.array(excel_datas['md_start'])
-                y = np.array(excel_datas['tvd_start'])
-                coefficients = np.polyfit(x, y, 1)
-                polynominal = np.poly1d(coefficients)
-            else:
-                polynominal = 1
             Plast_pressure = float(request.POST["Plast_pressure"])
             h = float(request.POST["Plast_thickness"])
             Length_of_Well = float(request.POST["True_zaboi"])
             L_of_Wells = float(request.POST["NKT_length"])
             ro_oil = float(request.POST["Oil_density"])
-            # ro_jgs = float(request.POST["Jgs_density"])
             d_NKT = float(request.POST["NKT_inner_diameter"])
             D_NKT = float(request.POST["NKT_external_diameter"])
             d_exp = float(request.POST["EXP_inner_diameter"])
@@ -74,6 +63,25 @@ def calculator_page(request):
             stages = results[4]
             recipes_all = results[5]
             data_for_animation = results[6]
+            if excel_file:
+                excel_df = pd.read_excel(excel_file, engine='openpyxl')
+                excel_datas = excel_df.to_dict(orient="list")
+                result = [
+                    {'count': count, 'md_start': md_start, 'md_end': md_end, 'tvd_start': tvd_start, 'tvd_end': tvd_end,
+                     "ext_d": ext_d, 'thick': thick} for count, md_start, md_end, tvd_start, tvd_end, ext_d, thick in
+                    zip(excel_datas['count'], excel_datas['md_start'], excel_datas['md_end'], excel_datas['tvd_start'],
+                        excel_datas['tvd_end'], excel_datas['ext_d'], excel_datas['thick'])]
+                x = np.array(excel_datas['md_start'])
+                y = np.array(excel_datas['tvd_start'])
+                coefficients = np.polyfit(x, y, 1)
+                polynominal = np.poly1d(coefficients)
+            else:
+                polynominal = 1
+            for each_elem in data_for_animation:
+                for each_key, each_value in each_elem.items():
+                    if each_key != 't':
+                        each_elem[each_key] = polynominal(each_value)
+            print(data_for_animation)
             request.session['report_context'] = {
                 'Q': Q,
                 'k_jg': k_jg,
@@ -214,3 +222,5 @@ def history_page(request):
 
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
+
+
