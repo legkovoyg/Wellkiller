@@ -1,7 +1,7 @@
 function direct_animation (data) {
         // top исправить
         console.log(data)
-        const margin = ({ top: 150, right: 30, bottom: 30, left: 40 })
+        const margin = ({ top: 0, right: 30, bottom: 30, left: 40 })
 
         data.sort(function (a, b) {
             return a.hnkt - b.hnkt
@@ -286,8 +286,7 @@ function direct_animation (data) {
 
 
 function back_animation(data) {
-        const margin = ({ top:200, right: 30, bottom: 30, left: 40 })
-console.log(margin.top)
+        const margin = ({ top:0, right: 30, bottom: 30, left: 40 })
         data.sort(function (a, b) {
             return a.hnkt - b.hnkt
         })
@@ -309,7 +308,9 @@ console.log(margin.top)
         const maxHek = d3.max(data, function (d) {
             return +d.hek
         })
-
+        const maxHekjg = d3.max(data, function (d) {
+            return +d.hekjg
+        })
         var svg = d3.select("#chart2")
 
         var height = maxHkp; // сделать генерацию свг
