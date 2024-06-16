@@ -54,6 +54,7 @@ body{
 /* tables styles*/
 
 table, th, td {
+    width: 100%;
     border: 0;
     border-collapse: collapse;
     padding: 6px 6px 6px 40px;

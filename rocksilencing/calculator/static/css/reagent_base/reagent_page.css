@@ -14,7 +14,6 @@
 }
 
 section{
-    padding: 0 20px 0;
     width: 100%;
 }
 
@@ -29,7 +28,6 @@ section{
 .content__search{
     width: 40%;
     background-color: #222836;
-    height: 1200px;
     margin-top: 0;
     padding-top: 20px;
     overflow: hidden;
@@ -66,8 +64,9 @@ section{
     margin-top: 30px;
 }
 
-.search-info-first{
+.custom{
     margin-bottom: 25px;
+    font-size: 20px;
 }
 
 
@@ -139,3 +138,39 @@ td p{
 tr td p {
     color: #fff;
 }
+
+/* tabs изменено*/
+
+.tabs .tab{
+    display:inline-block;
+    padding:20px 0 20px;
+    cursor:pointer;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.tabs-items .item{
+    display:none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+    margin-left: 10%; /* как поменять? подумать */
+    margin-right: 0%;
+}
+
+.tabs-items .item.on{
+    display: flex;
+    flex-direction: column;
+}
+.btn{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+
