@@ -22,15 +22,15 @@ document.querySelectorAll('.tabs-wrapper').forEach((e) => {
                 tabTabs[i].classList.remove('on');
                 tabItems[i].classList.remove('on');
                 icons[i].classList.remove('bx-chevron-up');
-                icons[i].classList.add('bx-chevron-down');
+                icons[i].classList.add('bx-chevron-right');
             } else {
                 tabTabs.forEach((e) => { e.classList.remove('on') }); 
                 tabItems.forEach((e) => { e.classList.remove('on') });
                 icons.forEach((e) => { e.classList.remove('bx-chevron-up') });
-                icons.forEach((e) => { e.classList.add('bx-chevron-down') });
+                icons.forEach((e) => { e.classList.add('bx-chevron-right') });
                 tabTabs[i].classList.add('on');
                 tabItems[i].classList.add('on');
-                icons[i].classList.remove('bx-chevron-down');
+                icons[i].classList.remove('bx-chevron-right');
                 icons[i].classList.add('bx-chevron-up');
             }
         }

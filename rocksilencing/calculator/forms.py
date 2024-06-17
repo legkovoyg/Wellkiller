@@ -63,16 +63,16 @@ class Scale_Calculator_form_1(forms.Form):
     # Параметры смеси
     Temperature = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 120px; border-radius: 4px; "
-                        "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
+               "style": "border-radius: 4px; "
+                        "background: #363A47; border: none; outline: none; color: rgba(255, 255, 255, 0.64); "}))
     Pressure = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 120px; border-radius: 4px; "
-                        "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
+               "style": "border-radius: 4px; "
+                        " background: #292e3c; border: none; outline: none; color: rgba(255, 255, 255, 0.64); "}))
     Part_of_Mixture = forms.FloatField(label='', widget=forms.NumberInput(
         attrs={"type": "text", "oninput": "limitLength(event)", "id": "ph_1",
-               "style": "width: 120px; border-radius: 4px; "
-                        "background: rgba(255, 255, 255, 0.06); border: none; outline: none; color: #fff; text-align:center;"}))
+               "style": "   border-radius: 4px; "
+                        "background: #363A47;  border: none; outline: none; color: rgba(255, 255, 255, 0.64);"}))
 
 
 

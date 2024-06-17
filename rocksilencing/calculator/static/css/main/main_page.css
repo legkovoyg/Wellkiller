@@ -5,6 +5,7 @@ body{
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow-x:hidden;
 } 
 
 /* main content */
@@ -19,7 +20,6 @@ body{
 }
 
 .container__tab{
-    max-width: 800px;
     padding: 0 25px 0;
     border-right: solid rgba(255, 255, 255, 0.08) 2px; 
     display: flex;
@@ -68,7 +68,7 @@ body{
 }
 
 .info-name{
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 400;
     margin-bottom: 2px;
     margin-top: 0px;
@@ -77,18 +77,28 @@ body{
 .info-spec{
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 400;
 }
 
+.second_section{
+    width: 100%;
+    padding: 0 25px 0;
+    border-right: solid rgba(255, 255, 255, 0.08) 2px;
+}
+
+.third_section{
+    padding: 0 25px 0
+}
 /* tables */
 
 .tabs .tab{
     display:inline-block;
-    padding:20px;
+    padding:12px;
     margin:0 0px 20px 0px;
     cursor:pointer;
     color: rgba(255, 255, 255, 0.87);
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -99,7 +109,7 @@ body{
 .tabs-items .item{
     display:none;
     color: rgba(255, 255, 255, 0.87);
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -117,7 +127,7 @@ table, th, td {
     border-collapse: collapse;
     padding: 6px 6px 6px 40px;
     color: rgba(255, 255, 255, 0.64);
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
 }
 
@@ -129,10 +139,11 @@ td{
 }
 
 td input{
-    width: 120px;
+width: 120px;
     border: none;
     color: rgba(255, 255, 255, 0.64);
-    font-size: 15px;
+    font-size: 12px;
+    font-weight: 400;
     outline: none;
 }
 
@@ -141,6 +152,8 @@ select{
     border: none;
     color: rgba(255, 255, 255, 0.64);
     outline: none;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 td p{
@@ -179,3 +192,50 @@ button:hover{
     margin-top: auto;
     margin-bottom: 40px;
 }
+
+
+
+@media (max-width: 900px) {
+  .container__tab {
+    padding: 0 10px 0;
+  }
+  .home{
+    left: 0px;
+  }
+  table, th, td{
+  padding: 3px 3px 3px 3px;
+  }
+  .mainContainer{
+    margin-top: 0px;
+    flex-direction: column;
+    margin-right: 0px;
+  }
+  .tabs-first__footer-buttons{
+    margin-bottom: 5px;
+  }
+  .headerContainer__info{
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+  }
+  td{
+    white-space: wrap;
+    font-size: 10px;
+    overflow: auto;
+  }
+  table{
+    table-layout: fixed;
+    width: 100%;
+  }
+  .container__tab{
+    border-right: none;
+  }
+  .second_section{
+    padding: 0px 5px 0px;
+    border-right: 0px;
+    margin-bottom: 80px;
+  }
+  .third_section{
+    display: none;
+  }
+  }

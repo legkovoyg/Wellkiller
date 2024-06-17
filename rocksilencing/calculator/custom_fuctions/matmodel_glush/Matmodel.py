@@ -186,7 +186,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             "hnktjg":init_jgs_level_NKT,
             "hkpjg":init_jgs_level_KP,
             "hekjg":init_jgs_level_EXP,
-            "height":init_usl_h_yr
+            "height":Length_of_Well-init_usl_h_yr
     })
     # Этап после инициализации, глушение началось
     t_1 = t_0 + dt
@@ -488,7 +488,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         "hnktjg": stage_1_jgs_level_NKT,
         "hkpjg": stage_1_jgs_level_KP,
         "hekjg": stage_1_jgs_level_EXP,
-        "height": stage_1_h_yr
+        "height": Length_of_Well-stage_1_h_yr
     })
 
 
@@ -646,7 +646,7 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
             "hnktjg": NKT_params.jgs_height,
             "hkpjg": KP_params.jgs_height,
             "hekjg": EXP_params.jgs_height,
-            "height": All_common_calculations.h_yr
+            "height":Length_of_Well-All_common_calculations.h_yr
         })
     P_yst = [mfIn.pressure_format(x) for x in P_yst]
     P_friction = [mfIn.pressure_format(x) for x in P_friction]

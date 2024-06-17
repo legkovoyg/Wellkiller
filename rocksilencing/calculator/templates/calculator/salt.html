@@ -32,7 +32,7 @@
                         {{form.Pressure}}
                     </td>
                 </tr>
-                <tr>
+                <tr style="background: #363A47;">
                     <td>
                         Доля первой жидкости, %
                     </td>
@@ -328,14 +328,14 @@
                 <button>Произвести расчет</button>
             </footer>
         </section>
-        <section name="результата расчета" style="padding: 0 25px 0;" >
+        <section class="third-section__main" name="результата расчета">
             <div class="headerContainer">
                 <h1>Результаты расчетов</h1>
             </div>
             <section name="график" >
                 {{ graph|safe }}
             </section>
-            <section name="таблица">
+            <section class="third-section__child" name="таблица">
                 <p style="color: rgba(255, 255, 255, 0.87);">Масса осадка, г/л</p>
                 <div class="tables">
                     <table>
