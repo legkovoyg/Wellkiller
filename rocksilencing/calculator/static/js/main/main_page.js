@@ -14,6 +14,34 @@ document.querySelectorAll('.tabs-wrapper').forEach((e) => {
    }
  });
 
+document.getElementById('toggleIcon1').addEventListener('click', function() {
+    var containerTab = document.querySelector('.container__tab');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+document.getElementById('toggleIcon2').addEventListener('click', function() {
+    var containerTab = document.querySelector('.second_section');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+document.getElementById('toggleIcon3').addEventListener('click', function() {
+    var containerTab = document.querySelector('.third_section');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+
 
 // PLOT/GRAPH //
 

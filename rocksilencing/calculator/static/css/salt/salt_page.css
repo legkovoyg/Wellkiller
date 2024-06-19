@@ -3,10 +3,10 @@
 .mainContainer{
     display: flex;
     flex-direction: row;
-    margin-right: 25px;
-    margin-top: 27px;
+    /* margin-right: 25px; */
+    /* margin-top: 27px; */
     margin-bottom: 16px;
-    margin-left: 0px;
+    margin-left: 88px;
 }
 
 .container__tab{
@@ -14,6 +14,8 @@
     border-right: solid rgba(255, 255, 255, 0.08) 2px; 
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
+    width: 50%;
 }
 
 /* header for tables*/
@@ -56,7 +58,7 @@ body{
 /* tables styles*/
 
 table, th, td {
-    width: 100%;
+
     border: 0;
     border-collapse: collapse;
     padding: 6px 6px 6px 8px;
@@ -65,12 +67,15 @@ table, th, td {
     font-weight: 400;
 }
 
-
+table{
+    width: 100%;
+}
 
 td{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
 }
 
 td input{
@@ -78,7 +83,7 @@ td input{
     color: rgba(255, 255, 255, 0.64);
     font-size: 12px;
     outline: none;
-    width: 80px;
+        width: 100%;
 }
 
 select{
@@ -107,6 +112,8 @@ td p{
 
 .third-section__main{
     padding: 0 25px 0;
+    margin-top: 50px;
+    width: 100%;
 }
 
 /* button */
@@ -143,11 +150,14 @@ button:hover{
   }
   .container__tab{
     border-right: none;
+    margin-top: 0px;
+    width: 100%;
   }
   td{
     white-space: wrap;
     overflow: auto;
     text-overflow: clip;
+    font-size: 15px;
   }
   table{
     table-layout: fixed;
@@ -155,13 +165,29 @@ button:hover{
     text-align: center;
   }
   .mainContainer{
-    margin-right: 0px;
+    margin-left: 0px;
     margin-top: 0px;
   }
   .third-section__child{
     margin-bottom: 70px;
   }
   .third-section__main{
-    padding: 0px 10px 0px;
+    padding: 0px 25px 0px;
+    margin-top: 0px;
+  }
+  .headerContainer{
+  font-size: 17px;
+  }
+  .headerContainer h1{
+     margin-left: 0px;
+  }
+  p{
+  font-size: 16px;
+  }
+  .plates{
+  font-size: 16px;
+  }
+  button{
+    font-size: 14px;
   }
 }

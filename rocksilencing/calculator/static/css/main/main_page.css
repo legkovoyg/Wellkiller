@@ -13,10 +13,10 @@ body{
 .mainContainer{
     display: flex;
     flex-direction: row;
-    margin-right: 25px;
-    margin-top: 27px;
+    /*margin-right: 25px;*/
+    /*margin-top: 27px;*/
     margin-bottom: 16px;
-    margin-left: 0px;
+    margin-left: 88px;
 }
 
 .container__tab{
@@ -24,6 +24,7 @@ body{
     border-right: solid rgba(255, 255, 255, 0.08) 2px; 
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
 }
 
 
@@ -46,7 +47,7 @@ body{
 }
 
 .headerContainer h1{
-    margin-left: 20px;
+    margin-left: 5px;
 }
 
 .headerContainer svg{
@@ -85,10 +86,12 @@ body{
     width: 100%;
     padding: 0 25px 0;
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
+    margin-top: 50px;
 }
 
 .third_section{
-    padding: 0 25px 0
+    padding: 0 25px 0;
+    margin-top: 50px;
 }
 /* tables */
 
@@ -193,11 +196,40 @@ button:hover{
     margin-bottom: 40px;
 }
 
+.first-info-result{
+    margin: 0;
+}
+.second-info-result{
+
+}
+.third-info-result{
+
+}
+.fourth-info-result{
+
+}
+.five-info-result{
+
+}
+
+/*.func-button-tab{
+margin-top: 0px;
+width: 15%;
+
+}
+
+.button-header-tab{
+    margin-bottom: 5px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}*/
 
 
 @media (max-width: 900px) {
   .container__tab {
-    padding: 0 10px 0;
+    padding: 0 25px 0;
   }
   .home{
     left: 0px;
@@ -209,6 +241,7 @@ button:hover{
     margin-top: 0px;
     flex-direction: column;
     margin-right: 0px;
+    margin-left: 0px;
   }
   .tabs-first__footer-buttons{
     margin-bottom: 5px;
@@ -218,10 +251,14 @@ button:hover{
     height: auto;
     text-align: center;
   }
+  .headerContainer{
+  font-size: 17px;
+  }
   td{
     white-space: wrap;
-    font-size: 10px;
+    font-size: 15px;
     overflow: auto;
+            text-overflow: clip;
   }
   table{
     table-layout: fixed;
@@ -229,13 +266,62 @@ button:hover{
   }
   .container__tab{
     border-right: none;
+    margin-top: 0px;
   }
   .second_section{
-    padding: 0px 5px 0px;
+    padding: 0px 25px 0px;
     border-right: 0px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
+    margin-top: 0px;
   }
   .third_section{
-    display: none;
+    /*display: none;*/
+    margin-top: 0px;
+  }
+  .tabs{
+  display: flex;
+  /*justify-content: space-between;*/
+  flex-direction: column;
+  }
+  .tabs .tab{
+  text-align: center;
+    font-size: 15px;
+  }
+  .tabs-items .item.on{
+  font-size: 20px;
+  }
+  .first-info-result{
+  margin-bottom: 15px;
+  }
+  .second-info-result{
+  margin-bottom: 15px;
+  }
+  .third-info-result{
+  margin-bottom: 15px;
+  }
+  .fourth-info-result{
+  margin-bottom: 15px;
+  }
+  .five-info-result{
+  margin-bottom: 3px;
+  }
+  .headerContainer h1{
+  margin-left: 0px;
+  }
+  .headerContainer i{
+  display: none;
+  }
+  td input{
+  font-size: 15px;
+  width: 100%;
+    text-align: end;
+  }
+  select{
+    width: 100%;
+  text-align: end;
+  font-size: 15px;
   }
   }
+
+
+}
