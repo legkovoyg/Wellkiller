@@ -67,47 +67,85 @@ def calculator_page(request):
                                      d_exp, D_exp, Q,
                                      k_jg, mu_jg, k_oil, mu_oil, Rk, m, 30, YV_density, YV_dole, emul_density,
                                      emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume,
-                                     type_of_glush=Type_of_jamming)
+                                     type_of_glush=Type_of_jamming, polynom = polynominal)
             current_results = results[0]
-            graph = create_matmodel_plot(results[1], results[2])
+            time = []
+            for each_elem in results[2]:
+                each_elem = each_elem/60
+                time.append(each_elem)
+            graph = create_matmodel_plot(results[1], time)
             design = results[3]
             stages = results[4]
             recipes_all = results[5]
             data_for_animation = results[6]
             print(data_for_animation)
-            request.session['report_context'] = {
-                'Q': Q,
-                'k_jg': k_jg,
-                'mu_jg': mu_jg,
-                'k_oil': k_oil,
-                'mu_oil': mu_oil,
-                'Rk': Rk,
-                'm': m,
-                'YV_density': YV_density,
-                'YV_dole': YV_dole,
-                'emul_density': emul_density,
-                'emul_dole': emul_dole,
-                'zapas': zapas,
-                'car_volume': car_volume,
-                'jgs_type': jgs_type,
-                'current_results': current_results,
-                'stages': stages,
-                'recipes_all': recipes_all,
-                "design": design,
-                'excel_file': result}
-            return render(request, "calculator/main_page.html", {
-                "form": form,
-                "results": results,
-                "current_results": current_results,
-                "type_of_glush": Type_of_jamming,
-                "graph": graph,
-                "design": design,
-                "stages": stages,
-                "recipes_all": recipes_all,
-                "show_download_button": True,
-                "data_for_animation": json.dumps(data_for_animation),
-                'excel_file': result
-            })
+            if excel_file:
+                request.session['report_context'] = {
+                    'Q': Q,
+                    'k_jg': k_jg,
+                    'mu_jg': mu_jg,
+                    'k_oil': k_oil,
+                    'mu_oil': mu_oil,
+                    'Rk': Rk,
+                    'm': m,
+                    'YV_density': YV_density,
+                    'YV_dole': YV_dole,
+                    'emul_density': emul_density,
+                    'emul_dole': emul_dole,
+                    'zapas': zapas,
+                    'car_volume': car_volume,
+                    'jgs_type': jgs_type,
+                    'current_results': current_results,
+                    'stages': stages,
+                    'recipes_all': recipes_all,
+                    "design": design,
+                    'excel_file': result}
+                return render(request, "calculator/main_page.html", {
+                    "form": form,
+                    "results": results,
+                    "current_results": current_results,
+                    "type_of_glush": Type_of_jamming,
+                    "graph": graph,
+                    "design": design,
+                    "stages": stages,
+                    "recipes_all": recipes_all,
+                    "show_download_button": True,
+                    "data_for_animation": json.dumps(data_for_animation),
+                    'excel_file': result
+                })
+            else:
+                request.session['report_context'] = {
+                    'Q': Q,
+                    'k_jg': k_jg,
+                    'mu_jg': mu_jg,
+                    'k_oil': k_oil,
+                    'mu_oil': mu_oil,
+                    'Rk': Rk,
+                    'm': m,
+                    'YV_density': YV_density,
+                    'YV_dole': YV_dole,
+                    'emul_density': emul_density,
+                    'emul_dole': emul_dole,
+                    'zapas': zapas,
+                    'car_volume': car_volume,
+                    'jgs_type': jgs_type,
+                    'current_results': current_results,
+                    'stages': stages,
+                    'recipes_all': recipes_all,
+                    "design": design}
+                return render(request, "calculator/main_page.html", {
+                    "form": form,
+                    "results": results,
+                    "current_results": current_results,
+                    "type_of_glush": Type_of_jamming,
+                    "graph": graph,
+                    "design": design,
+                    "stages": stages,
+                    "recipes_all": recipes_all,
+                    "show_download_button": True,
+                    "data_for_animation": json.dumps(data_for_animation),
+                })
+
         else:
             print(form.errors)
     else:
