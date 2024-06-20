@@ -1,4 +1,4 @@
-@import './header.css';
+
 
 *{
     font-family: inter;
@@ -67,7 +67,7 @@ body{
 
 .sidebar.close .text{
     opacity: 0;
-    
+    display: none;
 }
 
 .sidebar .image{
@@ -90,7 +90,7 @@ body{
     align-items: center;
     justify-content: center;
     min-width: 60px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .sidebar li .icon,
@@ -127,26 +127,26 @@ header .image-text .header-text{
 }
 
 .sidebar header .toggle{
-    position: absolute;
-    top: 900px;
+    position: relative;
+    top: 310px;
     /* top: 50%; */
-    right: -25px;
+    /*right: -25px;*/
     /* margin-top: 450px; */
     transform: translateY(-50%) rotate(180deg);
     height: 25px;
-    width: 25px;
+    /*width: 25px;*/
     background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 20px;
     color: var(--sidebar-color);
     font-size: 22px;
     transition: var(--tran-03);
 }
 
 .sidebar.close header .toggle{
-    transform: translateY(-50%);
+    /*transform: translateY(-50%);*/
 }
 
 body.dark .sidebar header .toggle{
@@ -154,7 +154,7 @@ body.dark .sidebar header .toggle{
 }
 
 .sidebar .menu{
-    margin-top: 70px;
+    margin-top: 20px;
 }
 
 .sidebar li a{
@@ -187,7 +187,7 @@ body.dark .sidebar header .toggle{
 .home{
     position: relative;
     height: 100vh;
-    left: 250px;
+   /*  left: 250px;*/
     width: calc(100%-88px);
     transition: var(--tran-05);
 }
@@ -199,7 +199,7 @@ body.dark .sidebar header .toggle{
 }
 
 .sidebar.close ~ .home{
-    left: 88px;
+    /* left: 88px; */
     width: calc(100%-88px);
 }
 
@@ -208,6 +208,52 @@ body.dark .sidebar header .toggle{
     flex-direction: column; */
     left: 0;
     margin: auto 22px 25px;
+}
 
+@media (max-width: 900px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .sidebar li .icon{
+  justify-content: start;
+  }
+  .sidebar .menu{
+    margin-top: 0px;
+  }
+  .bottom-content{
+    margin: 0px;
+    display: none;
+  }
+  .sidebar header .toggle{
+    border-radius: 20px;
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  .sidebar.close header .toggle{
+    transform: none;
+    display: none;
+  }
+  .sidebar.close{
+    width: 100%;
+    height: auto;
+    padding-top: 50px;
+  }
+  .sidebar.close ~ .home{
+    left: 0px;
+  }
+  .home{
+    left: 0px;
+  }
+  .sidebar.close .text{
+    opacity: 1;
+    display: block;
+  }
+  .sidebar li a{
+  justify-content: center;
+  }
 
 }
+

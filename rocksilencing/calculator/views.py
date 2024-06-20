@@ -25,11 +25,22 @@ def calculator_page(request):
         form = ModelGlushForm(request.POST, request.FILES)
         if form.is_valid():
             excel_file = request.FILES.get('file_upload', None)
+            if excel_file:
+                excel_df = pd.read_excel(excel_file, engine = 'openpyxl')
+                excel_datas = excel_df.to_dict(orient = "list")
+                result = [{'count': count, 'md_start': md_start, 'md_end': md_end, 'tvd_start': tvd_start, 'tvd_end': tvd_end, "ext_d":ext_d, 'thick':thick} for count, md_start, md_end, tvd_start, tvd_end, ext_d, thick in zip(excel_datas['count'], excel_datas['md_start'], excel_datas['md_end'], excel_datas['tvd_start'], excel_datas['tvd_end'], excel_datas['ext_d'], excel_datas['thick'])]
+                x = np.array(excel_datas['md_start'])
+                y = np.array(excel_datas['tvd_start'])
+                coefficients = np.polyfit(x, y, 1)
+                polynominal = np.poly1d(coefficients)
+            else:
+                polynominal = 1
             Plast_pressure = float(request.POST["Plast_pressure"])
             h = float(request.POST["Plast_thickness"])
             Length_of_Well = float(request.POST["True_zaboi"])
             L_of_Wells = float(request.POST["NKT_length"])
             ro_oil = float(request.POST["Oil_density"])
+            # ro_jgs = float(request.POST["Jgs_density"])
             d_NKT = float(request.POST["NKT_inner_diameter"])
             D_NKT = float(request.POST["NKT_external_diameter"])
             d_exp = float(request.POST["EXP_inner_diameter"])
@@ -56,65 +67,84 @@ def calculator_page(request):
                                      d_exp, D_exp, Q,
                                      k_jg, mu_jg, k_oil, mu_oil, Rk, m, 30, YV_density, YV_dole, emul_density,
                                      emul_dole, zapas, bd_CaCl, bd_CaJG, chosen_salt=jgs_type, volume_car=car_volume,
-                                     type_of_glush=Type_of_jamming)
+                                     type_of_glush=Type_of_jamming, polynom = polynominal)
             current_results = results[0]
-            graph = create_matmodel_plot(results[1], results[2])
+            time = []
+            for each_elem in results[2]:
+                each_elem = each_elem/60
+                time.append(each_elem)
+            graph = create_matmodel_plot(results[1], time)
             design = results[3]
             stages = results[4]
             recipes_all = results[5]
             data_for_animation = results[6]
             if excel_file:
-                excel_df = pd.read_excel(excel_file, engine='openpyxl')
-                excel_datas = excel_df.to_dict(orient="list")
-                result = [
-                    {'count': count, 'md_start': md_start, 'md_end': md_end, 'tvd_start': tvd_start, 'tvd_end': tvd_end,
-                     "ext_d": ext_d, 'thick': thick} for count, md_start, md_end, tvd_start, tvd_end, ext_d, thick in
-                    zip(excel_datas['count'], excel_datas['md_start'], excel_datas['md_end'], excel_datas['tvd_start'],
-                        excel_datas['tvd_end'], excel_datas['ext_d'], excel_datas['thick'])]
-                x = np.array(excel_datas['md_start'])
-                y = np.array(excel_datas['tvd_start'])
-                coefficients = np.polyfit(x, y, 1)
-                polynominal = np.poly1d(coefficients)
+                request.session['report_context'] = {
+                    'Q': Q,
+                    'k_jg': k_jg,
+                    'mu_jg': mu_jg,
+                    'k_oil': k_oil,
+                    'mu_oil': mu_oil,
+                    'Rk': Rk,
+                    'm': m,
+                    'YV_density': YV_density,
+                    'YV_dole': YV_dole,
+                    'emul_density': emul_density,
+                    'emul_dole': emul_dole,
+                    'zapas': zapas,
+                    'car_volume': car_volume,
+                    'jgs_type': jgs_type,
+                    'current_results': current_results,
+                    'stages': stages,
+                    'recipes_all': recipes_all,
+                    "design": design,
+                    'excel_file': result}
+                return render(request, "calculator/main_page.html", {
+                    "form": form,
+                    "results": results,
+                    "current_results": current_results,
+                    "type_of_glush": Type_of_jamming,
+                    "graph": graph,
+                    "design": design,
+                    "stages": stages,
+                    "recipes_all": recipes_all,
+                    "show_download_button": True,
+                    "data_for_animation": json.dumps(data_for_animation),
+                    'excel_file': result
+                })
             else:
-                polynominal = 1
-            for each_elem in data_for_animation:
-                for each_key, each_value in each_elem.items():
-                    if each_key != 't':
-                        each_elem[each_key] = polynominal(each_value)
-            print(data_for_animation)
-            request.session['report_context'] = {
-                'Q': Q,
-                'k_jg': k_jg,
-                'mu_jg': mu_jg,
-                'k_oil': k_oil,
-                'mu_oil': mu_oil,
-                'Rk': Rk,
-                'm': m,
-                'YV_density': YV_density,
-                'YV_dole': YV_dole,
-                'emul_density': emul_density,
-                'emul_dole': emul_dole,
-                'zapas': zapas,
-                'car_volume': car_volume,
-                'jgs_type': jgs_type,
-                'current_results': current_results,
-                'stages': stages,
-                'recipes_all': recipes_all,
-                "design": design,
-                'excel_file': result}
-            return render(request, "calculator/main_page.html", {
-                "form": form,
-                "results": results,
-                "current_results": current_results,
-                "type_of_glush": Type_of_jamming,
-                "graph": graph,
-                "design": design,
-                "stages": stages,
-                "recipes_all": recipes_all,
-                "show_download_button": True,
-                "data_for_animation": json.dumps(data_for_animation),
-                'excel_file': result
-            })
+                request.session['report_context'] = {
+                    'Q': Q,
+                    'k_jg': k_jg,
+                    'mu_jg': mu_jg,
+                    'k_oil': k_oil,
+                    'mu_oil': mu_oil,
+                    'Rk': Rk,
+                    'm': m,
+                    'YV_density': YV_density,
+                    'YV_dole': YV_dole,
+                    'emul_density': emul_density,
+                    'emul_dole': emul_dole,
+                    'zapas': zapas,
+                    'car_volume': car_volume,
+                    'jgs_type': jgs_type,
+                    'current_results': current_results,
+                    'stages': stages,
+                    'recipes_all': recipes_all,
+                    "design": design}
+                return render(request, "calculator/main_page.html", {
+                    "form": form,
+                    "results": results,
+                    "current_results": current_results,
+                    "type_of_glush": Type_of_jamming,
+                    "graph": graph,
+                    "design": design,
+                    "stages": stages,
+                    "recipes_all": recipes_all,
+                    "show_download_button": True,
+                    "data_for_animation": json.dumps(data_for_animation),
+                })
+
         else:
             print(form.errors)
     else:
@@ -157,6 +187,7 @@ def scale_calculator_page(request):
         y1 = [0.8, 0.6, 0.4, 0.2, 0, 0]
         y2 = [1.2, 1, 0.8, 0.6, 0.4, 0.2]
         form = Scale_Calculator_form_1(request.POST)
+        form_2 = Scale_Calculator_form_2(request.POST)
         if form.is_valid():
             # Входные данные для жидкости 1
             Cl_1 = float(request.POST['Cl_1'])
@@ -180,6 +211,24 @@ def scale_calculator_page(request):
             Sr_2 = float(request.POST['Sr_2'])
             pH_2 = float(request.POST['pH_2'])
             ro_2 = float(request.POST['ro_2'])
+            # Входные данные для жидкости 1
+            Cl_1_another = float(request.POST['Cl_1_another'])
+            SO4_1_another = float(request.POST['SO4_1_another'])
+            HCO3_1_another = float(request.POST['HCO3_1_another'])
+            Ca_1_another = float(request.POST['Ca_1_another'])
+            Mg_1_another = float(request.POST['Mg_1_another'])
+            Na_1_another = float(request.POST['Na_1_another'])
+            Ba_1_another = float(request.POST['Ba_1_another'])
+            Sr_1_another = float(request.POST['Sr_1_another'])
+            # Входные данные для жидкости 2
+            Cl_2_another = float(request.POST['Cl_2_another'])
+            SO4_2_another = float(request.POST['SO4_2_another'])
+            HCO3_2_another = float(request.POST['HCO3_2_another'])
+            Ca_2_another = float(request.POST['Ca_2_another'])
+            Mg_2_another = float(request.POST['Mg_2_another'])
+            Na_2_another = float(request.POST['Na_2_another'])
+            Ba_2_another = float(request.POST['Ba_2_another'])
+            Sr_2_another = float(request.POST['Sr_2_another'])
             # Условия смешивания
             Temperature = float(request.POST['Temperature'])  # Температура в градусах
             Pressure = float(request.POST['Pressure'])  # Давление в МПа
@@ -195,7 +244,7 @@ def scale_calculator_page(request):
                                                Pressure, each_elem)
                 all_results.append(result)
             graph = create_plot(all_results)
-            return render(request, "calculator/salt.html", {"form": form,
+            return render(request, "calculator/salt.html", {"form": form,"form_2":form_2,
                                                             "all_results": all_results,
                                                             "custom_Part_of_Mixture": custom_Part_of_Mixture,
                                                             'graph': graph})
@@ -222,5 +271,3 @@ def history_page(request):
 
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
-
-

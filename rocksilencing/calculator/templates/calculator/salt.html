@@ -12,13 +12,11 @@
     <main class="mainContainer">
         <section class="container__tab" name="входные данные">
             <div class="headerContainer">
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.995117 0C0.64994 0 0.370117 0.279822 0.370117 0.625V9.375C0.370117 9.72018 0.64994 10 0.995117 10C1.34029 10 1.62012 9.72018 1.62012 9.375V0.625C1.62012 0.279822 1.34029 0 0.995117 0ZM2.90673 5.8005L5.05318 7.94695C5.29725 8.19102 5.69298 8.19102 5.93706 7.94695C6.18114 7.70287 6.18114 7.30714 5.93706 7.06306L4.504 5.63H10.9951C11.3403 5.63 11.6201 5.35018 11.6201 5.005C11.6201 4.65983 11.3403 4.38 10.9951 4.38H4.504L5.93706 2.94695C6.18114 2.70287 6.18114 2.30714 5.93706 2.06306C5.69298 1.81899 5.29725 1.81899 5.05318 2.06306L2.90673 4.20951C2.46739 4.64885 2.46739 5.36116 2.90673 5.8005Z" fill="white" fill-opacity="0.87"/>
-                </svg>
                 <h1>Входные данные</h1>
+                <button type="button" style="min-width:10%; max-width:30%; margin-left:5%; " onclick="demonstrate()"> демо </button>
             </div>
             <p style="color: rgba(255, 255, 255, 0.87); margin: 0 0 12px;">Условия смешивания</p>
-            <table>
+            <table style="margin-bottom: 15px">
                 <tr style="background: #363A47;">
                     <td>
                         Температура, °С
@@ -35,7 +33,7 @@
                         {{form.Pressure}}
                     </td>
                 </tr>
-                <tr>
+                <tr style="background: #363A47;">
                     <td>
                         Доля первой жидкости, %
                     </td>
@@ -63,10 +61,10 @@
                             <td>
                                 Концентрация ионов
                             </td>
-                            <td>
+                            <td style="text-align:center;">
                                 моль/кг
                             </td>
-                            <td>
+                            <td style="text-align:center;">
                                 мг/л
                             </td>
                         </tr>
@@ -204,11 +202,10 @@
                             <td>
                                 Концентрация ионов
                             </td>
-                            <td>
-
+                            <td style="text-align:center;">
                                 моль/кг
                             </td>
-                            <td>
+                            <td style="text-align:center;">
                                 мг/л
                             </td>
                         </tr>
@@ -331,15 +328,16 @@
                 <button>Произвести расчет</button>
             </footer>
         </section>
-        <section name="результата расчета" style="padding: 0 25px 0;" >
+        {% if all_results %}
+        <section class="third-section__main" name="результата расчета">
             <div class="headerContainer">
                 <h1>Результаты расчетов</h1>
             </div>
             <section name="график" >
                 {{ graph|safe }}
             </section>
-            <section name="таблица">
-                <p style="color: rgba(255, 255, 255, 0.87);">Масса осадка, г/л</p>
+            <section class="third-section__child" name="таблица">
+
                 <div class="tables">
                     <table>
                         <tr style="background: #5C606A;">
@@ -435,6 +433,7 @@
                 </div>
             </section>
         </section>
+        {% endif %}
     </main>
     </form>
 <script src ="{% static 'js/salt/salt.js' %}"></script>

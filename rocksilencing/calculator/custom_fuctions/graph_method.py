@@ -46,8 +46,8 @@ def create_plot(results):
                       paper_bgcolor='#363a46',
                       font=dict(size = 14, color = "#aaaeb9"),
                       legend=dict(orientation="h", yanchor = "bottom", y=1.02, xanchor="center", x=0.5),
-                      width = 1700,
-                      height = 800,
+                      # width = 1700,
+                      # height = 800,
                       margin=dict(l=100, r=100, t=100, b=100, pad=0))
     # Название оси x, y
     fig.update_xaxes(title_text = "Доля первой воды, %",

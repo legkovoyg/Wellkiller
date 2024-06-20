@@ -7,40 +7,34 @@
 {% block content %}
 {% csrf_token %}
     <!-- header and sidebar ended-->
+<script src="{%static 'js/reagent/reagent_page.js'%}" defer></script>
     <main class="main__content">
         <section class="content__search">
-            <div>
-                <div class="search-header"> 
-                    <div class="search-box">  <!-- косяк с иконками, переносятся при масштабировании посмоотреть шаблоны исправить-->
-                        <i class="bx bx-search icon" ></i>
-                        <input type="text" name="search-box" id="" placeholder="Поиск">
-                        <i class="bx bx-plus icon" ></i>
+            <div class="tabs-wrapper" style="margin-left: 20px;">
+                <div class="tabs">
+                        <span class="tab">
+                            <i class="bx bx-chevron-right"></i>
+                            Системные
+                        </span>
                     </div>
-                </div>
-                <div class="search-info"> <!-- сделать выподающий список -->
-                    <div class="search-info-first">
-                        <i class="bx bx-chevron-down"></i>
-                        Системные
-                        {% for elem in bd_names_salts %}
-                        <i>{{ elem.name }}</i>
-                        {% endfor %}
+                <div class="tabs-items">
+                    <div class="item">
+                        <span class="btn" data-target="CaCl">CaCl</span>
+                        <span class="btn" data-target="CaЖГ">CaЖГ</span>
+                        <span class="btn" data-target="KCl">KCl</span>
                     </div>
-                    <div class="search-info-first">
-                        <i class="bx bx-chevron-down"></i>
-                        База солей
-                    </div>
-                    <div class="search-info-first">
-                        <i class="bx bx-chevron-down"></i>
-                        Пользовательские
-                    </div>
-                </div> 
 
-            </div>
-            
+                    </div>
+                <div class="custom">
+                    <i class="bx bx-chevron-right"></i>
+                    Пользовательские
+                </div>
+                </div>
+
+            <div>
         </section>
         <section class="content__table">
             <p class="header">Расходная норма</p>
-            <p class="header" style="color: rgba(255, 255, 255, 0.64);">CaCl / Данные по приготовлению</p>
             <div class="table-main">
                 <table>
                     <tr style="background: #5C606A;">
@@ -58,7 +52,7 @@
                         </td>
                     </tr>
                     {% for elem in bd_all_salts %}
-                    <tr style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %};">
+                    <tr id = "{{ elem.salt.name }}" style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;">
                         <td>
                             {{ elem.salt.name}}
                         </td>
@@ -77,9 +71,9 @@
                 </table>
             </div>
         </section>
-        <section class="content__features">
-            <p class="header">Свойства жидкости</p>
-            <table>
+        <section class="content__features" style="display:none;">
+            <p class="header" >Свойства жидкости</p>
+            <table id="CaCl" class="hidden">
                 <tr style="background: #292e3c;">
                     <td>
                         Название
@@ -101,7 +95,7 @@
                         Мин. плотность ЖГ, г/см³
                     </td>
                     <td>
-                        <p>1,01</p>
+                        <p>1.01</p>
                     </td>
                 </tr>
                 <tr style="background: #363A47;">
@@ -109,18 +103,94 @@
                         Макс. плотность ЖГ, г/см³
                     </td>
                     <td>
-                        <p>1,30</p>
+                        <p>1.29</p>
                     </td>
                 </tr>
                 <tr style="background: #292e3c;">
                     <td>
-                        Стоимость реаг. руб/кг
+                        Примечание
                     </td>
                     <td>
-                        <p>500</p>
+                        <p> - </p>
+                    </td>
+                </tr>
+            </table>
+            <table id="CaЖГ" class="hidden">
+                <tr style="background: #292e3c;">
+                    <td>
+                        Название
+                    </td>
+                    <td>
+                        <p>CaЖГ</p>
                     </td>
                 </tr>
                 <tr style="background: #363A47;">
+                    <td>
+                        Описание
+                    </td>
+                    <td>
+                        <p>Соль</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Мин. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1.31</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Макс. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1.6</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Примечание
+                    </td>
+                    <td>
+                        <p>-</p>
+                    </td>
+                </tr>
+            </table>
+            <table id="KCl" class="hidden">
+                <tr style="background: #292e3c;">
+                    <td>
+                        Название
+                    </td>
+                    <td>
+                        <p>KCl</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Описание
+                    </td>
+                    <td>
+                        <p>Соль</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
+                    <td>
+                        Мин. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1.006</p>
+                    </td>
+                </tr>
+                <tr style="background: #363A47;">
+                    <td>
+                        Макс. плотность ЖГ, г/см³
+                    </td>
+                    <td>
+                        <p>1.16</p>
+                    </td>
+                </tr>
+                <tr style="background: #292e3c;">
                     <td>
                         Примечание
                     </td>

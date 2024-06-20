@@ -1,5 +1,4 @@
-import plotly.express as px
-import pandas as pd
+
 import plotly.graph_objects as go
 
 
@@ -28,7 +27,7 @@ def create_matmodel_plot(Pressures, time):
                       font=dict(size=14, color="#aaaeb9"),
                       legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5),
                       margin=dict(l=100, r=100, t=100, b=100, pad=0))
-    fig.update_xaxes(title_text="Время обработки, сек",
+    fig.update_xaxes(title_text="Время обработки, мин",
                      gridcolor='#444854',
                      showline=False,
                      zeroline=False,

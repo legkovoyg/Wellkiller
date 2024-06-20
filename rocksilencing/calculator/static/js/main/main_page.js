@@ -14,6 +14,34 @@ document.querySelectorAll('.tabs-wrapper').forEach((e) => {
    }
  });
 
+document.getElementById('toggleIcon1').addEventListener('click', function() {
+    var containerTab = document.querySelector('.container__tab');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+document.getElementById('toggleIcon2').addEventListener('click', function() {
+    var containerTab = document.querySelector('.second_section');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+document.getElementById('toggleIcon3').addEventListener('click', function() {
+    var containerTab = document.querySelector('.third_section');
+    if (containerTab.style.display === 'none') {
+        containerTab.style.display = 'block';
+    } else {
+        containerTab.style.display = 'none';
+    }
+});
+
+
 
 // PLOT/GRAPH //
 
@@ -238,5 +266,70 @@ svg.append("text")
 .style("font-weight", "bold")
 .style("font-family", "inter")
 .text("Тестовый график для обучения(график численности заключенных)");
+
+
+function demonstrate(){
+var mest = document.getElementById("field")
+var field = document.getElementById("bush")
+var well_name = document.getElementById("well_name")
+var design_name = document.getElementById('design_name')
+var porosity = document.getElementById('id_Porosity')
+var oil_density = document.getElementById('id_Oil_density')
+var Plast_pressure = document.getElementById('id_Plast_pressure')
+var Radius_countour = document.getElementById("id_Radius_countour")
+var Plast_thickness = document.getElementById('id_Plast_thickness')
+var From_yst_to_plast = document.getElementById('id_From_yst_to_plast')
+var False_zaboi = document.getElementById('id_False_zaboi')
+var True_zaboi = document.getElementById('id_True_zaboi')
+var NKT_length = document.getElementById("id_NKT_length")
+var NKT_inner_diameter = document.getElementById("id_NKT_inner_diameter")
+var NKT_external_diameter = document.getElementById('id_NKT_external_diameter')
+var EXP_length = document.getElementById('id_EXP_length')
+var EXP_inner_diameter = document.getElementById('id_EXP_inner_diameter')
+var EXP_external_diameter = document.getElementById('id_EXP_external_diameter')
+var Volume_of_car = document.getElementById('id_Volume_of_car')
+var Debit = document.getElementById('id_Debit')
+var YV_density = document.getElementById("id_YV_density")
+var YV_dole = document.getElementById('id_YV_dole')
+var Emul_density = document.getElementById("id_Emul_density")
+var Emul_dole = document.getElementById('id_Emul_dole')
+var Phase_oil_permeability = document.getElementById('id_Phase_oil_permeability')
+var Phase_jgs_permeability = document.getElementById('id_Phase_jgs_permeability')
+var Oil_viscosity = document.getElementById('id_Oil_viscosity')
+var Jgs_viscosity = document.getElementById('id_Jgs_viscosity')
+var Zapas = document.getElementById("id_Zapas")
+
+
+mest.value = 'Самотлорское';
+field.value = '332'
+well_name.value = '8971'
+design_name.value = 'Дизайн 1'
+porosity.value = 0.2
+oil_density.value = 800
+Plast_pressure.value = 100
+Radius_countour.value = 250
+Plast_thickness.value = 10
+From_yst_to_plast.value = 1400
+False_zaboi.value = 1500
+True_zaboi.value = 1500
+NKT_length.value = 1400
+NKT_inner_diameter.value = 0.062
+NKT_external_diameter.value = 0.073
+EXP_length.value = 100
+EXP_inner_diameter.value = 0.15
+EXP_external_diameter.value = 0.163
+Volume_of_car.value = 20
+Debit.value = 0.01
+YV_density.value = 0.88
+YV_dole.value = 0.16
+Emul_density.value = 0.8
+Emul_dole.value = 0.04
+Phase_oil_permeability.value = 0.5
+Phase_jgs_permeability.value = 1.5
+Oil_viscosity.value = 0.005
+Jgs_viscosity.value = 0.001
+Zapas.value = 0.1
+console.log(mest.value)};
+
 
 

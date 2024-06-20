@@ -1,20 +1,19 @@
 *{
     color: #fff;
+
 }
 
 /* main content */
 
 .main__content{
-    margin-left: 88px;
-
     margin-bottom: 25px;
     margin-right: 0;
     display: flex;
     flex-direction: row;
+    margin-left: 88px;
 }
 
 section{
-    padding: 0 20px 0;
     width: 100%;
 }
 
@@ -29,11 +28,10 @@ section{
 .content__search{
     width: 40%;
     background-color: #222836;
-    height: 1200px;
-    margin-top: 0;
-    padding-top: 20px;
+    margin-top: 50px;
     overflow: hidden;
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
+    min-height:94vh;
 }
 
 .search-header{
@@ -66,8 +64,9 @@ section{
     margin-top: 30px;
 }
 
-.search-info-first{
+.custom{
     margin-bottom: 25px;
+    font-size: 78%;
 }
 
 
@@ -75,13 +74,13 @@ section{
 .content__table{
     /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
-    width: 150%;
-    margin-top: 20px;
-    padding: 0 15px 15px 15px;
+    width: 100%;
+    margin-top: 50px;
+    padding: 20px 15px 15px 15px;
 }
 .content__table td{
     text-align: center;
-
+    width: 25% ;
 }
 
 /* section 3 features*/
@@ -89,8 +88,9 @@ section{
 .content__features {
     font-size: 12px;
     font-weight: 400;
-    margin-top: 20px;
-    padding: 0 15px 15px 15px;
+    margin-top: 50px;
+    padding: 20px 15px 15px 15px;
+    width: 50%;
 }
 
 
@@ -106,8 +106,9 @@ table, th, td {
     border-collapse: collapse;
     padding: 6px 6px 6px 8px;
     color: rgba(255, 255, 255, 0.64);
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
+    width: 100%;
 }
 
 td{
@@ -138,4 +139,100 @@ td p{
 
 tr td p {
     color: #fff;
+}
+
+/* tabs изменено*/
+
+.tabs .tab{
+    display:inline-block;
+    padding:20px 0 20px;
+    cursor:pointer;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tabs-items .item{
+    display:none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+    margin-left: 10%; /* как поменять? подумать */
+    margin-right: 0%;
+}
+
+.tabs-items .item.on{
+    display: flex;
+    flex-direction: column;
+}
+.btn{
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 7px 18px 7px;
+    width: 90%;
+    border-radius: 10%;
+}
+.btn:hover{
+    background: #FFFFFF14;
+    border-radius: 3px;
+}
+
+.hidden {
+    display: none;
+}
+
+.bx-chevron-up{
+    color: #1D9A6C;
+}
+
+.bx-chevron-down{
+    color: #1D9A6C;
+}
+
+
+@media (max-width: 900px) {
+  .main__content {
+    flex-direction: column;
+margin-left: 0px;
+  }
+  .content__search{
+    width: auto;
+    margin-top: 0px;
+    min-height:0px;
+  }
+  .content__table{
+    margin-top: 0px;
+  }
+  td{
+    white-space: wrap;
+    font-size: 15px;
+  }
+  table{
+    table-layout: fixed;
+    width: 100%;
+    text-align: center;
+  }
+  .tabs .tab{
+  font-size: 16px;
+  }
+  .custom{
+    font-size: 16px;
+  }
+  .btn{
+    font-size: 80%;
+  }
+  .tabs-items .item{
+      padding-bottom: 0px;
+  }
+  .header{
+  font-size: 17px;
+  text-align: center;
+  }
+  .content__features{
+    margin-top: 0px;
+    width: 100%;
+  }
 }

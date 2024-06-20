@@ -19,14 +19,11 @@
 <body>
 <form method="POST" action='' enctype="multipart/form-data">
     <main class="mainContainer">
-        <section class="container__tab">
+        <section class="container__tab" style="width:100%">
             <div class="headerContainer">
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M0.995117 0C0.64994 0 0.370117 0.279822 0.370117 0.625V9.375C0.370117 9.72018 0.64994 10 0.995117 10C1.34029 10 1.62012 9.72018 1.62012 9.375V0.625C1.62012 0.279822 1.34029 0 0.995117 0ZM2.90673 5.8005L5.05318 7.94695C5.29725 8.19102 5.69298 8.19102 5.93706 7.94695C6.18114 7.70287 6.18114 7.30714 5.93706 7.06306L4.504 5.63H10.9951C11.3403 5.63 11.6201 5.35018 11.6201 5.005C11.6201 4.65983 11.3403 4.38 10.9951 4.38H4.504L5.93706 2.94695C6.18114 2.70287 6.18114 2.30714 5.93706 2.06306C5.69298 1.81899 5.29725 1.81899 5.05318 2.06306L2.90673 4.20951C2.46739 4.64885 2.46739 5.36116 2.90673 5.8005Z"
-                          fill="white" fill-opacity="0.87"/>
-                </svg>
+                <i id="toggleIcon1" class="bx bx-left-arrow-alt"></i>
                 <h1>Входные данные</h1>
+                <button type="button" style="min-width:10%; max-width:30%; margin-left:5%; " onclick="demonstrate()"> демо </button>
             </div>
             <!-- ТАБЫ -->
             <div id="app"></div>
@@ -39,7 +36,12 @@
                 </div>
                 <div class="tabs-items">
                     <div class="item">
-                        <p>Общие данные</p>
+                        <div class="button-header-tab">
+<!--                        <button class="func-button-tab">-->
+<!--                            button1-->
+<!--                        </button>-->
+                        </div>
+
                         <div class="item__tables">
                             <table>
                                 <tr style="background: #363A47;">
@@ -152,17 +154,8 @@
                         </div>
                     </div>
                     <div class="item">
-                        <p>Общие данные</p>
                         <div class="item__tables">
                             <table>
-<!--                                <tr style="background:  #363A47;">-->
-<!--                                    <td>-->
-<!--                                        Вертикальная длина скважины, м-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        {{ form.Well_length }}-->
-<!--                                    </td>-->
-<!--                                </tr>-->
                                 <tr style="background: #292e3c;">
                                     <td>
                                         Вертикальная длина труб НКТ, м
@@ -213,12 +206,12 @@
                                 </tr>
                                 <tr style="background: #292e3c;">
                                     <td>
-                                        Данные инклинометрии
+                                        Данные инклинометрии ЭК
                                     </td>
                                     <td>
                                         <form method="post" action="" enctype="multipart/form-data">
                                             {% csrf_token %}
-                                            <p><input style='background-color:red;' type="file" name = "file_upload"></p>
+                                            <input style="width:auto;" type="file" name = "file_upload">
                                             </form>
                                     </td>
                                 </tr>
@@ -226,6 +219,7 @@
                         </div>
                         <p></p>
                         <div class="item__tables">
+                            {% if excel_file %}
                             <table>
                                 <tr style="background: #5C606A;">
                                     <td>
@@ -277,12 +271,23 @@
                                 </tr>
                                 {% endfor %}
                             </table>
+                            {% endif %}
                         </div>
                         <!-- <p style="margin-top: 1em;">Траектория</p>   -->
 
                     </div>
                     <div class="item">
-                        <p>НКТ</p>
+                        <table>
+                                <tr style="background: #292e3c;">
+                                    <td>
+                                        Данные инклинометрии НКТ
+                                    </td>
+                                    <td>
+                                            <input style="width:auto;" type="file" name = "file_upload">
+                                    </td>
+                                </tr>
+                            </table>
+                        {% if type_of_glush %}
                         <div class="item__tables">
                             <table>
                                 <tr style="background: #5C606A;">
@@ -307,10 +312,12 @@
                                         <p>1</p>
                                     </td>
                                     <td>
-                                        <input id="md-up-nkt_1" type="text" style="background: #292e3c; width: 50px;">
+<!--                                        <input id="md-up-nkt_1" type="text" style="background: #292e3c; width: 50px;">-->
+                                        0
                                     </td>
                                     <td>
                                         <input id="md-down-nkt_1" type="text" style="background: #292e3c; width: 50px;">
+
                                     </td>
                                     <td>
                                         <input id="diameter-nkt_1" type="text"
@@ -320,82 +327,24 @@
                                         <input id="wall-thick-nkt_1" type="text"
                                                style="background: #292e3c; width: 50px;">
                                     </td>
-                                </tr>
-                                <tr style="background: #363A47;">
-                                    <td>
-                                        <p>2</p>
-                                    </td>
-                                    <td>
-                                        <input id="md-up-nkt_2" type="text" style="background: #363A47; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="md-down-nkt_2" type="text" style="background: #363A47; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="diameter-nkt_2" type="text"
-                                               style="background: #363A47; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="wall-thick-nkt_2" type="text"
-                                               style="background: #363A47; width: 50px;">
-                                    </td>
+                                    <script>
+                                            var true_nkt = document.getElementById("id_NKT_length")
+                                            var true_nkt_exp_d = document.getElementById('id_NKT_external_diameter')
+                                            var true_nkt_inner_d = document.getElementById('id_NKT_inner_diameter')
+                                            var false_nkt = document.getElementById('md-down-nkt_1')
+                                            var false_nkt_exp_d = document.getElementById('diameter-nkt_1')
+                                            var false_nkt_thick = document.getElementById('wall-thick-nkt_1')
+                                            false_nkt.value = true_nkt.value
+                                            false_nkt_exp_d.value = true_nkt_exp_d.value
+                                            false_nkt_thick.value = Math.round((true_nkt_exp_d.value - true_nkt_inner_d.value)*1000)
+                                        </script>
                                 </tr>
                             </table>
                         </div>
-                        <p style="margin-top: 1em;">Штанги</p>
-                        <div class="item__tables">
-                            <table>
-                                <tr style="background: #5C606A;">
-                                    <td>
-                                        №
-                                    </td>
-                                    <td title="единица измерения мм">
-                                        MD верх
-                                    </td>
-                                    <td title="единица измерения мм">
-                                        MD низ
-                                    </td>
-                                    <td title="единица измерения мм">
-                                        Внешний диаметр, м
-                                    </td>
-                                </tr>
-                                <tr style="background: #292e3c;">
-                                    <td>
-                                        <p>1</p>
-                                    </td>
-                                    <td>
-                                        <input id="md-up-rods_1" type="text" style="background: #292e3c; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="md-down-rods_1" type="text"
-                                               style="background: #292e3c; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="diameter-rods_1" type="text"
-                                               style="background: #292e3c; width: 50px;">
-                                    </td>
-                                </tr>
-                                <tr style="background: #363A47;">
-                                    <td>
-                                        <p>2</p>
-                                    </td>
-                                    <td>
-                                        <input id="md-up-rods_2" type="text" style="background: #363A47; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="md-down-rods_2" type="text"
-                                               style="background: #363A47; width: 50px;">
-                                    </td>
-                                    <td>
-                                        <input id="diameter-rods_2" type="text"
-                                               style="background: #363A47; width: 50px;">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                        {% endif %}
+
                     </div>
                     <div class="item">
-                        <p>Параметры агрегатов</p>
                         <div class="item__tables">
                             <table>
                                 <tr style="background: #363A47;">
@@ -529,57 +478,81 @@
                                         color: #fff;
                                         font-size: 13px;
                                         text-decoration: none;
-                                        margin-left: 10px;
+                                        margin-left: 2%;
+                                        margin-right: 2%;
                                         font-weight: 500;
                                         letter-spacing: 0px;
+                                        background-image: linear-gradient(10deg, #093028, #1d9a6c);
+                                        background-size: 200% 200%;
+                                        animation: gradient 10s ease infinite;
                                         cursor: pointer; " href="{% url 'download_report' %}">Скачать отчет</a>
                 <!--                        </tr>-->
+                {% if type_of_glush == 'direct' %}
+                <button id="restart_direct" type = "button" onclick = "restart_animation()"> Перезапустить анимацию </button>
+                <script>
+                    var button = document.getElementById('restart_direct');
+                button.addEventListener('click', function(){
+                var needed_div = document.getElementById("chart")
+                needed_div.innerHTML = '';
+                console.log(data);
+                direct_animation(data);
+                    });
+                </script>
+                {% else %}
+                <button id="restart_back" type = "button" onclick = "restart_animation()"> Перезапустить анимацию </button>
+                <script>
+                    var button = document.getElementById('restart_back');
+                button.addEventListener('click', function(){
+                var needed_div = document.getElementById("chart2")
+                needed_div.innerHTML = '';
+                console.log(data);
+                back_animation(data);
+                    });
+                </script>
+                {% endif %}
                 {% endif %}
             </footer>
 
 
             <!---->
         </section>
-
-
-        <section style="width: 1250px; padding: 0 25px 0; border-right: solid rgba(255, 255, 255, 0.08) 2px; ">
+        {% if current_results %}
+        <section class="second_section" >
             <header class="headerContainer">
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M0.995117 0C0.64994 0 0.370117 0.279822 0.370117 0.625V9.375C0.370117 9.72018 0.64994 10 0.995117 10C1.34029 10 1.62012 9.72018 1.62012 9.375V0.625C1.62012 0.279822 1.34029 0 0.995117 0ZM2.90673 5.8005L5.05318 7.94695C5.29725 8.19102 5.69298 8.19102 5.93706 7.94695C6.18114 7.70287 6.18114 7.30714 5.93706 7.06306L4.504 5.63H10.9951C11.3403 5.63 11.6201 5.35018 11.6201 5.005C11.6201 4.65983 11.3403 4.38 10.9951 4.38H4.504L5.93706 2.94695C6.18114 2.70287 6.18114 2.30714 5.93706 2.06306C5.69298 1.81899 5.29725 1.81899 5.05318 2.06306L2.90673 4.20951C2.46739 4.64885 2.46739 5.36116 2.90673 5.8005Z"
-                          fill="white" fill-opacity="0.87"/>
-                </svg>
+                <i id="toggleIcon2" class="bx bx-left-arrow-alt"></i>
                 <h1>Результаты расчетов</h1>
             </header>
             <div class="headerContainer__info">
-                <div style="margin: 0;">
+                <div class="first-info-result">
                     <p class="info-name">V обс. колонны</p>
                     <p id="total-column-volume" class="info-spec">{{current_results.FULL_EXP_volume}} м³</p>
                     <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
-                <div>
+                <div class="second-info-result">
                     <p class="info-name">V НКТ</p>
                     <p id="total-nkt-volume" class="info-spec">{{current_results.NKT_volume}} м³</p>
                     <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
-                <div>
+                <div class="third-info-result">
                     <p class="info-name">Рекомендуемый тип соли</p>
                     <p id="total-salt-type" class="info-spec">{{ design.DESIGN_chosen_salt_name }}</p>
                 </div>
-                <div>
+                <div class="fourth-info-result">
                     <p class="info-name">V жидкости глушения</p>
                     <p id="total-jamming-liquid-volume" class="info-spec">{{current_results.Vjg}} м³</p>
                     <!--в коде нужно сокранить м3 чтобы только число менялось!!!-->
                 </div>
-                <div>
+                <div class="five-info-result">
                     <p class="info-name">Плотность жидкости глушения</p>
                     <p id="total-liqiud-pressure" class="info-spec">{{ design.DESIGN_true_jgs_density}} г/см³</p>
                     <!--в коде нужно сокранить г/см3 чтобы только число менялось!!!-->
                 </div>
             </div>
             <section id="testtooltip"
-                     style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 25px; border-radius: 8px;">
-                {{ graph|safe }}
+                     style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 5px; border-radius: 8px;">
+                <div id = "graphPlotly">
+                     {{ graph|safe }}
+                    </div>
             </section>
             <section>
                 <!-- ТАБЫ -->
@@ -592,7 +565,6 @@
                     </div>
                     <div class="tabs-items">
                         <div class="item">
-                            <p>Общие результаты</p>
                             <div class="item__tables">
                                 <table>
                                     <tr style="background: #363A47;">
@@ -689,7 +661,6 @@
                             </div>
                         </div>
                         <div class="item">
-                            <p>Расчет объемов</p>
                             <div class="item__tables">
                                 <table>
                                     <tr style="background: #363A47;">
@@ -713,7 +684,7 @@
                                             Объем штанг, м³
                                         </td>
                                         <td>
-                                            <p id="rods-volume" style="background: #363A47;">-</p>
+                                            -
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -752,7 +723,6 @@
                             </div>
                         </div>
                         <div class="item">
-                            <p>Рецептура блок-пачки</p>
                             <div class="item__tables">
                                 <table>
                                     <tr style="background: #5C606A;">
@@ -763,13 +733,13 @@
                                             Объем, м³
                                         </td>
                                         <td>
-                                            Скорость закачки, м³/мин
+                                            Скорость зак, м³/мин
                                         </td>
                                         <td>
                                             Время закачки, мин
                                         </td>
                                         <td>
-                                            Время перемешения, час
+                                            Время пер-я, час
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -844,7 +814,6 @@
                             </div>
                         </div>
                         <div class="item">
-                            <p>Сценарии закачки</p>
                             <div class="item__tables">
                                 <table>
                                     <tr style="background: #5C606A;">
@@ -869,20 +838,16 @@
                                             Углеводородная основа, м³
                                         </td>
                                         <td>
-                                            <p id="stage-hydro-base_1" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_YV_st1 }}
+                                            <p id="stage-hydro-base_1" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_YV_st1 }}</p>
                                         </td>
                                         <td>
-                                            <p id="stage-hydro-base_2" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_YV_st2 }}
+                                            <p id="stage-hydro-base_2" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_YV_st2 }}</p>
                                         </td>
                                         <td>
-                                            <p id="stage-hydro-base_3" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_YV_st3 }}
+                                            <p id="stage-hydro-base_3" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_YV_st3 }}</p>
                                         </td>
                                         <td>
-                                            <p id="stage-hydro-base_4" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_YV_st4 }}
+                                            <p id="stage-hydro-base_4" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_YV_st4 }}</p>
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47;">
@@ -890,20 +855,20 @@
                                             Эмульгатор, м³
                                         </td>
                                         <td>
-                                            <p id="stage-emuls_1" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_EMUL_st1 }}
+                                            <p id="stage-emuls_1" style="background: #363A47;text-align:center;">{{ stages.RECIPE_EMUL_st1 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-emuls_2" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_EMUL_st2 }}
+                                            <p id="stage-emuls_2" style="background: #363A47;text-align:center;">{{ stages.RECIPE_EMUL_st2 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-emuls_3" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_EMUL_st3 }}
+                                            <p id="stage-emuls_3" style="background: #363A47;text-align:center;">{{ stages.RECIPE_EMUL_st3 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-emuls_4" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_EMUL_st4 }}
+                                            <p id="stage-emuls_4" style="background: #363A47;text-align:center;">{{ stages.RECIPE_EMUL_st4 }}</p>
+
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
@@ -911,20 +876,20 @@
                                             Объем сол. раствора, м³
                                         </td>
                                         <td>
-                                            <p id="stage-salt-volume_1" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_SOLERAST_st1 }}
+                                            <p id="stage-salt-volume_1" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_SOLERAST_st1 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-salt-volume_2" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_SOLERAST_st2 }}
+                                            <p id="stage-salt-volume_2" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_SOLERAST_st2 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-salt-volume_3" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_SOLERAST_st3 }}
+                                            <p id="stage-salt-volume_3" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_SOLERAST_st3 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-salt-volume_4" style="background: #292e3c;"></p>
-                                            {{ stages.RECIPE_SOLERAST_st4 }}
+                                            <p id="stage-salt-volume_4" style="background: #292e3c;text-align:center;">{{ stages.RECIPE_SOLERAST_st4 }}</p>
+
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
@@ -932,20 +897,20 @@
                                             Объем блок-пачки, м³
                                         </td>
                                         <td>
-                                            <p id="stage-block-volume_1" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_BP_st1 }}
+                                            <p id="stage-block-volume_1" style="background: #363A47;text-align:center;">{{ stages.RECIPE_BP_st1 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-block-volume_2" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_BP_st2 }}
+                                            <p id="stage-block-volume_2" style="background: #363A47;text-align:center;">{{ stages.RECIPE_BP_st2 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-block-volume_3" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_BP_st3 }}
+                                            <p id="stage-block-volume_3" style="background: #363A47;text-align:center;">{{ stages.RECIPE_BP_st3 }}</p>
+
                                         </td>
                                         <td>
-                                            <p id="stage-block-volume_4" style="background: #363A47;"></p>
-                                            {{ stages.RECIPE_BP_st4 }}
+                                            <p id="stage-block-volume_4" style="background: #363A47;text-align:center;">{{ stages.RECIPE_BP_st4 }}</p>
+
                                         </td>
                                     </tr>
                                 </table>
@@ -956,22 +921,18 @@
                 <!---->
             </section>
         </section>
-        <section style="padding: 0 25px 0">
+        <section class="third_section">
             <div class="headerContainer">
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M0.995117 0C0.64994 0 0.370117 0.279822 0.370117 0.625V9.375C0.370117 9.72018 0.64994 10 0.995117 10C1.34029 10 1.62012 9.72018 1.62012 9.375V0.625C1.62012 0.279822 1.34029 0 0.995117 0ZM2.90673 5.8005L5.05318 7.94695C5.29725 8.19102 5.69298 8.19102 5.93706 7.94695C6.18114 7.70287 6.18114 7.30714 5.93706 7.06306L4.504 5.63H10.9951C11.3403 5.63 11.6201 5.35018 11.6201 5.005C11.6201 4.65983 11.3403 4.38 10.9951 4.38H4.504L5.93706 2.94695C6.18114 2.70287 6.18114 2.30714 5.93706 2.06306C5.69298 1.81899 5.29725 1.81899 5.05318 2.06306L2.90673 4.20951C2.46739 4.64885 2.46739 5.36116 2.90673 5.8005Z"
-                          fill="white" fill-opacity="0.87"/>
-                </svg>
+                <i id="toggleIcon3" class="bx bx-left-arrow-alt"></i>
                 <h1>Конструкция</h1>
             </div>
             {% if type_of_glush == 'direct' %}
             <div>
-                <svg id="chart" width="500" height="2500"></svg>
+                <svg id="chart" width="250" height="2500"></svg>
             </div>
             {% else %}
             <div>
-                <svg id="chart2" width="500" height="2500"></svg>
+                <svg id="chart2" width="250" height="2000"></svg>
             </div><div id="chart"></div>
             {% endif %}
 
@@ -994,16 +955,17 @@
                 var data = JSON.parse('{{ data_for_animation|escapejs }}');
                 console.log(data);
                 document.addEventListener('DOMContentLoaded', (event) => {
-                if (typeof direct_animation === 'function') {
+                if (typeof back_animation === 'function') {
                     back_animation(data);
                 } else {
-                    console.error('direct_animation is not defined');
+                    console.error('back_animation is not defined');
                 }
             });
             </script>
             {% endif %}
 
         </section>
+        {% endif %}
 
     </main>
 </form>

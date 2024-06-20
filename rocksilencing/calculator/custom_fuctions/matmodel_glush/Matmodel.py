@@ -32,7 +32,7 @@ dt = 50
 
 def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT, D_NKT, d_exp, D_exp, Q, k_jg,
                    mu_jg, k_oil, mu_oil, Rk, m, dt, YV_density, YV_dole, emul_density, emul_dole, zapas, bd_CaCl,
-                   bd_CaJG, chosen_salt, volume_car, type_of_glush):
+                   bd_CaJG, chosen_salt, volume_car, type_of_glush, polynom):
     rc = d_exp / 2
     g = 9.81  # м/c**2mf.
     # Расчет параметров конструкции скважин
@@ -178,16 +178,28 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
 
 
     data_for_animation = []
-    data_for_animation.append({
-            "t":t_0,
-            "hnkt":init_oil_level_NKT,
-            "hkp":init_oil_level_KP,
-            "hek":init_oil_level_EXP,
-            "hnktjg":init_jgs_level_NKT,
-            "hkpjg":init_jgs_level_KP,
-            "hekjg":init_jgs_level_EXP,
-            "height":init_usl_h_yr
-    })
+    if polynom == 1:
+        data_for_animation.append({
+                "t":t_0,
+                "hnkt":init_oil_level_NKT,
+                "hkp":init_oil_level_KP,
+                "hek":init_oil_level_EXP,
+                "hnktjg":init_jgs_level_NKT,
+                "hkpjg":init_jgs_level_KP,
+                "hekjg":init_jgs_level_EXP,
+                "height":Length_of_Well-init_usl_h_yr
+        })
+    else:
+        data_for_animation.append({
+            "t": t_0,
+            "hnkt": polynom(init_oil_level_NKT),
+            "hkp": polynom(init_oil_level_KP),
+            "hek": polynom(init_oil_level_EXP),
+            "hnktjg": polynom(init_jgs_level_NKT),
+            "hkpjg": polynom(init_jgs_level_KP),
+            "hekjg": polynom(init_jgs_level_EXP),
+            "height": polynom(Length_of_Well - init_usl_h_yr)
+        })
     # Этап после инициализации, глушение началось
     t_1 = t_0 + dt
     stage_1_Vjg, stage_1_Vjg_reduced = mfCom.calculate_com_volume_of_jgs(debit=Q,
@@ -479,18 +491,28 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
     P_KP = [init_Pressure_KP, stage_1_Pressure_KP]
     P_EXP = [init_Pressure_EXP, stage_1_Pressure_EXP]
     time_to_glush = DESIGN_volume_glush / Q
-
-    data_for_animation.append({
-        "t": t_1,
-        "hnkt": stage_1_oil_level_NKT,
-        "hkp": stage_1_oil_level_KP,
-        "hek": stage_1_oil_level_EXP,
-        "hnktjg": stage_1_jgs_level_NKT,
-        "hkpjg": stage_1_jgs_level_KP,
-        "hekjg": stage_1_jgs_level_EXP,
-        "height": stage_1_h_yr
-    })
-
+    if polynom == 1:
+        data_for_animation.append({
+            "t": t_1,
+            "hnkt": stage_1_oil_level_NKT,
+            "hkp": stage_1_oil_level_KP,
+            "hek": stage_1_oil_level_EXP,
+            "hnktjg": stage_1_jgs_level_NKT,
+            "hkpjg": stage_1_jgs_level_KP,
+            "hekjg": stage_1_jgs_level_EXP,
+            "height": Length_of_Well-stage_1_h_yr
+        })
+    else:
+        data_for_animation.append({
+            "t": t_1,
+            "hnkt": polynom(stage_1_oil_level_NKT),
+            "hkp": polynom(stage_1_oil_level_KP),
+            "hek": polynom(stage_1_oil_level_EXP),
+            "hnktjg": polynom(stage_1_jgs_level_NKT),
+            "hkpjg": polynom(stage_1_jgs_level_KP),
+            "hekjg": polynom(stage_1_jgs_level_EXP),
+            "height": polynom(Length_of_Well - stage_1_h_yr)
+        })
 
     while t < time_to_glush:
         t = t + dt
@@ -638,16 +660,28 @@ def matmodel_glush(Plast_pressure, h, Length_of_Well, L_of_Wells, ro_oil, d_NKT,
         # f"ЭТО NKT_SPEED {NKT_speed}\n"
         # f"ЭТО KP SPEED {KP_speed}\n"
         # )
-        data_for_animation.append({
-            "t": t,
-            "hnkt": NKT_params.oil_height,
-            "hkp": KP_params.oil_height,
-            "hek": EXP_params.oil_height,
-            "hnktjg": NKT_params.jgs_height,
-            "hkpjg": KP_params.jgs_height,
-            "hekjg": EXP_params.jgs_height,
-            "height": All_common_calculations.h_yr
-        })
+        if polynom == 1:
+            data_for_animation.append({
+                "t": t,
+                "hnkt": NKT_params.oil_height,
+                "hkp": KP_params.oil_height,
+                "hek": EXP_params.oil_height,
+                "hnktjg": NKT_params.jgs_height,
+                "hkpjg": KP_params.jgs_height,
+                "hekjg": EXP_params.jgs_height,
+                "height":Length_of_Well-All_common_calculations.h_yr
+            })
+        else:
+            data_for_animation.append({
+                "t": t,
+                "hnkt": polynom(NKT_params.oil_height),
+                "hkp": polynom(KP_params.oil_height),
+                "hek": polynom(EXP_params.oil_height),
+                "hnktjg": polynom(NKT_params.jgs_height),
+                "hkpjg": polynom(KP_params.jgs_height),
+                "hekjg": polynom(EXP_params.jgs_height),
+                "height": polynom(Length_of_Well - All_common_calculations.h_yr)
+            })
     P_yst = [mfIn.pressure_format(x) for x in P_yst]
     P_friction = [mfIn.pressure_format(x) for x in P_friction]
     P_NKT = [mfIn.pressure_format(x) for x in P_NKT]

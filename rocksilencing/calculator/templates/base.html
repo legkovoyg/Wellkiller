@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    <header class="main-Header" style="background-color: #292E3C; position: relative; z-index: 101; width: 100%;">
+    <header class="main-Header" style="background-color: #292E3C; position: fixed; z-index: 101; width: 100%;">
 
         <div class="main-Header__leftContent" style="display: flex; align-items: center; ">
             {% if user.is_active %}
@@ -34,20 +34,14 @@
     <nav class="sidebar close">
         <header>
             <!-- название проекта и лого можно-->
-            <i class="bx bx-chevron-right toggle"></i>
+            <i class="bx bx-menu toggle"></i>
         </header>
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
                         <a href="{% url 'calculator' %}">
-                            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 2.5V15C5 16.3807 6.11929 17.5 7.5 17.5H12.5C13.8807 17.5 15 16.3807 15 15V2.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                                <path d="M10 2.5V12.5" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                                <path d="M1.25 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                                <path d="M18.75 2.5V8.75" stroke="white" stroke-width="1.5625" stroke-linecap="round"/>
-                                </svg>
-                                
+                            <i class="bx bx-git-repo-forked icon" ></i>
                             <span class="text nav-text">Новый расчет</span>
                         </a>
                     </li>
@@ -80,7 +74,6 @@
     </nav>
     <section class="home">
         {% block content %}
-
         {% endblock %}
     </section>
 

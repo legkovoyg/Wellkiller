@@ -25,9 +25,10 @@ SECRET_KEY = 'django-insecure-huvfj)&xrohe5+ba3(g_=1wh5r5u9g_45jh&luy_j**izy*j21
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+'http://legkovoy.fvds.ru', 'http://wellkilling.fvds.ru','http://78.24.220.67',
+]
 # Application definition
 
 INSTALLED_APPS = [

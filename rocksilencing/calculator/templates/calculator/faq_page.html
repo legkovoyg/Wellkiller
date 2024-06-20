@@ -2,9 +2,13 @@
 {% load static %}
 {% block styles %}
 <link type = "text/css" href="{%static 'css/salt/salt_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+<link type = "text/css" href="{%static 'css/faq_page/faq_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+<script src="{%static 'js/base/script.js'%}"></script>
 <title>FAQ</title>
 {% endblock %}
 {% block content %}
-    <iframe width="100%" height = "100%" src="{% static 'pdf/FAQQ.pdf' %}">
+    <div class = "divider">
+    <iframe width="100%" padding-left = "50px" height = "100%" src="{% static 'pdf/FAQ.pdf' %}">
    {% csrf_token %}
+        </div>
 {% endblock %}
