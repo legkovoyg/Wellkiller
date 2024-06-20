@@ -21,7 +21,13 @@ function direct_animation (data) {
         const maxHnkt = d3.max(data, function (d) {
             return +d.hnkt
         })
-
+        const maxHkpjg = d3.max(data, function (d) {
+            return +d.hkpjg
+        })
+        const maxHekjg = d3.max(data, function (d) {
+            return +d.hekjg
+        })
+        
         // console.log(maxHkp)
         // console.log(data)
         // for (var i = 0; i < data.length; i++) {
@@ -32,12 +38,12 @@ function direct_animation (data) {
         var svg = d3.select("#chart")
 
         var yScaleAllHeihgt = d3.scaleLinear()
-            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.height; })])
-            .range([1, height + margin.top]);
+            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return maxHkpjg; })])
+            .range([1, maxHkpjg]);
 
         var y_axis = d3.axisRight()
             .scale(yScaleAllHeihgt)
-            .ticks(30, "f")
+            .ticks(30, ".1f")
 
         svg.append("g") // высота скважины
             .attr("transform", "translate(180, 0)")
@@ -52,7 +58,7 @@ function direct_animation (data) {
 
         var yScaleHek = d3.scaleLinear()
             .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.hek; })])
-            .range([margin.top + maxHkp, margin.top + maxHkp + maxHek]);
+            .range([maxHkp, maxHkp + maxHek]);
 
         var y_axisHek = d3.axisRight()
             .scale(yScaleHek)
