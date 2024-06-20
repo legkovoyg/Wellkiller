@@ -315,12 +315,12 @@ function back_animation(data) {
         var height = maxHkp; // сделать генерацию свг
 
         var yScaleAllHeihgt = d3.scaleLinear()
-            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.height; })])
-            .range([1, height + margin.top]);
+            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return maxHkpjg; })])
+            .range([0, maxHkpjg  ]);
 
         var y_axis = d3.axisRight()
             .scale(yScaleAllHeihgt)
-            .ticks(30, "f")
+            .ticks(30, ".1f")
 
         svg.append("g") // высота скважины
             .attr("transform", "translate(180, 0)")
