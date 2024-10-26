@@ -97,9 +97,9 @@ def process_calculations(data, polynominal):
 def render_with_results(request, form, results, result, polynomial, form_data):
     current_results = results[0]
     time = [elem / 60 for elem in results[2]]
-    graph = create_matmodel_plot(results[1], time)
+    param_for_graph = results[1]
+    graph = create_matmodel_plot(param_for_graph, time)
     design, stages, recipes_all, data_for_animation = results[3], results[4], results[5], results[6]
-
     keys = ["Oil_field_name", 
     "Bush_name",
     "Well_name",
@@ -127,12 +127,22 @@ def render_with_results(request, form, results, result, polynomial, form_data):
     "Jgs_viscosity",
     "Zapas",
     "Type_of_jamming"]
+
     report_context = {key: form_data[key] for key in keys}
+    report_context['Phase_oil_permeability'] = report_context['Phase_oil_permeability'] * 10**12
+    report_context['Phase_jgs_permeability'] = report_context['Phase_jgs_permeability'] *  10**12 
+    print(data_for_animation)
     # Добавляем дополнительные элементы
     report_context.update({
     'design': design,
     'excel_file': result,
-    'data_for_animation': json.dumps(data_for_animation)
+    "param_for_graph" : param_for_graph,
+    "time" : time,
+    "graph": graph,
+    'stages': stages,
+    "recipes_all" : recipes_all,
+    'data_for_animation': json.dumps(data_for_animation),
+    "current_results": current_results,
     })
     request.session['report_context'] = report_context
     
@@ -165,6 +175,7 @@ def calculator_page(request):
         saved_data = request.session.get('report_context', None)
         form = ModelGlushForm(initial=saved_data if saved_data else None)
         return render(request, "calculator/main_page.html", {
+            'graph': saved_data.get('graph') if saved_data else None,
             "form": form,
             "current_results": saved_data.get('current_results') if saved_data else None,
             "design": saved_data.get('design') if saved_data else None,
