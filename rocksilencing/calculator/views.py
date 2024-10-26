@@ -53,12 +53,14 @@ def get_form_data(request):
         "Plast_pressure": float(request.POST["Plast_pressure"]),
         "Radius_countour": float(request.POST['Radius_countour']),
         "Plast_thickness": float(request.POST["Plast_thickness"]),
-        "Length_of_Well": float(request.POST["True_zaboi"]),
+        "From_yst_to_plast":float(request.POST["From_yst_to_plast"]),
+        "True_zaboi": float(request.POST["True_zaboi"]),
         "False_zaboi":float(request.POST["False_zaboi"]),
         # Колонна и скважина
-        "L_of_Wells": float(request.POST["NKT_length"]),
+        "NKT_length": float(request.POST["NKT_length"]),
         "NKT_inner_diameter": float(request.POST["NKT_inner_diameter"]),
         "NKT_external_diameter": float(request.POST["NKT_external_diameter"]),
+        "EXP_length":float(request.POST['EXP_length']),
         "EXP_inner_diameter": float(request.POST["EXP_inner_diameter"]),
         "EXP_external_diameter": float(request.POST["EXP_external_diameter"]),
 
@@ -85,7 +87,7 @@ def process_calculations(data, polynominal):
     bd_CaKCl = Solution.objects.filter(salt__name="KCl")
     
     results = matmodel_glush(
-        data['Plast_pressure'] * 101325, data['Plast_thickness'], data['Length_of_Well'], data['L_of_Wells'], data['Oil_density'], 
+        data['Plast_pressure'] * 101325, data['Plast_thickness'], data['True_zaboi'], data['NKT_length'], data['Oil_density'], 
         data['NKT_inner_diameter'], data['NKT_external_diameter'], data['EXP_inner_diameter'], data['EXP_external_diameter'], data['Debit'], data['Phase_jgs_permeability'], data['Jgs_viscosity'], 
         data['Phase_oil_permeability'], data['Oil_viscosity'], data['Radius_countour'], data['Porosity'], 30, data['YV_density'], data['YV_dole'], 
         data['Emul_density'], data['Emul_dole'], data['Zapas'], bd_CaCl, bd_CaJG, chosen_salt=data['Type_of_jgs'], 
@@ -110,8 +112,13 @@ def render_with_results(request, form, results, result, polynomial, form_data):
     "Plast_pressure",
     "Radius_countour",
     "Plast_thickness",
+    "From_yst_to_plast",
+    "True_zaboi",
+    "False_zaboi",
+    "NKT_length",
     "NKT_inner_diameter",
     "NKT_external_diameter",
+    "EXP_length",
     "EXP_inner_diameter",
     "EXP_external_diameter",
     "Volume_of_car",
@@ -128,23 +135,23 @@ def render_with_results(request, form, results, result, polynomial, form_data):
     "Zapas",
     "Type_of_jamming"]
 
-    report_context = {key: form_data[key] for key in keys}
-    report_context['Phase_oil_permeability'] = report_context['Phase_oil_permeability'] * 10**12
-    report_context['Phase_jgs_permeability'] = report_context['Phase_jgs_permeability'] *  10**12 
-    print(data_for_animation)
+    session_context = {key: form_data[key] for key in keys}
+    session_context['Phase_oil_permeability'] = session_context['Phase_oil_permeability'] * 10**12
+    session_context['Phase_jgs_permeability'] = session_context['Phase_jgs_permeability'] *  10**12 
     # Добавляем дополнительные элементы
-    report_context.update({
+    session_context.update({
     'design': design,
     'excel_file': result,
     "param_for_graph" : param_for_graph,
     "time" : time,
     "graph": graph,
     'stages': stages,
+    'type_of_glush': session_context['Type_of_jamming'],
     "recipes_all" : recipes_all,
     'data_for_animation': json.dumps(data_for_animation),
     "current_results": current_results,
     })
-    request.session['report_context'] = report_context
+    request.session['session_context'] = session_context
     
 
     return render(request, "calculator/main_page.html", {
@@ -153,6 +160,7 @@ def render_with_results(request, form, results, result, polynomial, form_data):
         "current_results": current_results,
         "graph": graph,
         "design": design,
+        "type_of_glush": session_context['Type_of_jamming'],
         "stages": stages,
         "recipes_all": recipes_all,
         "show_download_button": True,
@@ -172,11 +180,12 @@ def calculator_page(request):
         else:
             print(form.errors)
     else:
-        saved_data = request.session.get('report_context', None)
+        saved_data = request.session.get('session_context', None)
         form = ModelGlushForm(initial=saved_data if saved_data else None)
         return render(request, "calculator/main_page.html", {
             'graph': saved_data.get('graph') if saved_data else None,
             "form": form,
+            "type_of_glush": saved_data.get('type_of_glush') if saved_data else None,
             "current_results": saved_data.get('current_results') if saved_data else None,
             "design": saved_data.get('design') if saved_data else None,
             "stages": saved_data.get('stages') if saved_data else None,
@@ -189,11 +198,11 @@ def calculator_page(request):
 
 # Скачивание отчета
 def download_report(request):
-    report_context = request.session.get('report_context')
-    if not report_context:
+    session_context = request.session.get('session_context')
+    if not session_context:
         return redirect('calculator_page')  # Перенаправление, если контекста нет
 
-    if report_context['design']['DESIGN_chosen_salt_name'] != 'без соли':
+    if session_context['design']['DESIGN_chosen_salt_name'] != 'без соли':
         # Построение пути к файлу шаблона
         template_path = os.path.join(settings.BASE_DIR, 'calculator', 'report_templates', 'report_template_salt.docx')
         logging.debug(f"Template path: {template_path}")
@@ -208,7 +217,7 @@ def download_report(request):
 
     # Загрузка шаблона и вставка данных
     doc = DocxTemplate(template_path)
-    doc.render(report_context)
+    doc.render(session_context)
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     response['Content-Disposition'] = 'attachment; filename="report.docx"'
     doc.save(response)
