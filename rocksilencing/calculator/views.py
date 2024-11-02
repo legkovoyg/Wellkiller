@@ -287,31 +287,46 @@ def scale_calculator_page(request):
                                                Na_2, Ba_1, Ba_2, Sr_1, Sr_2, pH_1, pH_2, ro_1, ro_2, Temperature,
                                                Pressure, each_elem)
                 all_results.append(result)
+            
             graph = create_plot(all_results)
+            salt_session_context = {}
+            # Добавляем дополнительные элементы
+            salt_session_context.update({
+            'form': form,
+            'form_2': form_2,
+            "all_results" : all_results,
+            "custom_Part_of_Mixture": custom_Part_of_Mixture,
+            'graph': graph
+            })
+            request.session['salt_session_context'] = salt_session_context
             return render(request, "calculator/salt.html", {"form": form,"form_2":form_2,
                                                             "all_results": all_results,
                                                             "custom_Part_of_Mixture": custom_Part_of_Mixture,
                                                             'graph': graph})
     else:
-        form = Scale_Calculator_form_1()
-        form_2 = Scale_Calculator_form_2()
-
-    return render(request, "calculator/salt.html", {"form": form, "form_2": form_2})
+        salt_saved_data = request.session.get('salt_session_context', None)
+        form = Scale_Calculator_form_1(initial=salt_saved_data if salt_saved_data else None)
+        form_2 = Scale_Calculator_form_2(initial=salt_saved_data if salt_saved_data else None)
+        return render(request, "calculator/salt.html", {
+            'graph': salt_saved_data.get('graph') if salt_saved_data else None,
+            "form": form,
+            "form_2":form_2,
+            "all_results": salt_saved_data.get('all_results') if salt_saved_data else None,
+            "custom_Part_of_Mixture": salt_saved_data.get('custom_Part_of_Mixture') if salt_saved_data else None,
+        })
+    # return render(request, "calculator/salt.html", {"form": form, "form_2": form_2})
 
 
 # База реагентов
 def reagent_base_page(request):
     bd_all_salts = Solution.objects.all()
     bd_names_salts = Salt.objects.all()
-    # print(bd_all_salts)
-    # print(bd_names_salts)
     return render(request, 'calculator/reagent_page.html',
                   {"bd_all_salts": bd_all_salts, "bd_names_salts": bd_names_salts})
 
 
 def history_page(request):
     return HttpResponse("Страница истории")
-
 
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
