@@ -78,7 +78,7 @@ def calculator_page(request):
             stages = results[4]
             recipes_all = results[5]
             data_for_animation = results[6]
-            print(data_for_animation)
+            
             if excel_file:
                 request.session['report_context'] = {
                     'Q': Q,

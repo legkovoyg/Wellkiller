@@ -26,7 +26,10 @@ def create_matmodel_plot(Pressures, time):
                       paper_bgcolor='#363a46',
                       font=dict(size=14, color="#aaaeb9"),
                       legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5),
-                      margin=dict(l=100, r=100, t=100, b=100, pad=0))
+                      margin=dict(l=100, r=50, t=100, b=100, pad=0),
+                    #   width = 1000,
+                    #   height = 500
+                    )
     fig.update_xaxes(title_text="Время обработки, мин",
                      gridcolor='#444854',
                      showline=False,
@@ -45,4 +48,11 @@ def create_matmodel_plot(Pressures, time):
                      griddash='dash',
                      )
     html_div = fig.to_html(full_html=False)
-    return html_div
+    html_with_container = f"""
+    <div style="width:100%; height: auto; overflow-x: auto; margin: auto;" >
+        {html_div}
+    </div>
+    """
+    
+    return html_with_container
+   
