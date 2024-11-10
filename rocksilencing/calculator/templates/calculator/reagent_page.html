@@ -1,204 +1,121 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block styles %}
-<link type = "text/css" href="{%static 'css/reagent_base/reagent_page.css'%}" rel = "stylesheet" crossorigin="anonymous">
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+	type="text/css"
+	href="{%static 'css/reagent_base/reagent_page.css'%}"
+	rel="stylesheet"
+	crossorigin="anonymous"
+/>
 <title>База реагентов</title>
-{% endblock %}
-{% block content %}
-{% csrf_token %}
-    <!-- header and sidebar ended-->
+{% endblock %} {% block content %} {% csrf_token %}
+<!-- header and sidebar ended-->
 <script src="{%static 'js/reagent/reagent_page.js'%}" defer></script>
-    <main class="main__content">
-        <section class="content__search">
-            <div class="tabs-wrapper" style="margin-left: 20px;">
-                <div class="tabs">
-                        <span class="tab">
-                            <i class="bx bx-chevron-right"></i>
-                            Системные
-                        </span>
-                    </div>
-                <div class="tabs-items">
-                    <div class="item">
-                        <span class="btn" data-target="CaCl">CaCl</span>
-                        <span class="btn" data-target="CaЖГ">CaЖГ</span>
-                        <span class="btn" data-target="KCl">KCl</span>
-                    </div>
+<main class="main__content">
+	<section class="content__search">
+		<div class="tabs-wrapper" style="margin-left: 20px">
+			<div class="tabs">
+				<span class="tab">
+					<i class="bx bx-chevron-right"></i>
+					Системные
+				</span>
 
-                    </div>
-                <div class="custom">
-                    <i class="bx bx-chevron-right"></i>
-                    Пользовательские
-                </div>
-                </div>
+				<div class="inner-tabs">
+					<span class="inner-tab-salt">
+						<i class="bx bx-chevron-right"></i>
+						База солей
+					</span>
 
-            <div>
-        </section>
-        <section class="content__table">
-            <p class="header">Расходная норма</p>
-            <div class="table-main">
-                <table>
-                    <tr style="background: #5C606A;">
-                        <td>
-                            Название соли
-                        </td>
-                        <td>
-                            Плотность раствора, г/см³
-                        </td>
-                        <td>
-                            Расход соли, кг/м³
-                        </td>
-                        <td>
-                            Расход пресной воды, л/м³
-                        </td>
-                    </tr>
-                    {% for elem in bd_all_salts %}
-                    <tr id = "{{ elem.salt.name }}" style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;">
-                        <td>
-                            {{ elem.salt.name}}
-                        </td>
-                        <td>
-                            {{ elem.density }}
-                        </td>
-                        <td>
-                            {{ elem.salt_consumption }}
-                        </td>
-                        <td>
-                            {{ elem.water_consumption }}
-                        </td>
-                    </tr>
-                    {% endfor %}
+					<div class="tabs-items">
+						{% for salt in bd_names_salts %}
+						<span class="btn" data-target="{{ salt.name|slugify }}"
+							>{{ salt.name }}</span
+						>
+						{% endfor %}
+					</div>
 
-                </table>
-            </div>
-        </section>
-        <section class="content__features" style="display:none;">
-            <p class="header" >Свойства жидкости</p>
-            <table id="CaCl" class="hidden">
-                <tr style="background: #292e3c;">
-                    <td>
-                        Название
-                    </td>
-                    <td>
-                        <p>CaCl</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Описание
-                    </td>
-                    <td>
-                        <p>Соль</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Мин. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.01</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Макс. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.29</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Примечание
-                    </td>
-                    <td>
-                        <p> - </p>
-                    </td>
-                </tr>
-            </table>
-            <table id="CaЖГ" class="hidden">
-                <tr style="background: #292e3c;">
-                    <td>
-                        Название
-                    </td>
-                    <td>
-                        <p>CaЖГ</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Описание
-                    </td>
-                    <td>
-                        <p>Соль</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Мин. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.31</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Макс. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.6</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Примечание
-                    </td>
-                    <td>
-                        <p>-</p>
-                    </td>
-                </tr>
-            </table>
-            <table id="KCl" class="hidden">
-                <tr style="background: #292e3c;">
-                    <td>
-                        Название
-                    </td>
-                    <td>
-                        <p>KCl</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Описание
-                    </td>
-                    <td>
-                        <p>Соль</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Мин. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.006</p>
-                    </td>
-                </tr>
-                <tr style="background: #363A47;">
-                    <td>
-                        Макс. плотность ЖГ, г/см³
-                    </td>
-                    <td>
-                        <p>1.16</p>
-                    </td>
-                </tr>
-                <tr style="background: #292e3c;">
-                    <td>
-                        Примечание
-                    </td>
-                    <td>
-                        <p>-</p>
-                    </td>
-                </tr>
-            </table>
-        </section>
-    </main>
+					<span class="inner-tab">
+						<i class="bx bx-chevron-right"></i>
+						База ПАВ
+					</span>
+
+					<span class="inner-tab">
+						<i class="bx bx-chevron-right"></i>
+						База ингибиторов
+					</span>
+				</div>
+
+				<span class="tab">
+					<i class="bx bx-chevron-right"></i>
+					Пользовательские
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="content-info">
+		<section class="content__table">
+			<p class="header">Расходная норма</p>
+			<div class="table-main">
+				<table>
+					<tr style="background: #5c606a">
+						<td>Название соли</td>
+						<td>Плотность раствора, г/см³</td>
+						<td>Расход соли, кг/м³</td>
+						<td>Расход пресной воды, л/м³</td>
+					</tr>
+					{% for elem in bd_all_solutions %}
+					<tr
+						id="{{ elem.salt.name|slugify }}"
+						style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
+					>
+						<td>{{ elem.salt.name}}</td>
+						<td>{{ elem.density }}</td>
+						<td>{{ elem.salt_consumption }}</td>
+						<td>{{ elem.water_consumption }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</section>
+		<section class="salt-base-graph">
+			<p class="header">График</p>
+		</section>
+	</section>
+	<section class="content__features" style="display: none">
+		<p class="header">Свойства жидкости</p>
+		{% for salt in bd_names_salts %}
+		<table id="{{ salt.name|slugify }}" class="hidden">
+			<tr style="background: #292e3c">
+				<td>Название</td>
+				<td>
+					<p>{{ salt.name }}</p>
+				</td>
+			</tr>
+			<tr style="background: #363a47">
+				<td>Описание</td>
+				<td>
+					<p>{{ salt.description }}</p>
+				</td>
+			</tr>
+			<tr style="background: #292e3c">
+				<td>Мин. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.min_density }}</p>
+				</td>
+			</tr>
+			<tr style="background: #363a47">
+				<td>Макс. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.max_density }}</p>
+				</td>
+			</tr>
+			<tr style="background: #292e3c">
+				<td>Примечание</td>
+				<td>
+					<p>{{ salt.note }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+	</section>
+</main>
 {% endblock %}
