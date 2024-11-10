@@ -156,17 +156,17 @@ class ModelGlushForm(forms.Form):
     # Well_length = forms.FloatField(label="", widget=forms.NumberInput(
     #     attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     NKT_length = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c; text-align: end;"}))
     EXP_length = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;text-align: end;"}))
     NKT_inner_diameter = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;text-align: end;"}))
     NKT_external_diameter = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;text-align: end;"}))
     EXP_inner_diameter = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #292e3c;text-align: end;"}))
     EXP_external_diameter = forms.FloatField(label="", widget=forms.NumberInput(
-        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;text-align: end;"}))
     Volume_of_car = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     Debit = forms.FloatField(label="", widget=forms.NumberInput(

@@ -67,13 +67,11 @@ section{
 .custom{
     margin-bottom: 25px;
     font-size: 78%;
-    display: flex;
-    align-items: center;
 }
 
 
 /* section 2 table*/
-.content-info{
+.content__table{
     /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
     width: 100%;
@@ -84,9 +82,7 @@ section{
     text-align: center;
     width: 25% ;
 }
-.salt-base-graph{
-    padding-top:20px;
-}
+
 /* section 3 features*/
 
 .content__features {
@@ -146,62 +142,36 @@ tr td p {
 }
 
 /* tabs изменено*/
-.table-main{
-    overflow-y: auto;
-    height: 45vh;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-.table-main::-webkit-scrollbar{
-    display:none;
-}
 
-.tab{
+.tabs .tab{
+    display:inline-block;
+    padding:20px 0 20px;
     cursor:pointer;
     color: rgba(255, 255, 255, 0.87);
     font-size: 12px;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-}
-.inner-tabs{
-    display: none;
-    
-}
-.inner-tabs.on{
-    display: flex;
-    flex-direction: column;
-    cursor:pointer;
-    color: rgba(255, 255, 255, 0.87);
-    font-size: 12px;
-    font-weight: 500;
-    margin-left: 2em;
 }
 
-.tabs-items{
+.tabs-items .item{
     display:none;
     color: rgba(255, 255, 255, 0.87);
     font-size: 20px;
     font-weight: 500;
-
+    padding-bottom: 20px;
+    margin-left: 10%; /* как поменять? подумать */
+    margin-right: 0%;
 }
-.tabs-items.on{
+
+.tabs-items .item.on{
     display: flex;
     flex-direction: column;
-    ;
-    
 }
- span{
-    display: flex;
-    align-items: center;
-    margin-top:20px
- }
 .btn{
+    margin-bottom: 10px;
     cursor: pointer;
     font-size: 12px;
     font-weight: 400;
-    padding: 7px 1.5em 7px;
-    margin-left: 1.5em;
+    padding: 7px 18px 7px;
     width: 90%;
     border-radius: 10%;
 }
@@ -214,12 +184,14 @@ tr td p {
     display: none;
 }
 
+.bx-chevron-up{
+    color: #1D9A6C;
+}
+
 .bx-chevron-down{
     color: #1D9A6C;
 }
-i{
-    font-size: 20px;
-}
+
 
 @media (max-width: 900px) {
   .main__content {
@@ -248,7 +220,6 @@ margin-left: 0px;
   }
   .custom{
     font-size: 16px;
-
   }
   .btn{
     font-size: 80%;

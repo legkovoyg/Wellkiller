@@ -1,43 +1,8 @@
-document.querySelectorAll('.tabs-wrapper').forEach((e)=>{
-    let tabs = e.querySelectorAll('.tab');
-    let innerTabs = e.querySelectorAll('.inner-tabs');
-    let innerTab = e.querySelectorAll('.inner-tabs span');
-    let btn = e.querySelectorAll('.tabs-items');
-    let bxSalt = e.querySelectorAll('.inner-tab-salt i');
-    let icons = e.querySelectorAll('.tabs i');
-    let buttons = e.querySelectorAll('.btn');
-    for(let i = 0; i < tabs.length; i++) {
-        tabs[i].onclick = () => {
-            if(tabs[i].classList.contains('on')) { 
-                tabs[i].classList.remove('on');
-                innerTabs[i].classList.remove('on')
-                icons[i].classList.remove('bx-chevron-down');
-                icons[i].classList.add('bx-chevron-right');
-            } else {
-                tabs[i].classList.add('on');
-                innerTabs[i].classList.add('on')
-                icons[i].classList.remove('bx-chevron-right');
-                icons[i].classList.add('bx-chevron-down');
-            
-            }
-        }
-    }
-
-    for(let i = 0; i <  innerTab.length; i++) {
-        innerTab[i].onclick = () => {
-            if(innerTab[i].classList.contains('on')) { 
-                innerTab[i].classList.remove('on');
-                btn[i].classList.remove('on');
-                bxSalt[i].classList.remove('bx-chevron-down');
-                bxSalt[i].classList.add('bx-chevron-right');
-            } else {
-                innerTab[i].classList.add('on');
-                btn[i].classList.add('on');
-                bxSalt[i].classList.remove('bx-chevron-right');
-                bxSalt[i].classList.add('bx-chevron-down');
-            }
-        }
-    }
+document.querySelectorAll('.tabs-wrapper').forEach((e) => {
+    let tabTabs = e.querySelectorAll('.tabs .tab');
+    let tabItems = e.querySelectorAll('.tabs-items .item');
+    let icons = e.querySelectorAll('.tabs .tab i');
+    let buttons = e.querySelectorAll('.tabs-items .item .btn');
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             let target = btn.getAttribute('data-target');
@@ -63,4 +28,23 @@ document.querySelectorAll('.tabs-wrapper').forEach((e)=>{
             if (header.style.display == 'none'){
             header.style.display = 'block';}
     })});
-})
+    for(let i = 0; i < tabTabs.length; i++) {
+        tabTabs[i].onclick = () => {
+            if(tabTabs[i].classList.contains('on')) { 
+                tabTabs[i].classList.remove('on');
+                tabItems[i].classList.remove('on');
+                icons[i].classList.remove('bx-chevron-up');
+                icons[i].classList.add('bx-chevron-right');
+            } else {
+                tabTabs.forEach((e) => { e.classList.remove('on') }); 
+                tabItems.forEach((e) => { e.classList.remove('on') });
+                icons.forEach((e) => { e.classList.remove('bx-chevron-up') });
+                icons.forEach((e) => { e.classList.add('bx-chevron-right') });
+                tabTabs[i].classList.add('on');
+                tabItems[i].classList.add('on');
+                icons[i].classList.remove('bx-chevron-right');
+                icons[i].classList.add('bx-chevron-up');
+            }
+        }
+    }
+});
