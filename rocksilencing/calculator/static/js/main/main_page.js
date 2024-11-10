@@ -1,4 +1,14 @@
 // tabs //
+document.getElementById('input__file').addEventListener ('change', function() {
+  var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
+  document.getElementById('file-name-text').textContent = fileName;
+  document.getElementById }
+);
+document.getElementById('input__file-NKT').addEventListener ('change', function() {
+  var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
+  document.getElementById('file-name-text-NKT').textContent = fileName;
+  document.getElementById }
+);
 
 document.querySelectorAll('.tabs-wrapper').forEach((e) => {
   let tabTabs = e.querySelectorAll('.tabs .tab');
