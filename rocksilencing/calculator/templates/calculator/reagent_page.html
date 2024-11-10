@@ -62,7 +62,7 @@
 						<td>Расход соли, кг/м³</td>
 						<td>Расход пресной воды, л/м³</td>
 					</tr>
-					{% for elem in bd_all_salts %}
+					{% for elem in bd_all_solutions %}
 					<tr
 						id="{{ elem.salt.name|slugify }}"
 						style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
