@@ -552,9 +552,24 @@
             </div>
             <section id="testtooltip"
                      style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 5px; border-radius: 8px;">
-                <div id = "graphPlotly">
-                     {{ graph|safe }}
+                     <div id="graphPlotly">
+                        {{ graph|safe }}
                     </div>
+                    <script>
+                        function resizeGraph() {
+                            const graphContainer = document.getElementById('graphPlotly');
+                            if (graphContainer) {
+                                Plotly.Plots.resize(graphContainer.querySelector('.plotly-graph-div'));
+                            }
+                        }
+                    
+                        // Перерисовка графика при загрузке страницы
+                        document.addEventListener('DOMContentLoaded', resizeGraph);
+                    
+                        // Перерисовка при изменении размера окна
+                        window.addEventListener('resize', resizeGraph);
+                    </script>
+                    
             </section>
             <section>
                 <!-- ТАБЫ -->
