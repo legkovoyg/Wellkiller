@@ -487,7 +487,9 @@
             <footer class="tabs-first__footer-buttons" style="display:flex; ">
 
                 <button>Произвести расчет</button>
-                {% if show_download_button %}
+
+                {% comment %} Может пригодиться {% endcomment %}
+                {% comment %} {% if show_download_button %}
                 <!--                        <tr style="background: #363A47; ">-->
                 <a class="download_rep"  href="{% url 'download_report' %}">Скачать отчет</a>
                 <!--                        </tr>-->
@@ -516,7 +518,7 @@
 
             
                 {% endif %}
-                {% endif %}
+                {% endif %} {% endcomment %}
             </footer>
 
 
