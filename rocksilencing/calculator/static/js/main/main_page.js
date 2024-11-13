@@ -1,4 +1,5 @@
 // tabs //
+
 document.getElementById('input__file').addEventListener ('change', function() {
   var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
   document.getElementById('file-name-text').textContent = fileName;
@@ -51,6 +52,22 @@ document.getElementById('toggleIcon3').addEventListener('click', function() {
     }
 });
 
+const svgImage = document.querySelectorAll(".main-svg")
+console.log(svgImage);
+const pressureGraph = document.getElementById("pressure_graph")
+const graphSelect = document.getElementById('graph_select')
+graphSelect.addEventListener('change', function(){
+  if (graphSelect.value === "pressure_graph"){
+    for(let i=0; i <= svgImage.length; i++){
+      svgImage[i].classList.remove("hidden")
+      svgImage[i].classList.add("visible")
+    }
+  } else {
+    for(let i=0; i < svgImage.length; i++){
+      svgImage[i].classList.remove("visible")
+      svgImage[i].classList.add("hidden")    }
+  }
+})
 
 
 // PLOT/GRAPH //

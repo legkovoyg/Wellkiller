@@ -537,3 +537,12 @@ console.log(maxHek)
         }
     }
 
+const wellConstruction = document.querySelectorAll(".well-contruction")
+    wellConstruction.forEach(function(well) {
+  well.addEventListener('click', function() {
+    var needed_div = document.getElementById("chart");
+    needed_div.innerHTML = '';
+    console.log(data);
+    direct_animation(data);
+  });
+});

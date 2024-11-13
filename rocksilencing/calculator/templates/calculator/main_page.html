@@ -21,8 +21,10 @@
     <main class="mainContainer">
         <section class="container__tab" style="width:100%">
             <div class="headerContainer">
+<div class = "header_left_block">
                 <i id="toggleIcon1" class="bx bx-left-arrow-alt"></i>
                 <h1>Входные данные</h1>
+</div>
                 <button type="button" style="min-width:10%; max-width:30%; margin-left:5%; " onclick="demonstrate()"> демо </button>
             </div>
             <!-- ТАБЫ -->
@@ -216,8 +218,8 @@
                                             {% csrf_token %}
                                             <div class="input__wrapper">
                                                 <input name="file_upload" type="file" id="input__file" class="input input__file" multiple>
-                                                <label  <label for="input__file" class="input__file-button">
-                                                   <span class="input__file-icon-wrapper"><img class="input__file-icon" src="{%static 'images/main/upload.png'%}"  alt="Выбрать файл" ></span>
+                                                <label for="input__file" class="input__file-button">
+                                                   <span class="input__file-icon-wrapper"><img class="input__file-icon" src="{%static 'images/main/upload.svg'%}"  alt="Выбрать файл" ></span>
                                                    <span class="input__file-button-text" id = "file-name-text">Импорт</span>
                                                 </label>    
                                                 </div> 
@@ -297,7 +299,7 @@
                                             <input name="file_upload" type="file" id="input__file-NKT" class="input input__file" multiple>
                                             <label  <label for="input__file-NKT" class="input__file-button">
                                                <span class="input__file-icon-wrapper">
-                                                    <img class="input__file-icon" src="{%static 'images/main/upload.png'%}"  alt="Выбрать файл" >
+                                                    <img class="input__file-icon" src="{%static 'images/main/upload.svg'%}"  alt="Выбрать файл" >
                                                 </span>
                                                <span class="input__file-button-text" id="file-name-text-NKT">Импорт</span>
                                             </label>    
@@ -490,7 +492,7 @@
                 <a class="download_rep"  href="{% url 'download_report' %}">Скачать отчет</a>
                 <!--                        </tr>-->
                 {% if type_of_glush == 'direct' %}
-                <button id="restart_direct" type = "button" onclick = "restart_animation()"> Перезапустить анимацию </button>
+                <button id="restart_direct" type = "button"> Перезапустить анимацию </button>
                 <script>
                     var button = document.getElementById('restart_direct');
                 button.addEventListener('click', function(){
@@ -501,7 +503,7 @@
                     });
                 </script>
                 {% else %}
-                <button id="restart_back" type = "button" onclick = "restart_animation()"> Перезапустить анимацию </button>
+                <button id="restart_back" type = "button"> Перезапустить анимацию </button>
                 <script>
                     var button = document.getElementById('restart_back');
                 button.addEventListener('click', function(){
@@ -511,6 +513,8 @@
                 back_animation(data);
                     });
                 </script>
+
+            
                 {% endif %}
                 {% endif %}
             </footer>
@@ -521,8 +525,16 @@
         {% if current_results %}
         <section class="second_section" >
             <header class="headerContainer">
+<div class = "header_left_block">
                 <i id="toggleIcon2" class="bx bx-left-arrow-alt"></i>
                 <h1>Результаты расчетов</h1>
+</div>
+                
+                <a id = "download_report" class = "download__rep" href="{% url 'download_report' %}">
+                    <img src="{%static 'images/main/xls.svg'%}" alt = "Выгрузить отчет">
+                    <span class="download__span">Выгрузить отчет
+                    </a>
+           
             </header>
             <div class="headerContainer__info">
                 <div class="first-info-result">
@@ -550,12 +562,36 @@
                     <!--в коде нужно сокранить г/см3 чтобы только число менялось!!!-->
                 </div>
             </div>
+
             <section id="testtooltip"
                      style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 5px; border-radius: 8px;">
                 <div id = "graphPlotly">
+<div class = "select_container">
+                    <select placeholder = "График расхода и давления" id ="graph_select" class = "graph_select">
+                        <option id = "pressure_graph" value = "pressure_graph">График расхода и давления</option>
+                        <option id ="salt_choose_graph" value = "salt_choose_graph">График для подбора соли</option>
+                    </select>
+                </div>
+    
                      {{ graph|safe }}
                     </div>
+<script>
+                        function resizeGraph() {
+                            const graphContainer = document.getElementById('graphPlotly');
+                            if (graphContainer) {
+                                Plotly.Plots.resize(graphContainer.querySelector('.plotly-graph-div'));
+                            }
+                        }
+                    
+                        // Перерисовка графика при загрузке страницы
+                        document.addEventListener('DOMContentLoaded', resizeGraph);
+                    
+                        // Перерисовка при изменении размера окна
+                        window.addEventListener('resize', resizeGraph);
+                    </script>
+                    
             </section>
+
             <section>
                 <!-- ТАБЫ -->
                 <div class="tabs-wrapper">
@@ -726,89 +762,89 @@
                         </div>
                         <div class="item">
                             <div class="item__tables">
-                                <table class ="td-left">
+                                <table class ="block-pack-recipe">
                                     <tr style="background: #5C606A;">
-                                        <td> 
+                                        <td class="td-left"> 
                                             Тип жидкости, м³
                                         </td>
-                                        <td >
+                                        <td class="td-center">
                                             Объем, м³
                                         </td>
-                                        <td>
+                                        <td class="td-center">
                                             Скорость зак, м³/мин
                                         </td>
-                                        <td>
+                                        <td class="td-center">
                                             Время закачки, мин
                                         </td>
-                                        <td>
+                                        <td class="td-center">
                                             Время пер-я, час
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
-                                        <td>
+                                        <td class="td-left">
                                             Углеводородная основа, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="hydro-base_1" style="background: #292e3c;">{{ recipes_all.RECIPE_YV_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="hydro-base_2" style="background: #292e3c;">{{ recipes_all.RECIPE_DEBIT }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="hydro-base_3" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="hydro-base_4" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
-                                        <td>
+                                        <td class="td-left">
                                             Эмульгатор, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="emuls_1" style="background: #363A47;">{{ recipes_all.RECIPE_EMUL_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="emuls_2" style="background: #363A47;">{{ recipes_all.RECIPE_DEBIT }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="emuls_3" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_EMUL_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="emuls_4" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
-                                        <td>
+                                        <td class="td-left">
                                             Объем сол. раствора, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="salt-volume_1" style="background: #292e3c;">{{ recipes_all.RECIPE_SOLERAST_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="salt-volume_2" style="background: #292e3c;">{{ recipes_all.RECIPE_DEBIT }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="salt-volume_3" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_SOLERAST_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="salt-volume_4" style="background: #292e3c;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
-                                        <td>
+                                        <td class="td-left">
                                             Объем блок-пачки, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="block-volume_1" style="background: #363A47;">{{ recipes_all.RECIPE_BP_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="block-volume_2" style="background: #363A47;">{{ recipes_all.RECIPE_DEBIT }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="block-volume_3" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_BP_ALL }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="block-volume_4" style="background: #363A47;">{{ recipes_all.RECIPE_TIME_YV_PER }}</p>
                                         </td>
                                     </tr>
@@ -817,100 +853,100 @@
                         </div>
                         <div class="item">
                             <div class="item__tables">
-                                <table class ="td-left">
+                                <table class ="injection-scenarious">
                                     <tr style="background: #5C606A;">
-                                        <td>
+                                        <td class = "td-left">
                                             Тип компонента
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             Стадия №1
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             Стадия №2
                                         </td>
-                                        <td> 
+                                        <td class = "td-center"> 
                                             Стадия №3
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             Стадия №4
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
-                                        <td>
+                                        <td class = "td-left">
                                             Углеводородная основа, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-hydro-base_1" style="background: #292e3c;">{{ stages.RECIPE_YV_st1 }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-hydro-base_2" style="background: #292e3c;">{{ stages.RECIPE_YV_st2 }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-hydro-base_3" style="background: #292e3c;">{{ stages.RECIPE_YV_st3 }}</p>
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-hydro-base_4" style="background: #292e3c;">{{ stages.RECIPE_YV_st4 }}</p>
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47;">
-                                        <td>
+                                        <td class = "td-left">
                                             Эмульгатор, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-emuls_1" style="background: #363A47;">{{ stages.RECIPE_EMUL_st1 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-emuls_2" style="background: #363A47;">{{ stages.RECIPE_EMUL_st2 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-emuls_3" style="background: #363A47;">{{ stages.RECIPE_EMUL_st3 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-emuls_4" style="background: #363A47;">{{ stages.RECIPE_EMUL_st4 }}</p>
 
                                         </td>
                                     </tr>
                                     <tr style="background: #292e3c;">
-                                        <td>
+                                        <td class = "td-left">
                                             Объем сол. раствора, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-salt-volume_1" style="background: #292e3c;">{{ stages.RECIPE_SOLERAST_st1 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-salt-volume_2" style="background: #292e3c;">{{ stages.RECIPE_SOLERAST_st2 }}</p>
 
-                                        </td>
-                                        <td>
+                                        </td >
+                                        <td class = "td-center">
                                             <p id="stage-salt-volume_3" style="background: #292e3c;">{{ stages.RECIPE_SOLERAST_st3 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-salt-volume_4" style="background: #292e3c;">{{ stages.RECIPE_SOLERAST_st4 }}</p>
 
                                         </td>
                                     </tr>
                                     <tr style="background: #363A47; ">
-                                        <td>
+                                        <td class = "td-left">
                                             Объем блок-пачки, м³
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-block-volume_1" style="background: #363A47;">{{ stages.RECIPE_BP_st1 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-block-volume_2" style="background: #363A47;">{{ stages.RECIPE_BP_st2 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-block-volume_3" style="background: #363A47;">{{ stages.RECIPE_BP_st3 }}</p>
 
                                         </td>
-                                        <td>
+                                        <td class = "td-center">
                                             <p id="stage-block-volume_4" style="background: #363A47;">{{ stages.RECIPE_BP_st4 }}</p>
 
                                         </td>
@@ -925,15 +961,17 @@
         </section>
         <section class="third_section">
             <div class="headerContainer">
+<div class = "header_left_block">
                 <i id="toggleIcon3" class="bx bx-left-arrow-alt"></i>
                 <h1>Конструкция</h1>
             </div>
+</div>
             {% if type_of_glush == 'direct' %}
-            <div>
+            <div class = "well-contruction">
                 <svg id="chart" width="250" height="2500"></svg>
             </div>
             {% else %}
-            <div>
+            <div class="well-contruction">
                 <svg id="chart2" width="250" height="2000"></svg>
             </div><div id="chart"></div>
             {% endif %}
