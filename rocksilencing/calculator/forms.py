@@ -74,10 +74,6 @@ class Scale_Calculator_form_1(forms.Form):
                "style": "   border-radius: 4px;  text-align: center;"
                         "background: #363A47;  border: none; outline: none; color: rgba(255, 255, 255, 0.64);"}))
 
-
-
-
-
 class Scale_Calculator_form_2(forms.Form):
     # Параметры первого вещества
     Cl_1_another = forms.FloatField(label="", widget=forms.NumberInput(
@@ -130,7 +126,6 @@ class Scale_Calculator_form_2(forms.Form):
     Sr_2_another = forms.FloatField(label="", widget=forms.NumberInput(
         attrs={'class': "input", "oninput": "limitLength(event)", "for": "Sr_2", "type": "text",
                "style": "background: #363A47;text-align: center;"}))
-
 
 class ModelGlushForm(forms.Form):
     Oil_field_name = forms.CharField(label='Месторождение',
@@ -219,4 +214,27 @@ class ModelGlushForm(forms.Form):
                                    choices=types_of_jamming)
     Excel_load = forms.FileField(required= False)
 
+class ExpertSysForm(forms.Form):
+    # Тип коллектора
+    collector_types = [('carbonate', 'Карбонатный'),
+                       ('terrigenous','Песчаник')]
+    collector_type = forms.ChoiceField(widget=forms.Select(
+        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
+                                 choices=collector_types)
+    # По давлению
+    pressure_types = [('abnormal_low','АНПД'),
+                      ('abnormal_high','АВПД')]
+    pressure_type = forms.ChoiceField(widget=forms.Select(
+        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
+                                 choices=pressure_types)
+    # Какая температура в пласте
+    temperature = forms.FloatField(label="Укажите температуру в пласте", widget=forms.NumberInput(
+        attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background:  #363A47;"}))
+    
+    # Водочувствительность коллектора
+    water_sensitive_types = [('water_sensitive','Да'),
+                             ('not_water_sensitive','Нет')]
+    water_sensitive = forms.ChoiceField(widget=forms.Select(
+        attrs={"margin": "0", "padding": "0", "box-sizing": "border-box", "style": "background: #363A47;", "color": "black"}),
+                                 choices=water_sensitive_types)
 

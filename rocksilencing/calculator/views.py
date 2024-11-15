@@ -11,13 +11,15 @@ from calculator.forms import (
     Scale_Calculator_form_1,
     Scale_Calculator_form_2,
     ModelGlushForm,
+    ExpertSysForm
 )
-from calculator.custom_fuctions.Method_for_salt_calculator import calculate_full_result
-from calculator.custom_fuctions.graph_method import create_plot
-from calculator.custom_fuctions.matmodel_glush.Matmodel import matmodel_glush
-from calculator.custom_fuctions.matmodel_glush.matmodel_graph.graph_pressures import (
+from calculator.custom_functions.Method_for_salt_calculator import calculate_full_result
+from calculator.custom_functions.graph_method import create_plot
+from calculator.custom_functions.matmodel_glush.Matmodel import matmodel_glush
+from calculator.custom_functions.matmodel_glush.matmodel_graph.graph_pressures import (
     create_matmodel_plot,
 )
+from calculator.custom_functions.exportsys.exposys_func import load_rules, get_recommendation_from_rules
 from docxtpl import DocxTemplate
 from calculator.models import Salt, Solution
 from sklearn.linear_model import LinearRegression
@@ -455,6 +457,28 @@ def reagent_base_page(request):
         {"bd_names_salts": bd_names_salts, "bd_all_solutions": bd_all_solutions},
     )
 
+
+def expert_sys_page(request):
+    data = {}
+    recommendation = None
+
+    if request.method == 'POST':
+        form = ExpertSysForm(request.POST)
+        if form.is_valid():
+            # Получаем данные из формы
+            data = form.cleaned_data
+            # Получаем рекомендацию на основе введённых данных
+            recommendation = get_recommendation_from_rules(data)
+            print(f"Введённые данные: {data}")  # Для отладки
+            print(f"Рекомендация: {recommendation}")  # Для отладки
+    else:
+        form = ExpertSysForm()
+    
+    return render(request, "calculator/expertsys.html", {
+        "form": form,
+        "data": data,
+        "recommendation": recommendation,
+    })
 
 def history_page(request):
     return HttpResponse("Страница истории")

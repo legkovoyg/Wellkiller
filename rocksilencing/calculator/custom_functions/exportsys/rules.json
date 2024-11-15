@@ -1,0 +1,26 @@
+[
+    {
+        "collector_type": "carbonate",
+        "pressure_type": "abnormal_low",
+        "temperature_min": 150,
+        "temperature_max": 300,
+        "water_sensitive": "not_water_sensitive",
+        "recommendation": "Использовать метод А для карбонатных коллекторов при АНПД"
+    },
+    {
+        "collector_type": "terrigenous",
+        "pressure_type": "abnormal_high",
+        "temperature_min": 50,
+        "temperature_max": 100,
+        "water_sensitive": "water_sensitive",
+        "recommendation": "Использовать метод B для песчаников при АВПД"
+    },
+    {
+        "collector_type": "carbonate",
+        "pressure_type": "abnormal_high",
+        "temperature_min": 200,
+        "temperature_max": 350,
+        "water_sensitive": "not_water_sensitive",
+        "recommendation": "Использовать метод C для высокотемпературных карбонатных коллекторов"
+    }
+]
