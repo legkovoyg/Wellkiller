@@ -1,0 +1,35 @@
+[
+    {
+        "tech_name": "TechnologyName1",
+        "description": "Это не совсем крутой метод",
+        "type": ["carbonaceous", "terrigenous"],
+        "pressure": ["abnormal_high", "normal_high"],
+        "water_sensitive": true,
+        "min_temperature": 30,
+        "max_temperature": 100,
+        "min_density": 1100,
+        "max_density": 1300
+    },
+    {
+        "tech_name": "TechnologyName2",
+        "description": "Действительно крутой метод",
+        "type": ["terrigenous"],
+        "pressure": ["normal", "abnormal_low"],
+        "water_sensitive": false,
+        "min_temperature": 20,
+        "max_temperature": 80,
+        "min_density": 1000,
+        "max_density": 1200
+    },
+    {
+        "tech_name": "TechnologyName3",
+        "description": "Действительно крутой метод",
+        "type": ["terrigenous","carbonaceous"],
+        "pressure": ["normal", "abnormal_low"],
+        "water_sensitive": false,
+        "min_temperature": 20,
+        "max_temperature": 80,
+        "min_density": 1000,
+        "max_density": 1200
+    }
+]

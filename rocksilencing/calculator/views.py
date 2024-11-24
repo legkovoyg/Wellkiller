@@ -466,7 +466,9 @@ def expert_sys_page(request):
         form = ExpertSysForm(request.POST)
         if form.is_valid():
             # Получаем данные из формы
+            print(form)
             data = form.cleaned_data
+            print(data)
             # Получаем рекомендацию на основе введённых данных
             recommendation = get_recommendation_from_rules(data)
             print(f"Введённые данные: {data}")  # Для отладки
