@@ -7,9 +7,6 @@
     box-sizing: border-box;
 }
 
-body{
-    background-color: #292e3b;
-}
 
 
 
@@ -28,7 +25,7 @@ body{
 }
 
 body{
-    height: 100vh;
+    height: 95vh;
     background: var(--body-color);
     transition: var(--tran-05);
 }
@@ -186,7 +183,7 @@ body.dark .sidebar header .toggle{
 
 .home{
     position: relative;
-    height: 100vh;
+    height: 95vh;
    /*  left: 250px;*/
     width: calc(100%-88px);
     transition: var(--tran-05);

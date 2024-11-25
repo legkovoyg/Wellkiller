@@ -71,6 +71,13 @@ section{
 
 
 /* section 2 table*/
+
+
+:section_two_constants{
+    --top-padding:20%;
+    --bot-padding:20%;
+}
+
 .content__table{
     /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
     border-right: solid rgba(255, 255, 255, 0.08) 2px;

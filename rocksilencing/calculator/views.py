@@ -454,7 +454,7 @@ def reagent_base_page(request):
     # Преобразуем данные в формат JSON
     salts_json = json.dumps(list(bd_names_salts.values()), default=str)
     solutions_json = json.dumps(list(bd_all_solutions.values()), default=str)
-
+    print(salts_json)
     return render(
         request,
         "calculator/reagent_page.html",
@@ -465,7 +465,6 @@ def reagent_base_page(request):
             "solutions_json": solutions_json,
         },
     )
-
 
 
 def history_page(request):

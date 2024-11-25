@@ -109,30 +109,33 @@
 					<p>{{ salt.name }}</p>
 				</td>
 			</tr>
+			
+			<tr style="background: #363a47">
+				<td class = "left-td">Мин. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.min_density }}</p>
+				</td>
+			</tr>
+			<tr style="background: #292e3c">
+				<td class = "left-td">Макс. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.max_density }}</p>
+				</td>
+			</tr>
 			<tr style="background: #363a47">
 				<td class = "left-td">Описание</td>
 				<td>
 					<p>{{ salt.description }}</p>
 				</td>
 			</tr>
-			<tr style="background: #292e3c">
-				<td class = "left-td">Мин. плотность ЖГ, г/см³</td>
-				<td>
-					<p>{{ salt.min_density }}</p>
-				</td>
-			</tr>
-			<tr style="background: #363a47">
-				<td class = "left-td">Макс. плотность ЖГ, г/см³</td>
-				<td>
-					<p>{{ salt.max_density }}</p>
-				</td>
-			</tr>
+			{% if salt.note %}
 			<tr style="background: #292e3c">
 				<td class = "left-td">Примечание</td>
 				<td>
 					<p>{{ salt.note }}</p>
 				</td>
 			</tr>
+			{% endif %}
 		</table>
 		{% endfor %}
 	</section>

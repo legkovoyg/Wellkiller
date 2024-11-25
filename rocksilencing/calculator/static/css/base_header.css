@@ -1,16 +1,39 @@
+
+:root{
+    
+    /* reference */
+    --reference_height:1080;
+    --reference_width:1920;
+
+    /* header geom */
+    --header_height: 52;
+
+    /* header in paddings */
+    --left_text_left_padding:20;
+    --right_text_right_padding:20;
+}
+
+
 .main-Header{
     background: #292e3c;
     box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.24);
-    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #292E3C;
+    position: fixed; 
+    z-index: 150; 
+    width: 100%;
+    top: 0;
+    min-height:calc(52 / 1080 * 100vh);
+
 }
 
 .leftContent-first{
     margin-right: 5px; 
     font-weight: 500;
     font-size: 14px;
+    padding-left: calc(var(--left_text_left_padding)/var(--reference_width)*100vw);
     line-height: 143%;
     color: rgba(255, 255, 255, 0.48);
 }
@@ -27,6 +50,7 @@
     align-content: center;
     flex-wrap: wrap;
     color: rgba(255, 255, 255, 0.87);
+    padding-right: calc(var(--right_text_right_padding)/var(--reference_width)*100vh)
 }
 
 .rightContent-first{

@@ -37,14 +37,17 @@ document.querySelectorAll('.tabs-wrapper').forEach(e => {
 				bxSalt[i].classList.remove('bx-chevron-right');
 				bxSalt[i].classList.add('bx-chevron-down');
 			}
+			Plotly.Plots.resize('plotly-chart');
+			console.log('resize1');
 		};
 	}
 
 	buttons.forEach(btn => {
 		btn.addEventListener('click', () => {
-			btn.classList.toggle('active')
+			btn.classList.toggle('active');
 			let target = btn.getAttribute('data-target');
-			console.log(target)
+			console.log(target);
+
 			let tables = document.querySelectorAll('.content__features table');
 			let salts = document.querySelectorAll(
 				'.content__table table tr:not(:first-child)'
@@ -69,24 +72,23 @@ document.querySelectorAll('.tabs-wrapper').forEach(e => {
 				header.style.display = 'block';
 			}
 
-
-		
 			let saltName = btn.textContent.trim();
 			// Получаем название соли
 			if (!traces[saltName]) {
-
 				const salt = saltsData.find(s => s.name === saltName);
 				let filteredSolutionsData = solutionsData.filter(sol => sol.salt_id === salt.id);
+
 				if (filteredSolutionsData.length) {
 					let xData = filteredSolutionsData.map(sol => sol.density);
 					let yData = filteredSolutionsData.map(sol => sol.salt_consumption);
-				
+
 					let trace = {
 						x: xData,
 						y: yData,
 						mode: 'lines',
-						name: saltName,
-					}
+						name: saltName, // Название графика для легенды
+						showlegend: true // Гарантирует отображение легенды
+					};
 					traces[saltName] = trace;
 
 					// Добавляем новый график
@@ -99,7 +101,7 @@ document.querySelectorAll('.tabs-wrapper').forEach(e => {
 				// Удаляем из переменной отслеживания traces
 				delete traces[saltName];
 			}
-		
+			Plotly.Plots.resize('plotly-chart');
 		});
 	});
 });
@@ -112,37 +114,31 @@ Plotly.newPlot('plotly-chart', [], {
 		size: 11,
 		color: 'rgba(255, 255, 255, 0.87)'
 	},
-
 	xaxis: {
 		title: 'Плотность ЖГ,  г/см³',
 		gridcolor: 'rgba(255, 255, 255, 0.08)',
-	
-
 	},
 	yaxis: {
 		title: 'Расход соли, кг/м³ ',
 		gridcolor: 'rgba(255, 255, 255, 0.08)',
-	
 	},
 	autosize: true,
 	legend: {
-        orientation: 'h', 
-        yanchor: 'top', 
-        y: -0.25, 
-        xanchor: 'center', 
-        x: 0.5, 
-    },
+		orientation: 'h', 
+		yanchor: 'top', 
+		y: -0.25, 
+		xanchor: 'center', 
+		x: 0.5
+	},
 	height: 392,
 	margin: {
-        t: 50,   // Отступ сверху, уменьшите значение, чтобы убрать пустое пространство
-        b: 50,   // Отступ снизу
-        l: 50,   // Отступ слева
-        r: 50    // Отступ справа
-    },
-
+		t: 50, // Отступ сверху
+		b: 50, // Отступ снизу
+		l: 50, // Отступ слева
+		r: 50  // Отступ справа
+	},
 });
 
-window.onresize = function () {
+window.addEventListener('resize', () => {
 	Plotly.Plots.resize('plotly-chart');
-};
-
+});
