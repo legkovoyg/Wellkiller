@@ -1,6 +1,6 @@
 function direct_animation (data) {
         // top исправить
-        console.log(data)
+        // console.log(data)
         const margin = ({ top: 0, right: 30, bottom: 30, left: 40 })
 
         data.sort(function (a, b) {

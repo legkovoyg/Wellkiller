@@ -442,6 +442,8 @@ def scale_calculator_page(request):
 
 
 # База реагентов
+
+
 def reagent_base_page(request):
     # Получаем все соли и вычисляем для каждой из них минимальную и максимальную плотность
     bd_names_salts = Salt.objects.all().annotate(
@@ -449,11 +451,21 @@ def reagent_base_page(request):
     )
     bd_all_solutions = Solution.objects.all()
 
+    # Преобразуем данные в формат JSON
+    salts_json = json.dumps(list(bd_names_salts.values()), default=str)
+    solutions_json = json.dumps(list(bd_all_solutions.values()), default=str)
+
     return render(
         request,
         "calculator/reagent_page.html",
-        {"bd_names_salts": bd_names_salts, "bd_all_solutions": bd_all_solutions},
+        {
+            "bd_names_salts": bd_names_salts,
+            "bd_all_solutions": bd_all_solutions,
+            "salts_json": salts_json,
+            "solutions_json": solutions_json,
+        },
     )
+
 
 
 def history_page(request):

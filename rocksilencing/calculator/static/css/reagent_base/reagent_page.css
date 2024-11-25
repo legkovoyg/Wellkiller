@@ -26,7 +26,8 @@ section{
 /* section 1 search*/
 
 .content__search{
-    width: 40%;
+    min-width: 300px;
+    max-width: 300px;
     background-color: #222836;
     margin-top: 50px;
     overflow: hidden;
@@ -76,7 +77,7 @@ section{
 .content-info{
     /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
-    width: 100%;
+    max-width: 1050px;
     margin-top: 50px;
     padding: 20px 15px 15px 15px;
 }
@@ -87,6 +88,35 @@ section{
 .salt-base-graph{
     padding-top:20px;
 }
+.select_container{
+    display: flex;
+    justify-content: flex-start ;
+}
+/* #graphPlotly{
+    padding: 0 0 30px 30px;
+} */
+.graph_select{
+    padding: 9px 0;
+    margin:8px 0 8px 30px ;
+    border: 1px solid #1D9A6C;
+    border-radius: 8px;
+    background-color: #26413F;
+    color: #1D9A6C;
+    text-align: center;
+    line-height: 16px;
+    width: 229px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+}
+.graph_select:active, .graph_select:focus{
+    outline:none
+  }
+  .graph_select option{
+    background-color: #363A47 ;
+    color: rgba(255, 255, 255, 0.64);
+    border-radius: 8px;
+  }
 /* section 3 features*/
 
 .content__features {
@@ -94,7 +124,8 @@ section{
     font-weight: 400;
     margin-top: 50px;
     padding: 20px 15px 15px 15px;
-    width: 50%;
+    max-width: 437px;
+    min-width: 0px;
 }
 
 
@@ -144,12 +175,18 @@ td p{
 tr td p {
     color: #fff;
 }
+.salt_table td{
+    white-space: normal;
+}
+.left-td{
+    width:40%;
 
+}
 
 /* tabs изменено*/
 .table-main{
     overflow-y: auto;
-    height: 45vh;
+    max-height: 45vh;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -209,11 +246,16 @@ tr td p {
 .btn:hover{
     background: #FFFFFF14;
     border-radius: 3px;
+    
+}
+.btn.active{
+    background: #FFFFFF14;
+    border-radius: 3px;
 }
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */
 
 .bx-chevron-down{
     color: #1D9A6C;

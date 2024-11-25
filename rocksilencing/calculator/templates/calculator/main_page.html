@@ -21,10 +21,10 @@
     <main class="mainContainer">
         <section class="container__tab" style="width:100%">
             <div class="headerContainer">
-<div class = "header_left_block">
+                <div class = "header_left_block">
                 <i id="toggleIcon1" class="bx bx-left-arrow-alt"></i>
                 <h1>Входные данные</h1>
-</div>
+                </div>
                 <button type="button" style="min-width:10%; max-width:30%; margin-left:5%; " onclick="demonstrate()"> демо </button>
             </div>
             <!-- ТАБЫ -->
@@ -568,16 +568,16 @@
             <section id="testtooltip"
                      style="color: rgba(240, 248, 255, 0.39); background-color: #363A47; margin-top: 5px; border-radius: 8px;">
                 <div id = "graphPlotly">
-<div class = "select_container">
-                    <select placeholder = "График расхода и давления" id ="graph_select" class = "graph_select">
-                        <option id = "pressure_graph" value = "pressure_graph">График расхода и давления</option>
-                        <option id ="salt_choose_graph" value = "salt_choose_graph">График для подбора соли</option>
-                    </select>
-                </div>
+                    <div class = "select_container">
+                        <select placeholder = "График давления" id ="graph_select" class = "graph_select">
+                            <option id = "pressure_graph" value = "pressure_graph">График давления</option>
+                            <option id ="salt_choose_graph" value = "salt_choose_graph">График для подбора соли</option>
+                        </select>
+                    </div>
     
                      {{ graph|safe }}
-                    </div>
-<script>
+                </div>
+{% comment %} <script>
                         function resizeGraph() {
                             const graphContainer = document.getElementById('graphPlotly');
                             if (graphContainer) {
@@ -590,7 +590,7 @@
                     
                         // Перерисовка при изменении размера окна
                         window.addEventListener('resize', resizeGraph);
-                    </script>
+                    </script> {% endcomment %}
                     
             </section>
 
@@ -983,7 +983,7 @@
             {% if type_of_glush == 'direct' %}
             <script>
                 var data = JSON.parse('{{ data_for_animation|escapejs }}');
-                console.log(data);
+                {% comment %} console.log(data); {% endcomment %}
                 document.addEventListener('DOMContentLoaded', (event) => {
                 if (typeof direct_animation === 'function') {
                     direct_animation(data);

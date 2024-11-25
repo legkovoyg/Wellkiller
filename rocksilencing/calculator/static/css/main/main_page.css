@@ -1,14 +1,9 @@
-/* common */
-
 
 body{
     background: #292e3c;
     margin: 0;
     padding: 0;
     height: 100%;
-    /* width:2400px; */
-   
-    
 }
 
 @keyframes gradient {
@@ -146,10 +141,12 @@ animation: gradient 10s ease infinite;
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 }
-
+.tabs{
+    margin-top: 8px;
+}
  .tabs .tab{
     display:inline-block;
-    padding:12px;
+    padding: 18px 16px;
     margin:0 0px 20px 0px;
     cursor:pointer;
     color: rgba(255, 255, 255, 0.87);
@@ -158,7 +155,7 @@ animation: gradient 10s ease infinite;
 }
 
 .tabs .tab.on{
-    border-bottom:  4px solid rgb(29, 154, 108);
+    border-bottom:  2px solid rgb(29, 154, 108);
 }
 
 .tabs-items .item{
@@ -224,17 +221,24 @@ td input,select{
 }
 .select_container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start ;
 }
+/* #graphPlotly{
+    padding: 0 0 30px 30px;
+} */
 .graph_select{
-    background-color: #363A47 ;
-    width: unset;
-    padding: 7px 0;
-    margin:1% 1.5% 0 0 ;
+    padding: 4px 0;
+    margin:8px 0 8px 30px ;
     border: 1px solid #1D9A6C;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #26413F;
     color: #1D9A6C;
+    text-align: center;
+    line-height: 16px;
+    width: 229px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
 }
 .graph_select:active, .graph_select:focus{
     outline:none
@@ -242,7 +246,7 @@ td input,select{
   .graph_select option{
     background-color: #363A47 ;
     color: rgba(255, 255, 255, 0.64);
-    border-radius: 5px;
+    border-radius: 8px;
   }
 .hidden{
 display: none;
@@ -401,6 +405,8 @@ text-align: left;
 .inclinometry-results{
     margin-top: 20px;
 }
+
+
 @media (max-width: 900px) {
   .container__tab {
     padding: 0 25px 0;
