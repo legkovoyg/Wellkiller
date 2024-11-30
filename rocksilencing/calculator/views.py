@@ -24,6 +24,9 @@ from sklearn.linear_model import LinearRegression
 from django.db.models import Min, Max
 
 
+from random import choice
+from collections import defaultdict
+
 # Страница калькулятора
 
 
@@ -455,6 +458,15 @@ def reagent_base_page(request):
     salts_json = json.dumps(list(bd_names_salts.values()), default=str)
     solutions_json = json.dumps(list(bd_all_solutions.values()), default=str)
     print(salts_json)
+
+  # Группируем решения по именам солей
+    grouped_solutions = defaultdict(list)
+    for sol in bd_all_solutions:
+           grouped_solutions[sol.salt.name].append(sol)
+       
+    # Выбираем одно случайное решение для каждой соли
+    random_solutions = {name: choice(sols) for name, sols in grouped_solutions.items()}
+
     return render(
         request,
         "calculator/reagent_page.html",
@@ -463,6 +475,7 @@ def reagent_base_page(request):
             "bd_all_solutions": bd_all_solutions,
             "salts_json": salts_json,
             "solutions_json": solutions_json,
+            "random_solutions": random_solutions
         },
     )
 

@@ -19,7 +19,7 @@
 <body>
 <form method="POST" action='' enctype="multipart/form-data">
     <main class="mainContainer">
-        <section class="container__tab" style="width:100%">
+        <section class="container__tab">
             <div class="headerContainer">
                 <div class = "header_left_block">
                 <i id="toggleIcon1" class="bx bx-left-arrow-alt"></i>
@@ -237,22 +237,22 @@
                                     <td>
                                         №
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         MD верх
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         MD низ
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         TVD вверх
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         TVD низ
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         Внешний диаметр
                                     </td>
-                                    <td style="padding-left: 5px;" title="единица измерения мм">
+                                    <td title="единица измерения мм">
                                         Толщина стенки
                                     </td>
                                 </tr>
@@ -262,22 +262,22 @@
                                     <td>
                                         <p>{{ each_elem.count }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.md_start }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.md_end }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.tvd_start }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.tvd_end }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.ext_d }}</p>
                                     </td>
-                                    <td style="padding-left: 5px; text-align:center;">
+                                    <td style="text-align:center;">
                                         <p>{{ each_elem.thick }}</p>
                                     </td>
                                 </tr>
@@ -291,7 +291,7 @@
                     <div class="item">
                         <table class="td-left">
                                 <tr style="background: #292e3c;">
-                                    <td style="width:100%">
+                                    <td>
                                         Данные инклинометрии НКТ
                                     </td>
                                     <td>
@@ -484,7 +484,7 @@
             </div>
 
             {% csrf_token %}
-            <footer class="tabs-first__footer-buttons" style="display:flex; ">
+            <footer class="tabs-first__footer-buttons">
 
                 <button>Произвести расчет</button>
 
@@ -527,10 +527,10 @@
         {% if current_results %}
         <section class="second_section" >
             <header class="headerContainer">
-<div class = "header_left_block">
-                <i id="toggleIcon2" class="bx bx-left-arrow-alt"></i>
-                <h1>Результаты расчетов</h1>
-</div>
+                <div class = "header_left_block">
+                    <i id="toggleIcon2" class="bx bx-left-arrow-alt"></i>
+                    <h1 id = "results">Результаты расчетов</h1>
+                </div>
                 
                 <a id = "download_report" class = "download__rep" href="{% url 'download_report' %}">
                     <img src="{%static 'images/main/xls.svg'%}" alt = "Выгрузить отчет">

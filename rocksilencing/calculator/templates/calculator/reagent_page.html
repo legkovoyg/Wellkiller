@@ -64,14 +64,16 @@
 		<section class="content__table">
 			<p class="header">Расходная норма</p>
 			<div class="table-main">
-				<table>
+				<table class = "loaded-table">
 					<tr style="background: #5c606a">
 						<td>Название соли</td>
 						<td>Плотность раствора, г/см³</td>
 						<td>Расход соли, кг/м³</td>
 						<td>Расход пресной воды, л/м³</td>
 					</tr>
-					{% for elem in bd_all_solutions %}
+					
+					{% for salt_name, elem in random_solutions.items %}
+					{% if salt_name == "NaCl" or salt_name == "MgCl2" or salt_name == "NH4Cl" %}
 					<tr
 						id="{{ elem.salt.name|slugify }}"
 						style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
@@ -81,7 +83,34 @@
 						<td>{{ elem.salt_consumption }}</td>
 						<td>{{ elem.water_consumption }}</td>
 					</tr>
+					{% endif %}
 					{% endfor %}
+				
+					
+				</table>
+
+
+				<table class = "changed-table" >
+					<tr style="background: #5c606a">
+						<td>Название соли</td>
+						<td>Плотность раствора, г/см³</td>
+						<td>Расход соли, кг/м³</td>
+						<td>Расход пресной воды, л/м³</td>
+					</tr>
+					
+					{% for elem in bd_names_salts %}
+					<tr id="{{ elem.name|slugify }}">
+						<td>{{ elem.name}}</td>
+
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+
+					</tr>
+					
+					{% endfor %}
+
+					
 				</table>
 			</div>
 			<section class="salt-base-graph">
@@ -91,10 +120,8 @@
 						<option id ="salt_choose_graph" value = "salt_choose_graph">График вязкости</option>
 					</select>
 				</div>
-				<div id="plotly-chart" style="width: 100%; height: 100%;">
-					
-				</div>
-
+				<div class="plotly-graph" id="plotly-graph" style="width: 100%; height: 100%;"></div>
+				<div class = "plotly-graph-changed"  id="plotly-graph-changed" style="width: 100%; height: 100%;"></div>
 			</section>
 		</section>
 	

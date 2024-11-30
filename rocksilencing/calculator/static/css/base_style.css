@@ -1,14 +1,15 @@
 
 
 *{
-    font-family: inter;
+    font-family: 'Inter';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-
+body{
+    background-color: #292e3b;
+}
 
 :root{
     --body-color: #292E3B;
@@ -22,7 +23,20 @@
     --tran-03:all 0.3s ease;
     --tran-04:all 0.4s ease;
     --tran-05:all 0.5s ease;
+
+    /* reference */
+    --reference_height:1080;
+    --reference_width:1920;
+
+    /* header geom */
+    --sidebar-width-open: 280;
+    --sidebar-width-closen: 80;
+
+    /* header in paddings */
+    --left_text_left_padding:20;
+    --right_text_right_padding:20;
 }
+
 
 body{
     height: 95vh;
@@ -49,7 +63,7 @@ body{
 .sidebar.close{
     width: 88px;
 
-}
+}   
 
 /*resuable css*/
 
@@ -98,6 +112,7 @@ body{
 
 .sidebar header{
     position: relative;
+
 }
 
 .sidebar .image-text img{
@@ -142,9 +157,9 @@ header .image-text .header-text{
     transition: var(--tran-03);
 }
 
-.sidebar.close header .toggle{
-    /*transform: translateY(-50%);*/
-}
+/* .sidebar.close header .toggle{
+    transform: translateY(-50%);
+} */
 
 body.dark .sidebar header .toggle{
     color: var(--text-color);
