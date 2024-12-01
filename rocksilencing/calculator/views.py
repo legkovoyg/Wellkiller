@@ -4,6 +4,7 @@ import logging
 import json
 import numpy as np
 import pandas as pd
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
@@ -11,7 +12,7 @@ from calculator.forms import (
     Scale_Calculator_form_1,
     Scale_Calculator_form_2,
     ModelGlushForm,
-    ExpertSysForm
+    ExpertSysForm,
 )
 from calculator.custom_functions.Method_for_salt_calculator import calculate_full_result
 from calculator.custom_functions.graph_method import create_plot
@@ -19,7 +20,10 @@ from calculator.custom_functions.matmodel_glush.Matmodel import matmodel_glush
 from calculator.custom_functions.matmodel_glush.matmodel_graph.graph_pressures import (
     create_matmodel_plot,
 )
-from calculator.custom_functions.exportsys.exposys_func import load_rules, get_recommendation_from_rules
+from calculator.custom_functions.exportsys.exposys_func import (
+    load_rules,
+    get_recommendation_from_rules,
+)
 from docxtpl import DocxTemplate
 from calculator.models import Salt, Solution
 from sklearn.linear_model import LinearRegression
@@ -64,6 +68,7 @@ def handle_excel_file(excel_file):
     return result, polynomial
 
 
+@login_required
 def get_form_data(request):
     return {
         # Общие данные
@@ -146,6 +151,7 @@ def process_calculations(data, polynominal):
     return results
 
 
+@login_required
 def render_with_results(request, form, results, result, polynomial, form_data):
     current_results = results[0]
     time = [elem / 60 for elem in results[2]]
@@ -235,6 +241,7 @@ def render_with_results(request, form, results, result, polynomial, form_data):
     )
 
 
+@login_required
 def calculator_page(request):
     if request.method == "POST":
         form = ModelGlushForm(request.POST, request.FILES)
@@ -276,6 +283,7 @@ def calculator_page(request):
 
 
 # Скачивание отчета
+@login_required
 def download_report(request):
     session_context = request.session.get("session_context")
     if not session_context:
@@ -316,6 +324,7 @@ def download_report(request):
 
 
 # Страница калькулятора солеотложений
+@login_required
 def scale_calculator_page(request):
     if request.method == "POST":
         # Исходные данные графика
@@ -444,6 +453,7 @@ def scale_calculator_page(request):
 
 
 # База реагентов
+@login_required
 def reagent_base_page(request):
     # Получаем все соли и вычисляем для каждой из них минимальную и максимальную плотность
     bd_names_salts = Salt.objects.all().annotate(
@@ -458,11 +468,12 @@ def reagent_base_page(request):
     )
 
 
+@login_required
 def expert_sys_page(request):
     data = {}
     recommendation = None
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ExpertSysForm(request.POST)
         if form.is_valid():
             # Получаем данные из формы
@@ -475,16 +486,23 @@ def expert_sys_page(request):
             print(f"Рекомендация: {recommendation}")  # Для отладки
     else:
         form = ExpertSysForm()
-    
-    return render(request, "calculator/expertsys.html", {
-        "form": form,
-        "data": data,
-        "recommendation": recommendation,
-    })
 
+    return render(
+        request,
+        "calculator/expertsys.html",
+        {
+            "form": form,
+            "data": data,
+            "recommendation": recommendation,
+        },
+    )
+
+
+@login_required
 def history_page(request):
     return HttpResponse("Страница истории")
 
 
+@login_required
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
