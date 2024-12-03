@@ -76,7 +76,7 @@
 					{% for salt_name, elem in random_solutions.items %}
 						{% if salt_name == "NaCl" or salt_name == "MgCl2" or salt_name == "NH4Cl" %}
 						<tr
-							id="{{ elem.salt.name|slugify }}"
+							id="{{ elem.salt.name }}"
 							style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
 						>
 							<td>{{ elem.salt.name }}</td>
@@ -145,7 +145,7 @@
 	<section class="content__features" style="display: none">
 		<p class="header">Свойства жидкости</p>
 		{% for salt in bd_names_salts %}
-		<table id="{{ salt.name|slugify }}" class="salt_table">
+		<table id="{{ salt.name }}" class="salt_table">
 			<tr style="background: #292e3c">
 				<td class="left-td">Название</td>
 				<td>
