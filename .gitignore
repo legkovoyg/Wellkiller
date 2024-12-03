@@ -16,3 +16,5 @@ rocksilencing/calculator/custom_fuctions/matmodel_glush/matmodel_graph/__pycache
 rocksilencing/db.sqlite3
 *.pyc
 rocksilencing/.DS_Store
+*.pyc
+rocksilencing/.DS_Store
