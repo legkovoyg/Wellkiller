@@ -14,22 +14,33 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
-from calculator.views import calculator_page, scale_calculator_page, reagent_base_page, history_page, FAQ_page, \
-    download_report
+from calculator.views import (
+    calculator_page,
+    scale_calculator_page,
+    reagent_base_page,
+    history_page,
+    FAQ_page,
+    download_report,
+    calculate_consumption,
+)
 
 from users.views import logout_user, login_user, register_user
 from rocksilencing import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', calculator_page),
-    path('calculator/', calculator_page, name='calculator'),
-    path('calculator/scale_calculator/', scale_calculator_page, name='scale_calculator'),
-    path('calculator/reagent_base/', reagent_base_page, name='reagent_base'),
-    path('calculator/history_page/', history_page, name='history_page'),
-    path('calculator/FAQ_page', FAQ_page, name='FAQ_page'),
-    path('users/', include('users.urls', namespace="users")),
-    path('download_report/', download_report, name='download_report'),
+    path("admin/", admin.site.urls),
+    path("", calculator_page),
+    path("calculator/", calculator_page, name="calculator"),
+    path(
+        "calculator/scale_calculator/", scale_calculator_page, name="scale_calculator"
+    ),
+    path("calculator/reagent_base/", reagent_base_page, name="reagent_base"),
+    path("calculator/history_page/", history_page, name="history_page"),
+    path("calculator/FAQ_page", FAQ_page, name="FAQ_page"),
+    path("users/", include("users.urls", namespace="users")),
+    path("download_report/", download_report, name="download_report"),
+    path("calculate_consumption/", calculate_consumption, name="calculate_consumption"),
 ]

@@ -90,28 +90,25 @@
 				</table>
 
 
-				<table class = "changed-table" >
-					<tr style="background: #5c606a">
-						<td>Название соли</td>
-						<td>Плотность раствора, г/см³</td>
-						<td>Расход соли, кг/м³</td>
-						<td>Расход пресной воды, л/м³</td>
-					</tr>
-					
-					{% for elem in bd_names_salts %}
-					<tr id="{{ elem.name|slugify }}">
-						<td>{{ elem.name}}</td>
-
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-
-					</tr>
-					
-					{% endfor %}
-
-					
-				</table>
+				<table class="changed-table">
+    <tr style="background: #5c606a">
+        <td>Название соли</td>
+        <td>Плотность раствора, г/см³</td>
+        <td>Расход соли, кг/м³</td>
+        <td>Расход пресной воды, л/м³</td>
+    </tr>
+    
+    {% for elem in bd_names_salts %}
+    <tr id="{{ elem.name|slugify }}">
+        <td>{{ elem.name }}</td>
+        <td>
+            <input type="number" step="0.01" class="density-input" id="{{ elem.name|slugify }}-density-input" />
+        </td>
+        <td id="{{ elem.name|slugify }}-salt-consumption">-</td>
+        <td id="{{ elem.name|slugify }}-water-consumption">-</td>
+    </tr>	
+    {% endfor %}
+</table>
 			</div>
 			<section class="salt-base-graph">
 				<div class = "select_container">

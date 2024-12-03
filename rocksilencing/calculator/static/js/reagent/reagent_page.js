@@ -236,4 +236,68 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // Получаем все строки таблицы
+    const rows = document.querySelectorAll(".changed-table tr");
 
+    rows.forEach(row => {
+        const densityInput = row.querySelector(".density-input");
+        const saltConsumptionElem = row.querySelector("td[id$='-salt-consumption']");
+        const waterConsumptionElem = row.querySelector("td[id$='-water-consumption']");
+
+        if (densityInput) {
+            densityInput.addEventListener("input", () => {
+                const saltSlug = row.id; // Получаем slug соли
+                const salt = saltsData.find(s => s.name.toLowerCase().replace(/\s/g, '-') === saltSlug);
+
+                if (!salt) {
+                    console.error(`Соль с идентификатором ${saltSlug} не найдена.`);
+                    return;
+                }
+
+                const density = parseFloat(densityInput.value);
+                if (isNaN(density)) {
+                    saltConsumptionElem.textContent = "-";
+                    waterConsumptionElem.textContent = "-";
+                    return;
+                }
+
+                // Проверка диапазона плотности
+                const solutionsForSalt = solutionsData.filter(sol => sol.salt_id === salt.id);
+                if (solutionsForSalt.length === 0) {
+                    saltConsumptionElem.textContent = "Нет данных";
+                    waterConsumptionElem.textContent = "Нет данных";
+                    return;
+                }
+
+                const minDensity = Math.min(...solutionsForSalt.map(sol => sol.density));
+                const maxDensity = Math.max(...solutionsForSalt.map(sol => sol.density));
+
+                if (density < minDensity || density > maxDensity) {
+                    saltConsumptionElem.textContent = "Вне диапазона";
+                    waterConsumptionElem.textContent = "Вне диапазона";
+                    return;
+                }
+
+                // Отправляем запрос на сервер
+                fetch(`/calculate_consumption/?salt_id=${salt.id}&density=${density}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                            saltConsumptionElem.textContent = "Ошибка";
+                            waterConsumptionElem.textContent = "Ошибка";
+                        } else {
+                            saltConsumptionElem.textContent = data.salt_consumption.toFixed(2);
+                            waterConsumptionElem.textContent = data.water_consumption.toFixed(2);
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Ошибка при запросе:", err);
+                        saltConsumptionElem.textContent = "Ошибка";
+                        waterConsumptionElem.textContent = "Ошибка";
+                    });
+            });
+        }
+    });
+});
