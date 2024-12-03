@@ -11,8 +11,10 @@
 
 <script type="text/javascript">
 	// Передаем данные в JavaScript
-	const saltsData = JSON.parse('{{ salts_json|escapejs }}');
-	const solutionsData = JSON.parse('{{ solutions_json|escapejs }}');
+	const saltsData = JSON.parse('{{ salts_json|safe }}')
+	const solutionsData = JSON.parse('{{ solutions_json|safe }}')
+	console.log(saltsData)
+	console.log(solutionsData)
 </script>
 
 <script src="{%static 'js/reagent/reagent_page.js'%}" defer></script>
@@ -34,11 +36,10 @@
 
 					<div class="tabs-items">
 						{% for salt in bd_names_salts %}
-						<span class="btn" data-target="{{ salt.name|slugify }}"
+						<span class="btn" data-target="{{ salt.name }}"
 							>{{ salt.name }}</span
 						>
 						{% endfor %}
-	
 					</div>
 
 					<span class="inner-tab">
@@ -64,97 +65,115 @@
 		<section class="content__table">
 			<p class="header">Расходная норма</p>
 			<div class="table-main">
-				<table class = "loaded-table">
+				<table class="loaded-table">
 					<tr style="background: #5c606a">
 						<td>Название соли</td>
 						<td>Плотность раствора, г/см³</td>
 						<td>Расход соли, кг/м³</td>
 						<td>Расход пресной воды, л/м³</td>
 					</tr>
-					
-					{% for salt_name, elem in random_solutions.items %}
-					{% if salt_name == "NaCl" or salt_name == "MgCl2" or salt_name == "NH4Cl" %}
-					<tr
-						id="{{ elem.salt.name|slugify }}"
-						style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
-					>
-						<td>{{ elem.salt.name}}</td>
-						<td>{{ elem.density }}</td>
-						<td>{{ elem.salt_consumption }}</td>
-						<td>{{ elem.water_consumption }}</td>
-					</tr>
-					{% endif %}
-					{% endfor %}
 				
-					
+					{% for salt_name, elem in random_solutions.items %}
+						{% if salt_name == "NaCl" or salt_name == "MgCl2" or salt_name == "NH4Cl" %}
+						<tr
+							id="{{ elem.salt.name|slugify }}"
+							style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
+						>
+							<td>{{ elem.salt.name }}</td>
+							<td>{{ elem.density }}</td>
+							<td>{{ elem.salt_consumption }}</td>
+							<td>{{ elem.water_consumption }}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
 				</table>
-
+				
 
 				<table class="changed-table">
-    <tr style="background: #5c606a">
-        <td>Название соли</td>
-        <td>Плотность раствора, г/см³</td>
-        <td>Расход соли, кг/м³</td>
-        <td>Расход пресной воды, л/м³</td>
-    </tr>
-    
-    {% for elem in bd_names_salts %}
-    <tr id="{{ elem.name|slugify }}">
-        <td>{{ elem.name }}</td>
-        <td>
-            <input type="number" step="0.01" class="density-input" id="{{ elem.name|slugify }}-density-input" />
-        </td>
-        <td id="{{ elem.name|slugify }}-salt-consumption">-</td>
-        <td id="{{ elem.name|slugify }}-water-consumption">-</td>
-    </tr>	
-    {% endfor %}
-</table>
+					<tr style="background: #5c606a">
+						<td>Название соли</td>
+						<td>Плотность раствора, г/см³</td>
+						<td>Расход соли, кг/м³</td>
+						<td>Расход пресной воды, л/м³</td>
+					</tr>
+
+					{% for elem in bd_names_salts %}
+					<tr id="{{ elem.name }}">
+						<td>{{ elem.name }}</td>
+						<td>
+							<input
+								type="number"
+								step="0.01"
+								class="density-input"
+								id="{{ elem.name }}-density-input"
+							/>
+						</td>
+						<td id="{{ elem.name }}-salt-consumption">-</td>
+						<td id="{{ elem.name }}-water-consumption">-</td>
+					</tr>
+					{% endfor %}
+				</table>
 			</div>
 			<section class="salt-base-graph">
-				<div class = "select_container">
-					<select placeholder = "График расхода соли" id ="graph_select" class = "graph_select">
-						<option id = "pressure_graph" value = "pressure_graph">График расхода соли</option>
-						<option id ="salt_choose_graph" value = "salt_choose_graph">График вязкости</option>
+				<div class="select_container">
+					<select
+						placeholder="График расхода соли"
+						id="graph_select"
+						class="graph_select"
+					>
+						<option id="pressure_graph" value="pressure_graph">
+							График расхода соли
+						</option>
+						<option id="salt_choose_graph" value="salt_choose_graph">
+							График вязкости
+						</option>
 					</select>
 				</div>
-				<div class="plotly-graph" id="plotly-graph" style="width: 100%; height: 100%;"></div>
-				<div class = "plotly-graph-changed"  id="plotly-graph-changed" style="width: 100%; height: 100%;"></div>
+				<div
+					class="plotly-graph"
+					id="plotly-graph"
+					style="width: 100%; height: 100%"
+				></div>
+				<div
+					class="plotly-graph-changed"
+					id="plotly-graph-changed"
+					style="width: 100%; height: 100%"
+				></div>
 			</section>
 		</section>
-	
 	</section>
 	<section class="content__features" style="display: none">
 		<p class="header">Свойства жидкости</p>
 		{% for salt in bd_names_salts %}
 		<table id="{{ salt.name|slugify }}" class="salt_table">
 			<tr style="background: #292e3c">
-				<td class = "left-td">Название</td>
+				<td class="left-td">Название</td>
 				<td>
 					<p>{{ salt.name }}</p>
 				</td>
 			</tr>
-			
+
 			<tr style="background: #363a47">
-				<td class = "left-td">Мин. плотность ЖГ, г/см³</td>
+				<td class="left-td">Мин. плотность ЖГ, г/см³</td>
 				<td>
 					<p>{{ salt.min_density }}</p>
 				</td>
 			</tr>
 			<tr style="background: #292e3c">
-				<td class = "left-td">Макс. плотность ЖГ, г/см³</td>
+				<td class="left-td">Макс. плотность ЖГ, г/см³</td>
 				<td>
 					<p>{{ salt.max_density }}</p>
 				</td>
 			</tr>
 			<tr style="background: #363a47">
-				<td class = "left-td">Описание</td>
+				<td class="left-td">Описание</td>
 				<td>
 					<p>{{ salt.description }}</p>
 				</td>
 			</tr>
 			{% if salt.note %}
 			<tr style="background: #292e3c">
-				<td class = "left-td">Примечание</td>
+				<td class="left-td">Примечание</td>
 				<td>
 					<p>{{ salt.note }}</p>
 				</td>

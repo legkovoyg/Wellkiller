@@ -541,3 +541,4 @@ def history_page(request):
 # FAQ страница
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
+
