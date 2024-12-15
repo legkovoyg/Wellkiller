@@ -469,5 +469,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // Получаем ссылку на таблицу с классом changed-table
+    const changedTable = document.querySelector('.changed-table');
+    if (!changedTable) return; // Если таблицы нет на странице, выходим
+
+    const tableBody = changedTable.querySelector('tbody');
+
+    // Находим заголовки для столбцов, по которым хотим сортировать.
+    // Предполагаем, что столбцы в порядке: 
+    // 1: Название соли
+    // 2: Плотность
+    // 3: Расход соли
+    // 4: Расход пресной воды
+    const saltConsumptionHeader = changedTable.querySelector('thead tr td:nth-child(3)');
+    const waterConsumptionHeader = changedTable.querySelector('thead tr td:nth-child(4)');
+
+    // Флаги направления сортировки для каждого столбца:
+    // true - сортировать по возрастанию, false - по убыванию.
+    let saltSortAscending = true;
+    let waterSortAscending = true;
+
+    // Функция сортировки по определенному столбцу
+    // columnIndex - индекс столбца (0-базный, у нас 2 для расхода соли, 3 для воды)
+    // ascending - true для возрастания, false для убывания
+    function sortTableByColumn(columnIndex, ascending) {
+        // Получаем все строки таблицы (кроме заголовка)
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+        rows.sort((a, b) => {
+            const aText = a.querySelectorAll('td')[columnIndex].textContent.trim();
+            const bText = b.querySelectorAll('td')[columnIndex].textContent.trim();
+            
+            // Преобразуем к числу (на случай, если дробные числа в виде 1,05 или 1.05)
+            const aVal = parseFloat(aText.replace(',', '.'));
+            const bVal = parseFloat(bText.replace(',', '.'));
+
+            // Если не число, пусть будет 0
+            const valA = isNaN(aVal) ? 0 : aVal;
+            const valB = isNaN(bVal) ? 0 : bVal;
+
+            if (valA < valB) return ascending ? -1 : 1;
+            if (valA > valB) return ascending ? 1 : -1;
+            return 0;
+        });
+
+        // Перестраиваем tbody новыми строками
+        rows.forEach(row => tableBody.appendChild(row));
+    }
+
+    // При клике на заголовок столбца расхода соли
+    saltConsumptionHeader.addEventListener('click', () => {
+        sortTableByColumn(2, saltSortAscending);
+        // Меняем флаг, чтобы при следующем клике сортировать в другом порядке
+        saltSortAscending = !saltSortAscending;
+    });
+
+    // При клике на заголовок столбца расхода пресной воды
+    waterConsumptionHeader.addEventListener('click', () => {
+        sortTableByColumn(3, waterSortAscending);
+        waterSortAscending = !waterSortAscending;
+    });
+});
 
 let buttons = document.querySelectorAll('.btn')
