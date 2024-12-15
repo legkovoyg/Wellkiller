@@ -110,29 +110,18 @@
 				
 
 				<table class="changed-table">
-					<tr style="background: #5c606a">
-						<td>Название соли</td>
-						<td>Плотность раствора, г/см³</td>
-						<td>Расход соли, кг/м³</td>
-						<td>Расход пресной воды, л/м³</td>
-					</tr>
-				
-					{% comment %} {% for elem in bd_names_salts %}
-					<tr id="{{ elem.name }}">
-						<td>{{ elem.name }}</td>
-						<td>
-							<input
-								type="number"
-								step="0.01"
-								class="density-input"
-								id="{{ elem.name }}-density-input"
-							/>
-						</td>
-						<td id="{{ elem.name }}-salt-consumption">-</td>
-						<td id="{{ elem.name }}-water-consumption">-</td>
-					</tr>
-					{% endfor %} {% endcomment %}
-				</table>
+    <thead>
+        <tr style="background: #5c606a">
+            <td>Название соли</td>
+            <td>Плотность раствора, г/см³</td>
+            <td>Расход соли, кг/м³</td>
+            <td>Расход пресной воды, л/м³</td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
 			</div>
 			<section class="salt-base-graph">
 				<div class="select_container">

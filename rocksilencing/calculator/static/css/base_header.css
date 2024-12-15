@@ -92,3 +92,13 @@ a:-webkit-any-link {
     padding: 8px;
 } 
 
+@media (max-width: 768px) {
+    .leftContent-first, .leftContent-second {
+        font-size: calc(1.2vw + 0.5em); /* Адаптивный размер шрифта */
+        line-height: 1.4; /* Улучшение читаемости */
+        
+    }
+    .leftContent-first{
+        padding-left: 3vw;
+    }
+}
