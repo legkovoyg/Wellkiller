@@ -3,57 +3,11 @@
 
 }
 
-:root{
-    
-    /* reference */
-    --reference_height:1080;
-    --reference_width:1920;
-
-
-    /* fist section geom */
-    --first_section_width:300;
-
-    /* margins second section*/
-    --second_margin_to_top_header: 52;
-    --second_margin_to_left_sidebar: 62;
-
-    /* paddings second section*/
-    --second_section_top_bot_padding:20;
-    --second_section_right_padding: 15;
-    --second_section_left_padding:20;
-
-    /* header */
-    --second_header_top_bot_margin:20;
-
-    /* geom second second template*/
-    --second_section_width:54.6875vw;
-
-    /* geom data second template*/
-    --second_template_data_list: 385;
-
-
-
-    /* third sec geon */
-    --third_section_width: 437;
-    --third_section_height: 988 ;
-
-    /* third sec paddings */
-    --third_section_top_bot_padding: 20;
-    --third_section_left_padding: 16;
-    --third_section_right_padding: 20;
-
-    /* */
-
-}
-
-
-
 /* main content */
 
 .main__content{
     margin-bottom: 25px;
     margin-right: 0;
-    margin-top: calc(var(--second_margin_to_top_header) / var(--reference_height) * 100vh);
     display: flex;
     flex-direction: row;
     margin-left: 88px;
@@ -64,7 +18,7 @@ section{
 }
 
 .header{
-    margin: calc(var(--second_header_top_bot_margin)/var(--reference_height)*100vh) 0 calc(var(--second_header_top_bot_margin)/var(--reference_height)*100vh) 0;
+    margin-bottom: 20px;
     font-size: 14px;
     font-weight: 500;
 }
@@ -72,12 +26,12 @@ section{
 /* section 1 search*/
 
 .content__search{
-    min-width: calc(var(--first_section_width)/var(--reference_width)*100vw);
-    max-width: calc(var(--first_section_width)/var(--reference_width)*100vw);
+    width: 40%;
     background-color: #222836;
+    margin-top: 50px;
     overflow: hidden;
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
-    min-height:95vh;
+    min-height:94vh;
 }
 
 .search-header{
@@ -119,75 +73,28 @@ section{
 
 
 /* section 2 table*/
-
 .content-info{
     /* border-left: solid rgba(255, 255, 255, 0.08) 2px; */
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
-    min-width: var(--second_section_width);
-    max-height:95vh;
-    padding: calc(var(--second_section_top_bot_padding) / var(--reference_height) * 100vh) 
-             calc(var(--second_section_right_padding) / var(--reference_width) * 100vw)
-             calc(var(--second_section_top_bot_padding) / var(--reference_height) * 100vh)
-             calc(var(--second_section_left_padding) / var(--reference_width) * 100vw);
+    width: 100%;
+    margin-top: 50px;
+    padding: 20px 15px 15px 15px;
 }
 .content__table td{
     text-align: center;
     width: 25% ;
 }
-.changed-table{
-    display: none;
-}
-.changed-table tr:nth-child(even) {
-    background-color: #292e3c; 
-}
-
-.changed-table tr:nth-child(odd) {
-    background-color: #363a47; 
-}
 .salt-base-graph{
     padding-top:20px;
 }
-.plotly-graph-changed{
-    display: none;
-}
-.select_container{
-    display: flex;
-    justify-content: flex-start ;
-}
-
-.graph_select{
-    padding: 9px 0;
-    margin:8px 0 8px 30px ;
-    border: 1px solid #1D9A6C;
-    border-radius: 8px;
-    background-color: #26413F;
-    color: #1D9A6C;
-    text-align: center;
-    line-height: 16px;
-    width: 229px;
-    font-size: 10px;
-    display: flex;
-    justify-content: center;
-}
-.graph_select:active, .graph_select:focus{
-    outline:none
-  }
-  .graph_select option{
-    background-color: #363A47 ;
-    color: rgba(255, 255, 255, 0.64);
-    border-radius: 8px;
-  }
-
-
 /* section 3 features*/
 
 .content__features {
     font-size: 12px;
     font-weight: 400;
+    margin-top: 50px;
     padding: 20px 15px 15px 15px;
-    min-width: calc(var(--third_section_width)/var(--reference_width)*100vw);
-    max-height:95vh;
-    min-width: 0px;
+    width: 50%;
 }
 
 
@@ -237,18 +144,12 @@ td p{
 tr td p {
     color: #fff;
 }
-.salt_table td{
-    white-space: normal;
-}
-.left-td{
-    width:40%;
 
-}
 
 /* tabs изменено*/
 .table-main{
     overflow-y: auto;
-    max-height: calc(var(--second_template_data_list)/var(--reference_height)*100vh);
+    height: 45vh;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -308,16 +209,11 @@ tr td p {
 .btn:hover{
     background: #FFFFFF14;
     border-radius: 3px;
-    
-}
-.btn.active{
-    background: #FFFFFF14;
-    border-radius: 3px;
 }
 
-/* .hidden {
+.hidden {
     display: none;
-} */
+}
 
 .bx-chevron-down{
     color: #1D9A6C;

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded",function (){
 const body = document.querySelector("body")
-// console.log(body)
+console.log(body)
 sidebar = body.querySelector(".sidebar")
         toggle = body.querySelector(".toggle")
         searchBtn = body.querySelector(".search-box")
