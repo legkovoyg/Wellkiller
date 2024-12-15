@@ -415,5 +415,59 @@ document.addEventListener('DOMContentLoaded', () => {
             })
     })
 })
+document.addEventListener('DOMContentLoaded', () => {
+    // Находим элементы модального окна
+    const densityHeader = document.querySelector('.changed-table .density-header');
+    const modalOverlay = document.getElementById('density-modal-overlay');
+    const massDensityInput = document.getElementById('mass-density-input');
+    const applyBtn = document.getElementById('mass-apply-btn');
+    const cancelBtn = document.getElementById('mass-cancel-btn');
+
+    // Комментарий: При клике на заголовок "Плотность раствора, г/см³" открываем модальное окно
+    densityHeader.addEventListener('click', () => {
+        // Отображаем модальное окно
+        modalOverlay.style.display = 'flex';
+    });
+
+    // Комментарий: Кнопка "Отмена" закрывает модальное окно без изменений
+    cancelBtn.addEventListener('click', () => {
+        modalOverlay.style.display = 'none';
+        massDensityInput.value = ''; // Очищаем поле ввода
+    });
+
+    // Комментарий: Кнопка "Применить" обновляет все плотности в таблице
+    applyBtn.addEventListener('click', () => {
+        const newDensity = parseFloat(massDensityInput.value);
+
+        // Проверяем валидность введенного числа
+        if (isNaN(newDensity)) {
+            alert('Пожалуйста, введите корректное число для плотности.');
+            return;
+        }
+
+        // Находим все инпуты плотности в таблице
+        const densityInputs = document.querySelectorAll('.changed-table .density-input');
+
+        // Обновляем значение каждого инпута плотности
+        densityInputs.forEach(input => {
+            input.value = newDensity;
+            // Инициируем событие input, чтобы сработали расчеты в основном скрипте
+            const event = new Event('input', {bubbles: true});
+            input.dispatchEvent(event);
+        });
+
+        // Закрываем модальное окно
+        modalOverlay.style.display = 'none';
+        massDensityInput.value = '';
+    });
+
+    // Дополнительно: Можно закрывать окно по клику на затемненный фон
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.style.display = 'none';
+            massDensityInput.value = '';
+        }
+    });
+});
 
 let buttons = document.querySelectorAll('.btn')

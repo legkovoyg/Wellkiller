@@ -63,6 +63,37 @@ section {
     width: 100%;
 }
 
+
+/* Модальное окно - затемненный фон */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background: rgba(0,0,0,0.5);
+    display: none; /* По умолчанию скрыто */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Окно внутри модального оверлея */
+.modal-window {
+    background: #292e3c;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    color: #fff;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
 .header {
     margin: calc(var(--second_header_top_bot_margin)/var(--reference_height)*100vh) 0 calc(var(--second_header_top_bot_margin)/var(--reference_height)*100vh) 0;
     font-size: 14px;
