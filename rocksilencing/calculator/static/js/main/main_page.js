@@ -71,77 +71,265 @@ graphSelect.addEventListener('change', function () {
   }
 })
 
-let hasElementsBeenAdded = false;
-
-function updateText() {
-
-  const mainContainer = document.querySelector('main')
- 
-  if (document.documentElement.clientWidth <= 500) {
-
-    if (hasElementsBeenAdded) return
-
-      let headerContainerMobile = document.createElement('div');
-      headerContainerMobile.classList.add('header-container-mobile')
-      mainContainer.prepend(headerContainerMobile);
-      
-      let text = [
-        "Входные данные",
-        "Результаты",
-        "Конструкция"
-      ]
-      text.forEach(text => {
-        let headerContainerMobile = document.querySelector('.header-container-mobile')
-        let headerMobile = document.createElement('h1')
-        headerMobile.classList.add('header-mobile')
-        headerMobile.textContent = text;
-        headerContainerMobile.appendChild(headerMobile);
-      })
-      const headerMobile = document.querySelector('h1')
-      const section = document.querySelector('.container__tab')
-      console.log(section)
-      headerMobile.onclick = () => {
-
-          section.style.display = 'block'
-      
-      }
-
-      hasElementsBeenAdded = true  
-  } else{
-    let headerContainerMobile = document.querySelector('.header-container-mobile')
-    headerContainerMobile.remove()
-  }
- 
-}
-window.addEventListener('resize', updateText);
-window.addEventListener('load', updateText);
-
-
-
-// Обновляем текст при загрузке страницы и при изменении размера окна
-
-
-// function resizeGraph() {
-//   const graphContainer = document.getElementById('graphPlotly');
-//   if (graphContainer) {
-//       Plotly.Plots.resize(graphContainer.querySelector('.plotly-graph-div'));
-//   }
-// }
-
 function resizeGraph() {
   const graphContainer = document.getElementById('graphPlotly');
   const plotDiv = graphContainer ? graphContainer.querySelector('.plotly-graph-div') : null;
 
   if (plotDiv && plotDiv.offsetParent !== null) {
-      Plotly.Plots.resize(plotDiv);
+    Plotly.Plots.resize(plotDiv);
   }
 }
 
-// Перерисовка графика при загрузке страницы
 document.addEventListener('DOMContentLoaded', resizeGraph);
-
-// Перерисовка при изменении размера окна
 window.addEventListener('resize', resizeGraph);
+window.addEventListener('resize', mobile);
+window.addEventListener('load', mobile);
+
+let hasElementsBeenAdded = false;
+let sectionsHidden = false;
+
+function mobile() {
+
+  const mainContainer = document.querySelector('main');
+  const headerContainerMobile = document.querySelector('.header-container-mobile');
+  const sections = document.querySelectorAll('.container__tab, .second_section, .third_section');
+  let linkDownload = document.querySelector('.download-report-mobile')
+  const urlContainer = document.getElementById('url-container');
+  const downloadUrl = urlContainer.getAttribute('data-download-url');
+
+  const rows = document.querySelectorAll('.injection-scenarious tr');
+
+  const headersInjection = document.querySelectorAll('.header-table-inject td') 
+  let buttonStageNext = document.querySelector('.next-stage-image')
+  let buttonStagePrevious = document.querySelector('.previous-stage-image')
+
+
+  if (document.documentElement.clientWidth <= 500) {
+
+    if (!sectionsHidden) {
+      sections.forEach((section, index) => {
+        section.style.display = index === 0 ? 'block' : 'none';
+      });
+      sectionsHidden = true;
+    }
+
+    if (!headerContainerMobile) {
+      let newHeaderContainerMobile = document.createElement('div');
+      newHeaderContainerMobile.classList.add('header-container-mobile');
+      mainContainer.prepend(newHeaderContainerMobile);
+
+
+      let titles = [
+        "Входные данные",
+        "Результаты",
+        "Конструкция"
+      ];
+
+      titles.forEach(text => {
+        let headerMobile = document.createElement('h1');
+        headerMobile.classList.add('header-mobile');
+        headerMobile.textContent = text;
+        newHeaderContainerMobile.appendChild(headerMobile);
+
+        headerMobile = document.querySelectorAll('.header-mobile')
+        headerMobile.forEach((header, index) => {
+          header.setAttribute('data-target', `#section${index + 1}`);
+        })
+
+        if (headerMobile.length > 0) {
+          headerMobile[0].classList.add('active');
+        }
+        headerMobile.forEach((header, index) => {
+          header.onclick = () => {
+            sections.forEach(section => {
+              section.style.display = 'none';
+            });
+            if (sections[index]) {
+              sections[index].style.display = 'block';
+            }
+
+              headerMobile.forEach(header => {
+                header.classList.remove('active');
+              });
+            
+
+            header.classList.add('active');
+
+            resizeGraph();
+          }
+
+        })
+      });
+
+      hasElementsBeenAdded = true;
+    }
+    if (!linkDownload) {
+      const linkDownload = document.createElement('a');
+      linkDownload.classList.add('download-report-mobile')
+      linkDownload.href = downloadUrl;
+      linkDownload.textContent = "Скачать отчёт";
+      sections[1].append(linkDownload);
+
+      hasElementsBeenAdded = true;
+    }
+    //Таблица стадий
+
+    
+    headersInjection.forEach((header, index) => {
+      if (index > 0) {
+        if (!buttonStageNext && !buttonStagePrevious) {
+          const buttonStageNext = document.createElement('img')
+          buttonStageNext.src = '../static/images/main/Vector 395.svg'
+          buttonStageNext.classList.add('next-stage-image')
+          const buttonStagePrevious = document.createElement('img')
+          buttonStagePrevious.src = '../static/images/main/Vector 396.svg'
+          buttonStagePrevious.classList.add('previous-stage-image')
+          header.appendChild(buttonStageNext);
+          header.prepend(buttonStagePrevious);
+          buttonStageNext.onclick = nextStage;
+          buttonStagePrevious.onclick = previousStage;
+          hasElementsBeenAdded = true;
+        }
+
+      }
+
+
+    })
+  
+    let currentStage = 1;
+
+    //Отображаем только первую стадию в начале
+    rows.forEach(row => {
+      for (let i = 2; i <= 4; i++) {
+        const cell = row.querySelector(`.stage-${i}`);
+        if (cell) {
+          cell.style.display = 'none'
+        }
+      }
+    });
+
+    function nextStage() {
+      changeStage(currentStage + 1);
+    }
+
+    function previousStage() {
+      changeStage(currentStage - 1);
+    }
+    function changeStage(newStage) {
+      const rows = document.querySelectorAll('.injection-scenarious tr');
+      currentStage = Math.max(1, Math.min(4, newStage));
+
+      // Переключение данных по стадиям
+      rows.forEach(row => {
+        for (let i = 1; i <= 4; i++) {
+          const cell = row.querySelector(`.stage-${i}`);
+          if (cell) {
+            cell.style.display = (i === currentStage) ? '' : 'none';
+          }
+        }
+      });
+    }
+
+
+  } else {
+    if (headerContainerMobile) {
+      headerContainerMobile.remove();
+      hasElementsBeenAdded = false;
+
+      sections.forEach(section => {
+        section.style.display = 'block';
+      });
+
+      sectionsHidden = false;
+    }
+    if (linkDownload) {
+      linkDownload.remove();
+      hasElementsBeenAdded = false;
+    }
+    if(buttonStageNext && buttonStagePrevious){
+      buttonStageNext = document.querySelectorAll('.next-stage-image')
+      buttonStageNext.forEach(button =>{
+        button.remove()
+      })
+      buttonStagePrevious = document.querySelectorAll('.previous-stage-image')
+      buttonStagePrevious.forEach(button =>{
+        button.remove()
+      })
+      hasElementsBeenAdded = false
+    }
+    
+    const cell = document.querySelectorAll('.injection-scenarious td')
+    cell.forEach(cell => {
+     cell.style.display = 'table-cell'
+    })
+  }
+}
+
+function demonstrate(){
+var mest = document.getElementById("field")
+var field = document.getElementById("bush")
+var well_name = document.getElementById("well_name")
+var design_name = document.getElementById('design_name')
+var porosity = document.getElementById('id_Porosity')
+var oil_density = document.getElementById('id_Oil_density')
+var Plast_pressure = document.getElementById('id_Plast_pressure')
+var Radius_countour = document.getElementById("id_Radius_countour")
+var Plast_thickness = document.getElementById('id_Plast_thickness')
+var From_yst_to_plast = document.getElementById('id_From_yst_to_plast')
+var False_zaboi = document.getElementById('id_False_zaboi')
+var True_zaboi = document.getElementById('id_True_zaboi')
+var NKT_length = document.getElementById("id_NKT_length")
+var NKT_inner_diameter = document.getElementById("id_NKT_inner_diameter")
+var NKT_external_diameter = document.getElementById('id_NKT_external_diameter')
+var EXP_length = document.getElementById('id_EXP_length')
+var EXP_inner_diameter = document.getElementById('id_EXP_inner_diameter')
+var EXP_external_diameter = document.getElementById('id_EXP_external_diameter')
+var Volume_of_car = document.getElementById('id_Volume_of_car')
+var Debit = document.getElementById('id_Debit')
+var YV_density = document.getElementById("id_YV_density")
+var YV_dole = document.getElementById('id_YV_dole')
+var Emul_density = document.getElementById("id_Emul_density")
+var Emul_dole = document.getElementById('id_Emul_dole')
+var Phase_oil_permeability = document.getElementById('id_Phase_oil_permeability')
+var Phase_jgs_permeability = document.getElementById('id_Phase_jgs_permeability')
+var Oil_viscosity = document.getElementById('id_Oil_viscosity')
+var Jgs_viscosity = document.getElementById('id_Jgs_viscosity')
+var Zapas = document.getElementById("id_Zapas")
+
+
+mest.value = 'Самотлорское';
+field.value = '332'
+well_name.value = '8971'
+design_name.value = 'Дизайн 1'
+porosity.value = 0.2
+oil_density.value = 800
+Plast_pressure.value = 100
+Radius_countour.value = 250
+Plast_thickness.value = 10
+From_yst_to_plast.value = 1400
+False_zaboi.value = 1500
+True_zaboi.value = 1500
+NKT_length.value = 1400
+NKT_inner_diameter.value = 0.062
+NKT_external_diameter.value = 0.073
+EXP_length.value = 100
+EXP_inner_diameter.value = 0.15
+EXP_external_diameter.value = 0.163
+Volume_of_car.value = 20
+Debit.value = 0.01
+YV_density.value = 0.88
+YV_dole.value = 0.16
+Emul_density.value = 0.8
+Emul_dole.value = 0.04
+Phase_oil_permeability.value = 0.5
+Phase_jgs_permeability.value = 1.5
+Oil_viscosity.value = 0.005
+Jgs_viscosity.value = 0.001
+Zapas.value = 0.1
+}
+
+
+
 
 
 

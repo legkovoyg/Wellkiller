@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		let bxSalt = e.querySelectorAll('.inner-tab-salt i')
 		let icons = e.querySelectorAll('.tabs i')
 		let buttons = e.querySelectorAll('.btn')
+		let options =  e.querySelectorAll('.salt-option')
+		options.forEach (option => {
+			option.onchange = () =>{
+
+			console.log("Привет")
+			} 
+		})
+		console.log(options)
+		console.log(buttons)
 		let traces = {} // Хранит состояния графиков
 		let visibleSalts = []
 
@@ -42,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					bxSalt[i].classList.add('bx-chevron-down')
 				}
 				Plotly.Plots.resize('plotly-graph')
-				console.log('resize1')
+				
 			}
 		}
 
@@ -56,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				let salts = document.querySelectorAll(
 					'.changed-table tr:not(:first-child)'
 				)
+				
 				let header = document.querySelector('.content__features')
 				let saltName = btn.textContent.trim()
 
@@ -69,21 +79,38 @@ document.addEventListener('DOMContentLoaded', function () {
 						table.style.display = 'none'
 					}
 				})
-
-				if (visibleSalts.includes(target)) {
-					visibleSalts = visibleSalts.filter(salt => salt !== target)
-				} else {
-					visibleSalts.push(target)
+				let tableBody = document.querySelector(".changed-table tbody");
+				let elemName = saltName;
+				let existingRow = document.getElementById(`${elemName}-cell`);	
+				if(!existingRow){
+					let newRow = document.createElement("tr");
+					newRow.id = `${elemName}-cell`
+					newRow.innerHTML = `
+					<td>${elemName}</td>
+					<td><input type="number" step="0.01" class="density-input" id="${elemName}-density-input"></td>
+					<td id="${elemName}-salt-consumption">-</td>
+					<td id="${elemName}-water-consumption">-</td>
+					`;
+					// Добавляем строку в таблицу
+					tableBody.appendChild(newRow);
 				}
+				else{
+					existingRow.remove()
+				}
+				// if (visibleSalts.includes(target)) {
+				// 	visibleSalts = visibleSalts.filter(salt => salt !== target)
+				// } else {
+				// 	visibleSalts.push(target)
+				// }
 
-				salts.forEach(salt => {
-					if (visibleSalts.includes(salt.id)) {
-						salt.style.display = 'table-row'
-					} else {
-						salt.style.display = 'none'
-					}
-				})
-
+				// salts.forEach(salt => {
+				// 	if (visibleSalts.includes(salt.id)) {
+				// 		salt.style.display = 'table-row'
+				// 	} else {
+				// 		salt.style.display = 'none'
+				// 	}
+				// })
+									
 				if (header.style.display == 'none') {
 					header.style.display = 'block'
 				}
@@ -131,7 +158,104 @@ document.addEventListener('DOMContentLoaded', function () {
 					Plotly.Plots.resize('plotly-graph-changed')
 				})
 			})
+			
 		})
+
+		document.querySelector('.salt-select').addEventListener('change', (event) => {
+			let selectedSaltName = event.target.value.trim(); // Получаем выбранное название соли
+			let target = event.target.querySelector(`[data-target="${selectedSaltName}"]`).getAttribute('data-target');
+			let changedTable = document.querySelector('.changed-table');
+			let tables = document.querySelectorAll('.content__features table');
+			let loadedTable = document.querySelector('.loaded-table');
+			let salts = document.querySelectorAll('.changed-table tr:not(:first-child)');
+			
+			let header = document.querySelector('.content__features');
+		
+			loadedTable.style.display = 'none';
+			changedTable.style.display = 'table';
+		
+			tables.forEach(table => {
+				if (table.id === target) {
+					table.style.display = 'table';
+				} else {
+					table.style.display = 'none';
+				}
+			});
+		
+			// Получаем тело таблицы
+			let tableBody = document.querySelector(".changed-table tbody");
+			let elemName = selectedSaltName;
+			let existingRow = document.getElementById(`${elemName}-cell`);
+		
+			// Если строка не существует, создаем её
+			if (!existingRow) {
+				let newRow = document.createElement("tr");
+				newRow.id = `${elemName}-cell`;
+				newRow.innerHTML = `
+					<td>${elemName}</td>
+					<td><input type="number" step="0.01" class="density-input" id="${elemName}-density-input"></td>
+					<td id="${elemName}-salt-consumption">-</td>
+					<td id="${elemName}-water-consumption">-</td>
+				`;
+				// Добавляем строку в таблицу
+				tableBody.appendChild(newRow);
+			} else {
+				// Если строка уже есть, удаляем её
+				existingRow.remove();
+			}
+		
+			// Отображаем заголовок, если скрыт
+			if (header.style.display == 'none') {
+				header.style.display = 'block';
+			}
+		
+			// Работа с графиками
+			const graph = document.getElementById('plotly-graph');
+			const changedGraph = document.getElementById('plotly-graph-changed');
+			graph.style.display = 'none';
+			changedGraph.style.display = 'block';
+			Plotly.Plots.resize('plotly-graph-changed');
+		
+			// Проверяем, существует ли уже график для выбранной соли
+			if (!traces[selectedSaltName]) {
+				const salt = saltsData.find(s => s.name === selectedSaltName);
+				let filteredSolutionsData = solutionsData.filter(
+					sol => sol.salt_id === salt.id
+				);
+		
+				if (filteredSolutionsData.length) {
+					let xData = filteredSolutionsData.map(sol => sol.density);
+					let yData = filteredSolutionsData.map(sol => sol.salt_consumption);
+		
+					let trace = {
+						x: xData,
+						y: yData,
+						mode: 'lines',
+						name: selectedSaltName,
+						showlegend: true,
+					};
+					traces[selectedSaltName] = trace;
+		
+					// Добавляем новый график для выбранной соли
+					Plotly.addTraces('plotly-graph-changed', trace);
+				}
+			} else {
+				// Убираем график, если он уже существует
+				Plotly.deleteTraces(
+					'plotly-graph-changed',
+					Object.keys(traces).indexOf(selectedSaltName)
+				);
+		
+				// Удаляем отслеживаемый trace
+				delete traces[selectedSaltName];
+			}
+		
+			// Обработка ресайза графика
+			window.addEventListener('resize', () => {
+				Plotly.Plots.resize('plotly-graph-changed');
+			});
+		});
+		
 	})
 
 	Plotly.newPlot('plotly-graph-changed', [], {
@@ -320,3 +444,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	})
 })
+
+let buttons = document.querySelectorAll('.btn')
+
+// buttons.forEach(btn => {
+// 	btn.addEventListener('click', () => {
+// 	let newRow = document.createElement("tr");
+// 	let saltName = saltsData.map(s => s.name)
+//     let elemName = saltName; 
+//     newRow.id = elemName;
+
+//     newRow.innerHTML = `
+//         <td>${elemName}</td>
+//         <td><input type="number" step="0.01" class="density-input" id="${elemName}-density-input"></td>
+//         <td id="${elemName}-salt-consumption">-</td>
+//         <td id="${elemName}-water-consumption">-</td>
+//     `;
+    
+//     // Добавляем строку в таблицу
+//     let tableBody = document.querySelector(".changed-table tbody");
+//     tableBody.appendChild(newRow);
+// 	})
+// })

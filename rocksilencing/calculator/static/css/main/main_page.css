@@ -3,11 +3,17 @@
     --reference_height:1080;
     --reference_width:1920;
 
+    --reference-middle-width:900;
+    --reference-mobile-width:500;
 
     /* margins */
     --margin-top:50;
     --padding-top:12;
+
+    --graph-select-width:229;
+    --graph-select-mobile-width:167;
     
+
 }
 body {
     background: #292e3c;
@@ -35,10 +41,9 @@ body {
 .mainContainer {
     display: flex;
     flex-direction: row;
-    /*margin-right: 25px;*/
-    /*margin-top: 27px;*/
     margin-bottom: 16px;
     margin-left: 88px;
+    margin-top: calc(52/var(--reference_height)*100vh);
 }
 
 .container__tab {
@@ -46,7 +51,6 @@ body {
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
     display: flex;
     flex-direction: column;
-    margin-top:50px;
     max-width: 629px;
     width: 100%;
 }
@@ -61,7 +65,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
+    padding: 17px 12px 12px 12px;
     color: rgba(255, 255, 255, 0.87);
     font-size: 14px;
     font-weight: 500;
@@ -134,12 +138,12 @@ body .download__rep {
     width: 100%;
     padding: 0 25px 0;
     border-right: solid rgba(255, 255, 255, 0.08) 2px;
-    margin-top: 50px;
+    
 }
 
 .third_section {
     padding: 0 25px 0;
-    margin-top: calc(var(--margin-top)/var(--reference_height)*100vh);
+
 }
 
 .fourth_section {
@@ -277,7 +281,7 @@ select {
     color: #1D9A6C;
     text-align: center;
     line-height: 16px;
-    width: 229px;
+    width: calc(var(--graph-select-width)/var(--reference_width)*100vw);
     font-size: 10px;
     display: flex;
     justify-content: center;
@@ -539,7 +543,6 @@ width: 15%;
 
     .tabs {
         display: flex;
-        /*justify-content: space-between;*/
         flex-direction: column;
     }
 
@@ -591,6 +594,9 @@ width: 15%;
         width: 100%;
         text-align: center;
     }
+    .graph_select{
+        width: calc(var(--graph-select-width)/var(--reference-middle-width)*100vw);
+    }
 
     select {
         text-align: center;
@@ -600,20 +606,28 @@ width: 15%;
 
 
 @media (max-width: 500px) {
+
+   .toggle-header{
+    width:27px;
+    height:20px;
+   }
+   .toggle-header:hover{
+ cursor: pointer;
+   }
     .mainContainer{
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        margin: 21.5px 0;
+        margin-top: 73.5px;
         flex-wrap: wrap;
-        padding: 0 11px;
+        padding: 0 11px 12px;
     }
     .container__tab, .second_section, .third_section {
         padding: 0;
         margin: 0;
-        width: fit-content;
         min-width: auto;
         display: none;
+        overflow-x: hidden;
     }
 
     h1{
@@ -627,9 +641,10 @@ width: 15%;
 
     .header-container-mobile{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         flex-wrap: wrap;
         width: 100%;
+        margin-bottom: 21.5px;
 
     }
     .header-mobile{
@@ -638,8 +653,13 @@ width: 15%;
         color:white;
         font-size: 14px;
         font-weight: 400;
+        line-height: 16px;
     }
     .header-mobile:hover{
+        background-color: #363A47;
+        cursor: pointer;
+    }
+    .header-mobile.active{
         background-color: #363A47;
     }
     .tabs{
@@ -647,12 +667,16 @@ width: 15%;
         flex-direction: row;
         justify-content: space-between;
         margin-bottom: 9px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
     .tabs .tab {
         font-size: 12px;
         font-weight: 500;
         padding: 15px 10px;
-        margin:0
+        margin:0;
+        white-space: nowrap;
     }
     th{
         padding: 6px 0px 6px 16px;
@@ -661,9 +685,14 @@ width: 15%;
         width: 70%;
     }
     td{
-        padding: 6px 0px 6px 16px;
+        padding: 6px 12px 6px 16px;
         text-align: right;
         overflow-x: hidden;
+        font-size: 12px;
+      
+    }
+    .td-left td{
+        font-size: 10px;
     }
     td input, td select{
         
@@ -672,13 +701,95 @@ width: 15%;
         text-align: left;
         width: 8em;
     }
+    button{
+        font-size: 20px;
+        padding: 22px 0;
+    }
+    footer{
+        margin: 0;
+    }
     .input__file-button{
-        font-size: 12px;
         line-height: 16px;
+        font-size: 12px;
     }
     .inclinometry-results td{
-        font-size: 10px;
         padding: 5px 0;
     }
-    
+
+    .headerContainer__info{
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 12px 24px 22px 12px;
+    }
+    .headerContainer__info div{
+       margin: 0;  
+    } 
+
+    .headerContainer__info p{
+        max-width: 65px;
+        
+    } 
+    .info-name{
+        min-height: 36px;
+        margin-bottom: 9px;
+        line-height: 12px;
+    }
+    .info-spec{
+        font-size: 14px;
+ 
+    }
+    .graph_select{
+        width: calc(var(--graph-select-mobile-width)/var(--reference-mobile-width)*100vw);
+    }
+    body .download-report-mobile{
+        margin-top: 1rem;
+        width: 100%;
+        display: block;
+        padding: 22px 12px;
+        border-radius: 8px;
+        background: rgb(29, 154, 108);
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0px;
+        cursor: pointer;
+        background-image: linear-gradient(10deg, #26413f, #1d9a6c);
+        text-align: center;
+        text-decoration: none;    
+    }
+    .download-report-mobile:hover{
+        background: rgba(29, 154, 108, 0.74);
+        transition: all .2s;
+        animation: shadow .6s infinite linear;
+    }
+    .table-caption td, .table-caption label{
+        font-size: 14px;
+    }
+    .table-header td{
+        font-size: 10px;
+    }
+
+    .block-pack{
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .block-pack .item__tables{
+        width: 148%;
+    }
+    .block-pack-recipe .td-center{
+        width: 18%;
+    }
+    .block-pack-recipe .td-left{
+        width: 28%;
+    }
+    .next-stage-image, .previous-stage-image{
+       opacity: 64%;
+       cursor: pointer;
+    }
+    /* .first-stage{
+        display: none;
+    } */
 }

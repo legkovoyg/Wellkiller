@@ -7,6 +7,9 @@
     /* margin-top: 27px; */
     margin-bottom: 16px;
     margin-left: 88px;
+    margin-top: calc(52/1080*100vh);
+    padding-top: 17px;
+    padding: 0 12px;
 }
 
 .container__tab{
@@ -14,7 +17,6 @@
     border-right: solid rgba(255, 255, 255, 0.08) 2px; 
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
     width: 40%;
 }
 
@@ -119,7 +121,7 @@ td p{
 
 .third-section__main{
     padding: 0 25px 0;
-    margin-top: 50px;
+
     width: 100%;
 }
 
@@ -154,9 +156,12 @@ button:hover{
     transition: all .2s;
     animation: shadow .6s infinite linear;
 }
+
 @media (max-width: 900px) {
   .mainContainer{
     flex-direction: column;
+    margin-left: 0;
+    margin-top: 12px
   }
   .container__tab{
     border-right: none;
@@ -174,10 +179,10 @@ button:hover{
     width: 100%;
     text-align: center;
   }
-  .mainContainer{
+  /* .mainContainer{
     margin-left: 0px;
     margin-top: 0px;
-  }
+  } */
   .third-section__child{
     margin-bottom: 70px;
   }
@@ -188,7 +193,7 @@ button:hover{
   .headerContainer{
   font-size: 17px;
   display: flex;
-  justify-content: center;
+  
   }
   .headerContainer h1{
      margin-left: 0px;
@@ -202,4 +207,25 @@ button:hover{
   button{
     font-size: 14px;
   }
+}
+
+@media (max-width: 500px) {
+  .mainContainer{
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: calc(73.5/var(--reference_height)*100vh);
+  }
+  .headerContainer h1, .download__span{
+    font-size: 14px;
+  }
+  p, td, .plates{
+    font-size: 12px;
+  }
+  .third-section__main{
+    padding: 0;
+  }
+  .tables td{
+    font-size: 10px;
+  }
+
 }
