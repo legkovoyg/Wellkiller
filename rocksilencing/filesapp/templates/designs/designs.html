@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -12,9 +13,11 @@
     <div class="history-header">
         <h1>История расчетов</h1>
         <!-- Добавили класс create-design-trigger -->
-        <a href="#" class="create-design-btn create-design-trigger">Создать дизайн</a>
     </div>
     <div class="history-search">
+        <a href="#" class="create-design-btn create-design-trigger">
+            <img src="{% static 'images/add.svg' %}" alt="Добавить"> 
+            Создать дизайн</a>
         <input type="text" placeholder="Поиск" />
     </div>
     <div class="history-table-container">
@@ -53,6 +56,7 @@
 <!-- Если нет дизайнов, показываем сообщение и кнопку -->
 <div class="content-wrapper">
     <div class="no-designs-container">
+        <img src="{% static 'images/preview.png' %}" alt="Создать">
         <p>Вы еще не создали дизайны скважин</p>
         <!-- Добавили класс create-design-trigger -->
         <button class="create-design-btn create-design-trigger">Создать дизайн</button>
@@ -60,11 +64,14 @@
 </div>
 {% endif %}
 
+
 <!-- Модальное окно -->
 <div class="modal-overlay">
     <div class="modal">
-        <button class="modal-close">&times;</button>
-        <div class="modal-title">Новый дизайн</div>
+        <div class="modal-top-bar"> 
+            <div class="modal-title">Новый дизайн</div> 
+            <button class="modal-close">&times;</button>
+        </div> 
         <div>
             <label class="modal-label" for="design-name">Название дизайна</label>
             <input class="modal-input" type="text" id="design-name" placeholder="Введите название дизайна">
