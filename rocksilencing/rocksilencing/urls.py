@@ -24,6 +24,7 @@ from calculator.views import (
     history_page,
     FAQ_page,
     download_report,
+    download_scale_calc_report,
     calculate_consumption,
 )
 
@@ -43,6 +44,11 @@ urlpatterns = [
     path("calculator/FAQ_page", FAQ_page, name="FAQ_page"),
     path("users/", include("users.urls", namespace="users")),
     path("download_report/", download_report, name="download_report"),
+    path(
+        "download_report_salt/",
+        download_scale_calc_report,
+        name="download_scale_report",
+    ),
     path("calculate_consumption/", calculate_consumption, name="calculate_consumption"),
     path("design_management", include("filesapp.urls", namespace="filesapp")),
 ]
