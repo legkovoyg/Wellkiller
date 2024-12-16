@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/designs/designs.css' %}">
+<link rel="stylesheet" href="{% static 'css/designs/modal.css' %}">
+<script src="{% static 'js/designs/designs.js' %}" defer></script>
+
+{% if designs and designs|length > 0 %}
+<!-- Если есть дизайны, показываем историю расчетов -->
+<div class="history-container">
+    <div class="history-header">
+        <h1>История расчетов</h1>
+        <!-- Добавили класс create-design-trigger -->
+        <a href="#" class="create-design-btn create-design-trigger">Создать дизайн</a>
+    </div>
+    <div class="history-search">
+        <input type="text" placeholder="Поиск" />
+    </div>
+    <div class="history-table-container">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Название дизайна</th>
+                    <th>Тип расчета</th>
+                    <th>Месторождение</th>
+                    <th>Кустовая площадь</th>
+                    <th>Скважина</th>
+                    <th>Создан</th>
+                    <th>Последнее изменение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for design in designs %}
+                <tr>
+                    <td>
+                        <img src="{% static 'images/greenimg.png' %}" alt="Описание картинки"> 
+                        {{ design.name }}
+                    </td>
+                    <td>{{ design.calc_type }}</td>
+                    <td>{{ design.field }}</td>
+                    <td>{{ design.cluster }}</td>
+                    <td>{{ design.well }}</td>
+                    <td>{{ design.created|date:"d M Y H:i" }}</td>
+                    <td>{{ design.updated|date:"d M Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<!-- Если нет дизайнов, показываем сообщение и кнопку -->
+<div class="content-wrapper">
+    <div class="no-designs-container">
+        <p>Вы еще не создали дизайны скважин</p>
+        <!-- Добавили класс create-design-trigger -->
+        <button class="create-design-btn create-design-trigger">Создать дизайн</button>
+    </div>
+</div>
+{% endif %}
+
+<!-- Модальное окно -->
+<div class="modal-overlay">
+    <div class="modal">
+        <button class="modal-close">&times;</button>
+        <div class="modal-title">Новый дизайн</div>
+        <div>
+            <label class="modal-label" for="design-name">Название дизайна</label>
+            <input class="modal-input" type="text" id="design-name" placeholder="Введите название дизайна">
+        </div>
+        <div>
+            <label class="modal-label" for="field-select">Месторождение</label>
+            <select class="modal-select" id="field-select">
+                <option disabled selected>Выберите или введите название</option>
+                <option>Месторождение-1</option>
+                <option>Месторождение-2</option>
+            </select>
+        </div>
+        <div>
+            <label class="modal-label" for="cluster-select">Номер кустовой площадки</label>
+            <select class="modal-select" id="cluster-select">
+                <option disabled selected>Выберите или введите номер</option>
+                <option>Куст-1</option>
+                <option>Куст-10</option>
+            </select>
+        </div>
+        <div>
+            <label class="modal-label" for="well-select">Номер скважины</label>
+            <select class="modal-select" id="well-select">
+                <option disabled selected>Выберите или введите номер</option>
+                <option>Скважина-1</option>
+                <option>Скважина-25</option>
+            </select>
+        </div>
+        <div>
+            <label class="modal-label" for="calc-type">Тип расчета</label>
+            <select class="modal-select" id="calc-type">
+                <option>Глушение скважины</option>
+                <option>Расчет совместимости вод</option>
+            </select>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel">Отмена</button>
+            <button class="modal-btn create">Создать дизайн</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

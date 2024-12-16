@@ -28,6 +28,7 @@ from calculator.views import (
 )
 
 from users.views import logout_user, login_user, register_user
+from filesapp.views import FilesMainWindow
 from rocksilencing import settings
 
 urlpatterns = [
@@ -43,4 +44,5 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("download_report/", download_report, name="download_report"),
     path("calculate_consumption/", calculate_consumption, name="calculate_consumption"),
+    path("design_management", include("filesapp.urls", namespace="filesapp")),
 ]
