@@ -468,6 +468,7 @@ def download_scale_calc_report(request):
 
     # Достаем словарь графика
     graph_dict = salt_session_context.get("graph_dict")
+    all_results = salt_session_context.get("all_results")
     if graph_dict:
         fig = go.Figure(graph_dict)  # Создаем фигуру из словаря
         graph_image = pio.to_image(fig, format="png")
@@ -483,6 +484,7 @@ def download_scale_calc_report(request):
     response["Content-Disposition"] = (
         'attachment; filename="scale_calculator_report.docx"'
     )
+    print(all_results)
     doc.save(response)
     return response
 
