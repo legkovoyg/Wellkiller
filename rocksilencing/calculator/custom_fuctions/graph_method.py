@@ -1,3 +1,7 @@
+import plotly.express as px
+import pandas as pd
+import plotly.graph_objects as go
+
 def create_plot(results):
     needed_Calcit = []
     needed_Gips = []
