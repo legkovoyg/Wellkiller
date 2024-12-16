@@ -17,6 +17,7 @@ function mobile () {
         let newToggle = document.querySelector('.toggle-sidebar-img')
         const mainHeaderRight = document.querySelector('.main-Header__rightContent')
         const logInButton = document.querySelector('.rightContent-fourth')
+        const closeSidebar = document.querySelector('.close-sidebar')
         if (document.documentElement.clientWidth <= 500) {
                 logInButton.style.display = 'none';
                 if(!newToggle) {
@@ -26,9 +27,11 @@ function mobile () {
                         mainHeaderRight.append(newToggle)
                         newToggle.src = '/static/images/base/Frame-15003.svg'
                         newToggle.addEventListener("click",() => {
-                                sidebar.classList.toggle("close");
+                                sidebar.classList.remove("close");
                         })
-
+                        closeSidebar.addEventListener('click', () => {
+                                sidebar.classList.add("close");
+                        })
                         hasElementsBeenAdded = true;
                 }       
         

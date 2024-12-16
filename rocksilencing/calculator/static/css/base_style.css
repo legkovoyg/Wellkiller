@@ -60,7 +60,9 @@ body{
     flex-direction: column;
    
 }
-
+.close-sidebar{
+    display: none;
+}
 .sidebar.close{
     width: 88px;
 
@@ -278,6 +280,16 @@ body.dark .sidebar header .toggle{
         transform: translateX(0);
         height: 100%;
         padding-bottom: 20px;
+        z-index: 151;
+    }
+    .close-sidebar{
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 16px;
+        right: 25px;
+        cursor: pointer;
     }
     .sidebar.close{
         height: 100%;

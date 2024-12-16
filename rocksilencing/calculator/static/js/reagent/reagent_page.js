@@ -3,7 +3,7 @@ let traces = {};
 
 document.addEventListener('DOMContentLoaded', function () {
     initialGraph()
-
+    
     document.querySelectorAll('.tabs-wrapper').forEach(e => {
         let tabs = e.querySelectorAll('.tab')
         let innerTabs = e.querySelectorAll('.inner-tabs')
@@ -13,18 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let icons = e.querySelectorAll('.tabs i')
         let buttons = e.querySelectorAll('.btn')
         let options =  e.querySelectorAll('.salt-option')
-
-        // Удаляем ненужный код с option.onchange, так как он не сработает
-        // options.forEach (option => {
-        //     option.onchange = () =>{
-        //         console.log("Привет")
-        //     } 
-        // })
-
-        console.log(options)
-        console.log(buttons)
-
-        let visibleSalts = []
 
         for (let i = 0; i < tabs.length; i++) {
             tabs[i].onclick = () => {
@@ -61,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
+               
                 btn.classList.toggle('active')
                 let target = btn.getAttribute('data-target')
                 let changedTable = document.querySelector('.changed-table')
@@ -98,6 +87,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     existingRow.remove()
                 }
+                
+                if (tableBody.children.length === 0) {
+                    loadedTable.style.display = 'table'; 
+                    changedTable.style.display = 'none';
+                } else {
+                    loadedTable.style.display = 'none'; 
+                    changedTable.style.display = 'table'; 
+                }
+
 
                 if (header.style.display == 'none') {
                     header.style.display = 'block'
@@ -136,15 +134,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         'plotly-graph-changed',
                         Object.keys(traces).indexOf(saltName)
                     )
-                    delete traces[saltName]
+                    delete traces[saltName] 
                 }
-
+                if (Object.keys(traces).length === 0) {
+                    graph.style.display = 'block'
+                    changedGraph.style.display = 'none'
+                    Plotly.Plots.resize('plotly-graph')
+                }
                 window.addEventListener('resize', () => {
                     Plotly.Plots.resize('plotly-graph-changed')
                 })
             })
+           
         })
-
+        
         // Заменяем на селектор выбора соли по id
         document.querySelector('#salt-choose').addEventListener('change', (event) => {
             let selectedSaltName = event.target.value.trim();
@@ -229,13 +232,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
                 delete traces[selectedSaltName];
             }
-
             window.addEventListener('resize', () => {
                 Plotly.Plots.resize('plotly-graph-changed');
             });
         });
     })
-
+   
     Plotly.newPlot('plotly-graph-changed', [], {
         paper_bgcolor: 'rgba(41, 46, 60, 1)',
         plot_bgcolor: 'rgba(41, 46, 60, 1)',
@@ -325,6 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                 }
             }
+
         })
 
         Plotly.newPlot('plotly-graph', data, layout)
@@ -340,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+   
 })
 
 const normalizeId = (id) => {
@@ -414,6 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 waterConsumptionElem.textContent = 'Ошибка'
             })
     })
+    
 })
 document.addEventListener('DOMContentLoaded', () => {
     // Находим элементы модального окна
@@ -429,14 +434,16 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.style.display = 'flex';
     });
 
-    // Комментарий: Кнопка "Отмена" закрывает модальное окно без изменений
-    cancelBtn.addEventListener('click', () => {
-        modalOverlay.style.display = 'none';
-        massDensityInput.value = ''; // Очищаем поле ввода
-    });
-
-    // Комментарий: Кнопка "Применить" обновляет все плотности в таблице
-    applyBtn.addEventListener('click', () => {
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            
+            if (modalOverlay) {
+                modalOverlay.style.display = 'none'; 
+            }
+        }
+    })
+    
+    function applyModal() {
         const newDensity = parseFloat(massDensityInput.value);
 
         // Проверяем валидность введенного числа
@@ -459,7 +466,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Закрываем модальное окно
         modalOverlay.style.display = 'none';
         massDensityInput.value = '';
-    });
+
+    }
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            applyModal()
+        }
+    })
 
     // Дополнительно: Можно закрывать окно по клику на затемненный фон
     modalOverlay.addEventListener('click', (e) => {
