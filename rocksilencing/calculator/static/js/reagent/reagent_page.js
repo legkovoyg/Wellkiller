@@ -425,13 +425,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const densityHeader = document.querySelector('.changed-table .density-header');
     const modalOverlay = document.getElementById('density-modal-overlay');
     const massDensityInput = document.getElementById('mass-density-input');
-    const applyBtn = document.getElementById('mass-apply-btn');
-    const cancelBtn = document.getElementById('mass-cancel-btn');
 
     // Комментарий: При клике на заголовок "Плотность раствора, г/см³" открываем модальное окно
     densityHeader.addEventListener('click', () => {
         // Отображаем модальное окно
         modalOverlay.style.display = 'flex';
+        massDensityInput.focus()
     });
 
     document.addEventListener('keydown', function (event) {
