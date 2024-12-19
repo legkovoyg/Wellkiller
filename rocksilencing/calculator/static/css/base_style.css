@@ -103,7 +103,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 60px;
+    /* min-width: 60px; */
     font-size: 18px;
 }
 
@@ -171,6 +171,8 @@ body.dark .sidebar header .toggle{
     text-decoration: none;
     border-radius: 6px;
     transition: var(--tran-04);
+    padding: 0 16px;    
+    gap: 18px;
 }
 
 .sidebar li a:hover{
@@ -214,6 +216,13 @@ body.dark .sidebar header .toggle{
     flex-direction: column; */
     left: 0;
     margin: auto 22px 25px;
+}
+.close li .icon{
+    min-width: 60px;
+}
+.close li a{
+    padding: 0;
+    gap: 0;
 }
 
  @media (max-width: 900px) {
@@ -299,6 +308,8 @@ body.dark .sidebar header .toggle{
     }
     .sidebar li a{
         justify-content: flex-start;
+        gap: 0;
+        padding: 0;
     }
      .sidebar li .icon{
        padding: 0 14px;
