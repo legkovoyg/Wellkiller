@@ -1,282 +1,269 @@
 // tabs //
-document.getElementById('input__file').addEventListener ('change', function() {
+
+document.getElementById('input__file').addEventListener('change', function () {
   var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
   document.getElementById('file-name-text').textContent = fileName;
-  document.getElementById }
+  document.getElementById
+}
 );
-document.getElementById('input__file-NKT').addEventListener ('change', function() {
+document.getElementById('input__file-NKT').addEventListener('change', function () {
   var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
   document.getElementById('file-name-text-NKT').textContent = fileName;
-  document.getElementById }
+  document.getElementById
+}
 );
 
 document.querySelectorAll('.tabs-wrapper').forEach((e) => {
   let tabTabs = e.querySelectorAll('.tabs .tab');
   let tabItems = e.querySelectorAll('.tabs-items .item');
-    for(let i =0;i<tabTabs.length;i++) {
-        tabTabs[0].click();
-         tabTabs[i].onclick = () => {
-          tabTabs.forEach((e)  => { e.classList.remove('on') }); 
-          tabItems.forEach((e)  => { e.classList.remove('on') });
-          tabTabs[i].classList.add('on');
-          tabItems[i].classList.add('on');
-     }
-   }
- });
-
-document.getElementById('toggleIcon1').addEventListener('click', function() {
-    var containerTab = document.querySelector('.container__tab');
-    if (containerTab.style.display === 'none') {
-        containerTab.style.display = 'block';
-    } else {
-        containerTab.style.display = 'none';
+  for (let i = 0; i < tabTabs.length; i++) {
+    tabTabs[0].click();
+    tabTabs[i].onclick = () => {
+      tabTabs.forEach((e) => { e.classList.remove('on') });
+      tabItems.forEach((e) => { e.classList.remove('on') });
+      tabTabs[i].classList.add('on');
+      tabItems[i].classList.add('on');
     }
-});
-
-document.getElementById('toggleIcon2').addEventListener('click', function() {
-    var containerTab = document.querySelector('.second_section');
-    if (containerTab.style.display === 'none') {
-        containerTab.style.display = 'block';
-    } else {
-        containerTab.style.display = 'none';
-    }
-});
-
-document.getElementById('toggleIcon3').addEventListener('click', function() {
-    var containerTab = document.querySelector('.third_section');
-    if (containerTab.style.display === 'none') {
-        containerTab.style.display = 'block';
-    } else {
-        containerTab.style.display = 'none';
-    }
-});
-
-
-
-// PLOT/GRAPH //
-
-// Set dimensions and margins for the chart
-
-const margin = { top: 70, right: 30, bottom: 40, left: 80 };
-const width = 1200 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
-
-// Set up the x and y scales
-
-const x = d3.scaleTime()
-  .range([0, width]);
-
-const y = d3.scaleLinear()
-  .range([height, 0]);
-
-
-// Create the line generator
-
-const line = d3.line()
-  .x(d => x(d.date))
-  .y(d => y(d.population));
-// Create the SVG element and append it to the chart container
-
-const svg = d3.select("#chart-container")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-// create tooltip div
-
-// const tooltip = d3.select("#testtooltip")
-//   .append("div")
-//   .attr("class", "tooltip");
-
-// Create a fake data
-
-d3.csv("/mainPage/jdi_data_daily.csv").then(function (data) {
-    
-  // Parse the date and convert the population to a number
-  const parseDate = d3.timeParse("%Y-%m-%d");
-  data.forEach(d => {
-    d.date = parseDate(d.date);
-    d.population = +d.population;
-  });
-    console.log(data)
-
-
-// Define the x and y domains
-
-x.domain(d3.extent(data, d => d.date));
-y.domain([90000, d3.max(data, d => d.population)]);
-
-
-  // Add the x-axis
-  svg.append("g")
-  .style("font-family", "inter")
-    .attr("transform", `translate(0,${height})`)
-    .style("font-size", "14px")
-    .call(d3.axisBottom(x)
-      .tickValues(x.ticks(d3.timeMonth.every(6))) 
-      .tickFormat(d3.timeFormat("%b %Y"))) 
-    .call(g => g.select(".domain").remove()) 
-    .selectAll(".tick line") 
-    .style("stroke-opacity", 0)
-  svg.selectAll(".tick text")
-    .attr("fill", "#777");
-
-
-// Add the y-axis
-svg.append("g")
-.style("font-family", "inter")
-.style("font-size", "14px")
-.call(d3.axisLeft(y)
-  .ticks((d3.max(data, d => d.population) - 65000) / 5000)
-  .tickFormat(d => {
-      return `${(d / 1000).toFixed(0)}k`;
-  })
-  .tickSize(0)
-  .tickPadding(10))
-.call(g => g.select(".domain").remove()) 
-.selectAll(".tick text")
-.style("fill", "#777") 
-.style("visibility", (d, i, nodes) => {
-  if (i === 0) {
-    return "hidden"; 
-  } else {
-    return "visible"; 
   }
 });
 
-// Add vertical gridlines
-svg.selectAll("xGrid")
-.data(x.ticks().slice(1))
-.join("line")
-.attr("x1", d => x(d))
-.attr("x2", d => x(d))
-.attr("y1", 0)
-.attr("y2", height)
-.attr("stroke", "#e0e0e0")
-.attr("stroke-width", .1);
+document.getElementById('toggleIcon1').addEventListener('click', function () {
+  var containerTab = document.querySelector('.container__tab');
+  if (containerTab.style.display === 'none') {
+    containerTab.style.display = 'block';
+  } else {
+    containerTab.style.display = 'none';
+  }
+});
 
-// Add horizontal gridlines
+document.getElementById('toggleIcon2').addEventListener('click', function () {
+  var containerTab = document.querySelector('.second_section');
+  if (containerTab.style.display === 'none') {
+    containerTab.style.display = 'block';
+  } else {
+    containerTab.style.display = 'none';
+  }
+});
 
-svg.selectAll("yGrid")
-.data(y.ticks((d3.max(data, d => d.population) - 65000) / 5000).slice(1))
-.join("line")
-.attr("x1", 0)
-.attr("x2", width)
-.attr("y1", d => y(d))
-.attr("y2", d => y(d))
-.attr("stroke", "#e0e0e0")
-.attr("stroke-width", .1)
+document.getElementById('toggleIcon3').addEventListener('click', function () {
+  var containerTab = document.querySelector('.third_section');
+  if (containerTab.style.display === 'none') {
+    containerTab.style.display = 'block';
+  } else {
+    containerTab.style.display = 'none';
+  }
+});
+
+const svgImage = document.querySelectorAll(".main-svg")
+const pressureGraph = document.getElementById("pressure_graph")
+const graphSelect = document.getElementById('graph_select')
+graphSelect.addEventListener('change', function () {
+  if (graphSelect.value === "pressure_graph") {
+    for (let i = 0; i <= svgImage.length; i++) {
+      svgImage[i].classList.remove("hidden")
+      svgImage[i].classList.add("visible")
+    }
+  } else {
+    for (let i = 0; i < svgImage.length; i++) {
+      svgImage[i].classList.remove("visible")
+      svgImage[i].classList.add("hidden")
+    }
+  }
+})
+
+function resizeGraph() {
+  const graphContainer = document.getElementById('graphPlotly');
+  const plotDiv = graphContainer ? graphContainer.querySelector('.plotly-graph-div') : null;
+
+  if (plotDiv && plotDiv.offsetParent !== null) {
+    Plotly.Plots.resize(plotDiv);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', resizeGraph);
+window.addEventListener('resize', resizeGraph);
+window.addEventListener('resize', mobile);
+window.addEventListener('load', mobile);
+
+let hasElementsBeenAdded = false;
+let sectionsHidden = false;
+
+function mobile() {
+
+  const mainContainer = document.querySelector('main');
+  const headerContainerMobile = document.querySelector('.header-container-mobile');
+  const sections = document.querySelectorAll('.container__tab, .second_section, .third_section');
+  let linkDownload = document.querySelector('.download-report-mobile')
+  const urlContainer = document.getElementById('url-container');
+  const downloadUrl = urlContainer.getAttribute('data-download-url');
+
+  const rows = document.querySelectorAll('.injection-scenarious tr');
+
+  const headersInjection = document.querySelectorAll('.header-table-inject td') 
+  let buttonStageNext = document.querySelector('.next-stage-image')
+  let buttonStagePrevious = document.querySelector('.previous-stage-image')
 
 
+  if (document.documentElement.clientWidth <= 500) {
+
+    if (!sectionsHidden) {
+      sections.forEach((section, index) => {
+        section.style.display = index === 0 ? 'block' : 'none';
+      });
+      sectionsHidden = true;
+    }
+
+    if (!headerContainerMobile) {
+      let newHeaderContainerMobile = document.createElement('div');
+      newHeaderContainerMobile.classList.add('header-container-mobile');
+      mainContainer.prepend(newHeaderContainerMobile);
 
 
-// Add the line path to the SVG element
+      let titles = [
+        "Входные данные",
+        "Результаты",
+        "Конструкция"
+      ];
 
-svg.append("path")
-  .datum(data)
-  .attr("fill", "none")
-  .attr("stroke", "green")
-  .attr("stroke-width", 1)
-  .attr("d", line);
+      titles.forEach(text => {
+        let headerMobile = document.createElement('h1');
+        headerMobile.classList.add('header-mobile');
+        headerMobile.textContent = text;
+        newHeaderContainerMobile.appendChild(headerMobile);
+
+        headerMobile = document.querySelectorAll('.header-mobile')
+        headerMobile.forEach((header, index) => {
+          header.setAttribute('data-target', `#section${index + 1}`);
+        })
+
+        if (headerMobile.length > 0) {
+          headerMobile[0].classList.add('active');
+        }
+        headerMobile.forEach((header, index) => {
+          header.onclick = () => {
+            sections.forEach(section => {
+              section.style.display = 'none';
+            });
+            if (sections[index]) {
+              sections[index].style.display = 'block';
+            }
+
+              headerMobile.forEach(header => {
+                header.classList.remove('active');
+              });
+            
+
+            header.classList.add('active');
+
+            resizeGraph();
+          }
+
+        })
+      });
+
+      hasElementsBeenAdded = true;
+    }
+    if (!linkDownload) {
+      const linkDownload = document.createElement('a');
+      linkDownload.classList.add('download-report-mobile')
+      linkDownload.href = downloadUrl;
+      linkDownload.textContent = "Скачать отчёт";
+      sections[1].append(linkDownload);
+
+      hasElementsBeenAdded = true;
+    }
+    //Таблица стадий
+
+    
+    headersInjection.forEach((header, index) => {
+      if (index > 0) {
+        if (!buttonStageNext && !buttonStagePrevious) {
+          const buttonStageNext = document.createElement('img')
+          buttonStageNext.src = '../static/images/main/Vector 395.svg'
+          buttonStageNext.classList.add('next-stage-image')
+          const buttonStagePrevious = document.createElement('img')
+          buttonStagePrevious.src = '../static/images/main/Vector 396.svg'
+          buttonStagePrevious.classList.add('previous-stage-image')
+          header.appendChild(buttonStageNext);
+          header.prepend(buttonStagePrevious);
+          buttonStageNext.onclick = nextStage;
+          buttonStagePrevious.onclick = previousStage;
+          hasElementsBeenAdded = true;
+        }
+
+      }
 
 
-// Add a circle element
-
-const circle = svg.append("circle")
- .attr("r", 0)
- .attr("fill", "green")
- .style("stroke", "white")
- .attr("opacity", .70)
- .style("pointer-events", "none");
-
-
-
-const listeningRect = svg.append("rect")
- .attr("width", width)
- .attr("height", height);
-
-
-// nasha mouse 
-
- listeningRect.on("mousemove", function (event) {
-  const [xCoord] = d3.pointer(event, this);
-  const bisectDate = d3.bisector(d => d.date).left;
-  const x0 = x.invert(xCoord);
-  const i = bisectDate(data, x0, 1);
-  const d0 = data[i - 1];
-  const d1 = data[i];
-  const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-  const xPos = x(d.date);
-  const yPos = y(d.population);
-
-// update circle
-
-circle.attr("cx", xPos)
-      .attr("cy", yPos);
-
-      // console.log(xPos)
- })
-//////
- circle.transition()
-      .duration(50)
-      .attr("r", 5);
-
-    // add in  our tooltip
-
-    tooltip
-      .style("display", "block")
-      .style("left", `${xPos + 100}px`)
-      .style("top", `${yPos + 50}px`)
-      .html(`<strong>Date:</strong> ${d.date.toLocaleDateString()}<br><strong>Population:</strong> ${d.population !== undefined ? (d.population / 1000).toFixed(0) + 'k' : 'N/A'}`)
-  });
-  // listening rectangle mouse leave function
-
-  listeningRect.on("mouseleave", function () {
-    circle.transition()
-      .duration(50)
-      .attr("r", 0);
-
-    tooltip.style("display", "none");
-  });
+    })
   
-  
-// // Add Y-axis label
+    let currentStage = 1;
 
-svg.append("text")
-.attr("transform", "rotate(-90)")
-.attr("y", 0 - margin.left)
-.attr("x", 0 - (height / 2))
-.attr("dy", "1em")
-.style("text-anchor", "middle")
-.style("font-size", "20px")
-.style("fill", "#777")
-.style("font-family", "inter")
-.text("Количество заключенных");
+    //Отображаем только первую стадию в начале
+    rows.forEach(row => {
+      for (let i = 2; i <= 4; i++) {
+        const cell = row.querySelector(`.stage-${i}`);
+        if (cell) {
+          cell.style.display = 'none'
+        }
+      }
+    });
 
-svg.append("text")
-.attr("transform", "rotate(90)")   
-.attr("y", 0 - (width / 2))
-.attr("x", 0 - margin.right)
-.attr("dy", "1em")
-.style("text-anchor", "middle")
-.style("font-size", "20px")
-.style("fill", "#777")
-.style("font-family", "inter")
-.text("Время");
+    function nextStage() {
+      changeStage(currentStage + 1);
+    }
 
-// Add the chart title
+    function previousStage() {
+      changeStage(currentStage - 1);
+    }
+    function changeStage(newStage) {
+      const rows = document.querySelectorAll('.injection-scenarious tr');
+      currentStage = Math.max(1, Math.min(4, newStage));
 
-svg.append("text")
-.attr("class", "chart-title")
-.attr("x", margin.left - 115)
-.attr("y", margin.top - 100)
-.style("font-size", "24px")
-.style("font-weight", "bold")
-.style("font-family", "inter")
-.text("Тестовый график для обучения(график численности заключенных)");
+      // Переключение данных по стадиям
+      rows.forEach(row => {
+        for (let i = 1; i <= 4; i++) {
+          const cell = row.querySelector(`.stage-${i}`);
+          if (cell) {
+            cell.style.display = (i === currentStage) ? '' : 'none';
+          }
+        }
+      });
+    }
 
+
+  } else {
+    if (headerContainerMobile) {
+      headerContainerMobile.remove();
+      hasElementsBeenAdded = false;
+
+      sections.forEach(section => {
+        section.style.display = 'block';
+      });
+
+      sectionsHidden = false;
+    }
+    if (linkDownload) {
+      linkDownload.remove();
+      hasElementsBeenAdded = false;
+    }
+    if(buttonStageNext && buttonStagePrevious){
+      buttonStageNext = document.querySelectorAll('.next-stage-image')
+      buttonStageNext.forEach(button =>{
+        button.remove()
+      })
+      buttonStagePrevious = document.querySelectorAll('.previous-stage-image')
+      buttonStagePrevious.forEach(button =>{
+        button.remove()
+      })
+      hasElementsBeenAdded = false
+    }
+    
+    const cell = document.querySelectorAll('.injection-scenarious td')
+    cell.forEach(cell => {
+     cell.style.display = 'table-cell'
+    })
+  }
+}
 
 function demonstrate(){
 var mest = document.getElementById("field")
@@ -339,7 +326,11 @@ Phase_jgs_permeability.value = 1.5
 Oil_viscosity.value = 0.005
 Jgs_viscosity.value = 0.001
 Zapas.value = 0.1
-console.log(mest.value)};
+}
+
+
+
+
 
 
 

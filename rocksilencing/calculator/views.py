@@ -30,6 +30,12 @@ from sklearn.linear_model import LinearRegression
 from django.db.models import Min, Max
 
 
+from random import choice
+from collections import defaultdict
+
+from django.http import JsonResponse
+from scipy.interpolate import interp1d
+
 # Страница калькулятора
 
 
@@ -453,56 +459,97 @@ def scale_calculator_page(request):
 
 
 # База реагентов
-@login_required
+
+
 def reagent_base_page(request):
-    # Получаем все соли и вычисляем для каждой из них минимальную и максимальную плотность
+    # Получаем все соли и их диапазоны плотностей
     bd_names_salts = Salt.objects.all().annotate(
         min_density=Min("solutions__density"), max_density=Max("solutions__density")
     )
     bd_all_solutions = Solution.objects.all()
 
+    # Преобразуем данные в формат JSON
+    salts_json = json.dumps(list(bd_names_salts.values()), default=str)
+    solutions_json = json.dumps(list(bd_all_solutions.values()), default=str)
+
+    # Подготовка диапазонов плотностей
+    ranges = {
+        salt.id: {"min_density": salt.min_density, "max_density": salt.max_density}
+        for salt in bd_names_salts
+    }
+    ranges_json = json.dumps(ranges, default=str)
+
+    # Группируем решения по именам солей
+    grouped_solutions = defaultdict(list)
+    for sol in bd_all_solutions:
+        grouped_solutions[sol.salt.name].append(sol)
+
+    # Выбираем одно случайное решение для каждой соли
+    random_solutions = {name: choice(sols) for name, sols in grouped_solutions.items()}
+
     return render(
         request,
         "calculator/reagent_page.html",
-        {"bd_names_salts": bd_names_salts, "bd_all_solutions": bd_all_solutions},
-    )
-
-
-@login_required
-def expert_sys_page(request):
-    data = {}
-    recommendation = None
-
-    if request.method == "POST":
-        form = ExpertSysForm(request.POST)
-        if form.is_valid():
-            # Получаем данные из формы
-            print(form)
-            data = form.cleaned_data
-            print(data)
-            # Получаем рекомендацию на основе введённых данных
-            recommendation = get_recommendation_from_rules(data)
-            print(f"Введённые данные: {data}")  # Для отладки
-            print(f"Рекомендация: {recommendation}")  # Для отладки
-    else:
-        form = ExpertSysForm()
-
-    return render(
-        request,
-        "calculator/expertsys.html",
         {
-            "form": form,
-            "data": data,
-            "recommendation": recommendation,
+            "bd_names_salts": bd_names_salts,
+            "bd_all_solutions": bd_all_solutions,
+            "salts_json": salts_json,
+            "solutions_json": solutions_json,
+            "ranges_json": ranges_json,
+            "random_solutions": random_solutions,
         },
     )
 
 
-@login_required
+def calculate_consumption(request):
+    try:
+        salt_id = int(request.GET.get("salt_id"))
+        density = float(request.GET.get("density"))
+
+        # Получаем все данные для указанной соли
+        solutions = Solution.objects.filter(salt_id=salt_id).order_by("density")
+
+        if not solutions.exists():
+            return JsonResponse(
+                {"error": "No data found for the selected salt"}, status=404
+            )
+
+        # Подготовка данных для интерполяции
+        densities = np.array([sol.density for sol in solutions])
+        salt_consumptions = np.array([sol.salt_consumption for sol in solutions])
+        water_consumptions = np.array([sol.water_consumption for sol in solutions])
+
+        # Интерполяция
+        salt_interp = interp1d(
+            densities, salt_consumptions, kind="linear", fill_value="extrapolate"
+        )
+        water_interp = interp1d(
+            densities, water_consumptions, kind="linear", fill_value="extrapolate"
+        )
+
+        # Вычисление значений
+        salt_consumption = float(salt_interp(density))
+        water_consumption = float(water_interp(density))
+        print(f"САЛТ КОНСУМПТИОН {salt_consumption}")
+        print(f"ВАТЕР КОНСУМПТИОН {water_consumption}")
+        return JsonResponse(
+            {
+                "salt_consumption": round(salt_consumption, 2),
+                "water_consumption": round(water_consumption, 2),
+            }
+        )
+    except ValueError:
+        return JsonResponse({"error": "Invalid input data"}, status=400)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+# Страница истории
 def history_page(request):
     return HttpResponse("Страница истории")
 
 
-@login_required
+# FAQ страница
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
+

@@ -1,32 +1,59 @@
+
+:root{
+    
+    
+    --reference_height:1080;
+    --reference_width:1920;
+
+    --header_height: 52;
+
+    
+    --left_text_left_padding:20;
+    --right_text_right_padding:20;
+    --font-size: 14;
+    --font-size-template: calc((var(--font-size)/(var(--reference_width)))*100vw)
+}
+
+
 .main-Header{
     background: #292e3c;
     box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.24);
-    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #292E3C;
+    position: fixed; 
+    z-index: 150; 
+    width: 100%;
+    top: 0;
+    height:calc(var(--header_height) / var(--reference_height) * 100vh);
+   
+
 }
 
 .leftContent-first{
-    margin-right: 5px; 
+    margin-right:calc(5/ var(--reference_height) * 100vh);; 
     font-weight: 500;
-    font-size: 14px;
+    font-size: var(--font-size-template);
+    padding-left: calc(var(--left_text_left_padding)/var(--reference_width)*100vw);
     line-height: 143%;
     color: rgba(255, 255, 255, 0.48);
 }
 
 .leftContent-second{
     font-weight: 500;
-    font-size: 14px;
+    font-size: var(--font-size-template);
     line-height: 143%;
     color: rgba(255, 255, 255, 0.87);
 }
 
 .main-Header__rightContent{
+   
     display: flex;
     align-content: center;
     flex-wrap: wrap;
     color: rgba(255, 255, 255, 0.87);
+    padding-right: calc(var(--right_text_right_padding)/var(--reference_width)*100vh)
 }
 
 .rightContent-first{
@@ -37,12 +64,17 @@
 }
 
 .rightContent-fourth{
-    border-radius: 8px;
-    padding: 8px;
+    width:calc(55/var(--reference_width)*100vw); 
+    height: calc(28/var(--reference_height)*100vh);
+    border-radius: calc(8/var(--reference_height)*100vh);
+    padding: calc(6/var(--reference_height)*100vh) calc(12/var(--reference_height)*100vh);
     background: #1d9a6c;
     cursor: pointer;
-    font-size:11px;
+    font-size:calc(11/var(--reference_width)*100vw);
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 a:-webkit-any-link {
     color: -webkit-link;
@@ -58,4 +90,15 @@ a:-webkit-any-link {
 .rightContent-second,
 .rightContent-third{
     padding: 8px;
+} 
+
+@media (max-width: 768px) {
+    .leftContent-first, .leftContent-second {
+        font-size: calc(1.2vw + 0.5em); /* Адаптивный размер шрифта */
+        line-height: 1.4; /* Улучшение читаемости */
+        
+    }
+    .leftContent-first{
+        padding-left: 3vw;
+    }
 }

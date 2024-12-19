@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    <header class="main-Header" style="background-color: #292E3C; position: fixed; z-index: 101; width: 100%;">
+    <header class="main-Header">
 
         <div class="main-Header__leftContent" style="display: flex; align-items: center; ">
             {% if user.is_active %}
@@ -30,10 +30,11 @@
         </div>
     </header>
     <nav class="sidebar close">
-        <header>
+        {% comment %} <header>
             <!-- название проекта и лого можно-->
             <i class="bx bx-menu toggle"></i>
-        </header>
+        </header> {% endcomment %}
+        <img class = "close-sidebar" src="{%static 'images/base/крестик.svg'%}" alt="Закрыть">
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
@@ -61,7 +62,9 @@
                             <span class="text nav-text">FAQ</span>
                         </a>
                     </li>
-                    
+                    <li>
+                        <i class="bx bx-menu toggle"></i>
+                    </li>
                 </ul>
             </div>
             <!-- <div class="bottom-content"></div> -->

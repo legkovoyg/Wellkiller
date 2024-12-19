@@ -1,6 +1,6 @@
 function direct_animation (data) {
         // top исправить
-        console.log(data)
+        // console.log(data)
         const margin = ({ top: 0, right: 30, bottom: 30, left: 40 })
 
         data.sort(function (a, b) {
@@ -537,3 +537,12 @@ console.log(maxHek)
         }
     }
 
+const wellConstruction = document.querySelectorAll(".well-contruction")
+    wellConstruction.forEach(function(well) {
+  well.addEventListener('click', function() {
+    var needed_div = document.getElementById("chart");
+    needed_div.innerHTML = '';
+    console.log(data);
+    direct_animation(data);
+  });
+});
