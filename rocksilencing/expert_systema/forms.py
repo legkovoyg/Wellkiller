@@ -7,10 +7,11 @@ class ReservoirCharacteristicsForm(forms.ModelForm):
         model = ReservoirCharacteristics
         fields = ['rock_type', 'pressure_coefficient', 'temperature', 'is_water_sensitive']
         labels = {
-            'rock_type': 'Укажите тип породы коллектора',
-            'pressure_coefficient': 'Укажите коэффициент аномальности пластового давления',
-            'temperature': 'Укажите пластовую температуру, °C',
+            'rock_type': 'Тип породы коллектора',
+            'pressure_coefficient': 'Коэффициент аномальности пластового давления',
+            'temperature': 'Пластовая температура, °C',
             'is_water_sensitive': 'Является ли коллектор водочувствительным?',
+            # 'additional-questions':'Включить дополнительные вопросы'
         }
         widgets = {
             'rock_type': forms.Select(attrs={'class': 'form-select'}),
@@ -18,8 +19,11 @@ class ReservoirCharacteristicsForm(forms.ModelForm):
             'temperature': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Температура в °C'}),
             'is_water_sensitive': forms.RadioSelect(
                 choices=[(True, 'Да'), (False, 'Нет')],
-                attrs={'required': 'required'}
+                attrs={'required': 'required', 'class': 'is_water_sensitive'}
             ),
+            # 'additional-questions': forms.CheckboxInput(
+            #     attrs={'class': 'form-checkbox'}
+            # )
         }
 
         

@@ -1,38 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Характеристики коллектора</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" href="{%static 'css/expert_systema/reservoir_characteristics_form.css'%}" rel="stylesheet" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"> <!--для работы сайдбара-->
+<title>Симулятор глушения</title>
+{% endblock %}
+
+{% block content %}
 <body>
-<div class="container mt-5">
-    <h1>Введите характеристики коллектора</h1>
-    <form method="post">
+<div class="main-container">
+    <div class="container">
+        <h1>Укажите характеристики коллектора</h1>
+        <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
     </form>
-    
     {% if technologies %}
-        <h2>Совместимые технологии:</h2>
+    <div class="container">
+        {% comment %} <h2>Совместимые технологии:</h2> {% endcomment %}
         {% for category, tech_list in technologies.items %}
-            <details class="mb-3">
-                <summary>{{ category }}</summary>
-                <ul>
+                <div class="category-container">
+                    <div class="category">{{ category }}</div>
+           
                     {% for tech, applicability in tech_list %}
-                        <li>{{ tech }} - {{ applicability }}</li>
+                    <details class="salt-info">
+                        
+                        <summary>
+                        <div class="left-content">
+                            <i class="bx bx-chevron-right"></i>
+                            <div>{{ tech }}</div>
+                        </div>
+                            <span>{{ applicability }}</span>
+                        </summary>
+                        <ul> <li>{{ tech }} - {{ applicability }}</li></ul>
+                    </details>
                     {% endfor %}
-                </ul>
-            </details>
+                
+            </div>
+        
         {% endfor %}
+    </div>
 
+        <div class="container">
+            <h1>Выберите группу технологий</h1>
         <!-- Дополнительная форма выбора группы и конкретной технологии -->
         <form method="post" class="mt-4">
             {% csrf_token %}
+            <div class="select-technology">
             <div class="mb-3">
-                <label for="tech_group" class="form-label">Выберите группу технологий</label>
+                <label for="tech_group" class="form-label">Группа технологий</label>
                 <select id="tech_group" name="tech_group" class="form-select"
                         data-technologies='{{ technologies_json|safe }}'>
                     {% for category, tech_list in technologies.items %}
@@ -40,51 +61,19 @@
                     {% endfor %}
                 </select>
             </div>
-
+    
+        
             <div class="mb-3">
-                <label for="tech_name" class="form-label">Выберите технологию</label>
+                <label for="tech_name" class="form-label">Технология</label>
                 <select id="tech_name" name="tech_name" class="form-select"></select>
             </div>
-
+        </div>
             <button type="submit" class="btn btn-primary">Выбрать</button>
         </form>
-    {% endif %}
+        {% endif %}
+        </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const techGroupSelect = document.getElementById('tech_group');
-        const techNameSelect = document.getElementById('tech_name');
-
-        // Получаем данные из data-атрибута
-        const technologiesData = JSON.parse(techGroupSelect.getAttribute('data-technologies') || '{}');
-
-        // Функция обновления списка технологий
-        function updateTechNames() {
-            // Очищаем текущий список
-            techNameSelect.innerHTML = '';
-
-            const selectedGroup = techGroupSelect.value;
-            const techList = technologiesData[selectedGroup] || [];
-
-            // Заполняем options для второго селекта
-            techList.forEach(function(item) {
-                const [techName, applicability] = item;
-                const option = document.createElement('option');
-                option.value = techName;
-                option.textContent = techName + ' (' + applicability + ')';
-                techNameSelect.appendChild(option);
-            });
-        }
-
-        // Инициализация при загрузке страницы
-        if (Object.keys(technologiesData).length > 0) {
-            updateTechNames();
-        }
-
-        // Обновление при изменении выбора в первом списке
-        techGroupSelect.addEventListener('change', updateTechNames);
-    });
-</script>
+<script src="{%static 'js/reservoir_characteristics_form.js' %}" defer></script>
 </body>
+{% endblock %}
 </html>
