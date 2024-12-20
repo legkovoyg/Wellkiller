@@ -77,6 +77,29 @@
         {% block content %}
         {% endblock %}
     </section>
+    <div class="chat-widget">
+    <button type="button" id="chatButton" class="chat-button">  <!-- Добавляем type="button" -->
+        <i class='bx bx-message-dots'></i>
+        <span>WellKiller AI</span>
+    </button>
+
+    <div id="chatDialog" class="chat-dialog">
+        <div class="chat-header">
+            <span>WellKiller AI</span>
+            <button type="button" id="closeChatButton">  <!-- Добавляем type="button" -->
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input">
+            {% csrf_token %}
+            <textarea id="messageInput" placeholder="Введите сообщение..." rows="1"></textarea>
+            <button type="button" id="sendMessage">  <!-- Добавляем type="button" -->
+                <i class='bx bx-send'></i>
+            </button>
+        </div>
+    </div>
+</div>
 
     <script src="{%static 'js/base/script.js'%}"></script>
 

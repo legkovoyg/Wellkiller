@@ -7,7 +7,7 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from calculator.forms import (
     Scale_Calculator_form_1,
     Scale_Calculator_form_2,
@@ -552,4 +552,3 @@ def history_page(request):
 # FAQ страница
 def FAQ_page(request):
     return render(request, "calculator/faq_page.html")
-
