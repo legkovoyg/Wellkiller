@@ -39,23 +39,36 @@
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
+                        <a href="{% url 'filesapp:design_management' %}">
+                            <i class="bx bx-home-alt-2 icon" ></i>
+                            <span class="text nav-text">История расчетов</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
                         <a href="{% url 'calculator' %}">
-                            <i class="bx bx-git-repo-forked icon" ></i>
-                            <span class="text nav-text">Новый расчет</span>
+                            <i class="bx bx-objects-vertical-top icon" ></i>
+                            <span class="text nav-text">Глушение</span>
                         </a>
                     </li>
-                    <li class="nav-link">
-                        <a href="{% url 'reagent_base' %}">
-                            <i class="bx bx-folder icon" ></i>
-                            <span class="text nav-text">База реагентов</span>
+                     <li class="nav-link">
+                        <a href="{% url 'calculator' %}">
+                            <i class='bx bx-stats icon'></i>
+                            <span class="text nav-text">Экспертная система</span>
                         </a>
                     </li>
-                    <li class="nav-link">
+                     <li class="nav-link">
                         <a href="{% url 'scale_calculator' %}">
                             <i class="bx bx-droplet icon" ></i>
                             <span class="text nav-text">Совместимость вод</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="{% url 'reagent_base' %}">
+                            <i class="bx bx-data icon" ></i>
+                            <span class="text nav-text">База реагентов</span>
+                        </a>
+                    </li>
+                    
                     <li class="nav-link">
                         <a href="{% url 'FAQ_page' %}">
                             <i class="bx bx-question-mark icon" ></i>

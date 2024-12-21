@@ -24,12 +24,14 @@ from calculator.views import (
     history_page,
     FAQ_page,
     download_report,
+    download_scale_calc_report,
     calculate_consumption,
 )
 
 from calculator.chat_views import chat_api
 from users.views import logout_user, login_user, register_user
 from expert_systema.views import reservoir_characteristics_view
+from filesapp.views import FilesMainWindow
 from rocksilencing import settings
 
 urlpatterns = [
@@ -44,6 +46,11 @@ urlpatterns = [
     path("calculator/FAQ_page", FAQ_page, name="FAQ_page"),
     path("users/", include("users.urls", namespace="users")),
     path("download_report/", download_report, name="download_report"),
+    path(
+        "download_report_salt/",
+        download_scale_calc_report,
+        name="download_scale_report",
+    ),
     path("calculate_consumption/", calculate_consumption, name="calculate_consumption"),
     path("api/chat/", chat_api, name="chat_api"),
     path(
@@ -51,4 +58,5 @@ urlpatterns = [
         reservoir_characteristics_view,
         name="reservoir_characteristics",
     ),
+    path("design_management", include("filesapp.urls", namespace="filesapp")),
 ]

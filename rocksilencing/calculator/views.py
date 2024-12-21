@@ -5,6 +5,7 @@ import json
 import numpy as np
 import pandas as pd
 from django.contrib.auth.decorators import login_required
+from io import BytesIO
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, JsonResponse
@@ -35,6 +36,7 @@ from collections import defaultdict
 
 from django.http import JsonResponse
 from scipy.interpolate import interp1d
+import plotly.graph_objects as go
 
 # Страница калькулятора
 
@@ -329,15 +331,8 @@ def download_report(request):
     return response
 
 
-# Страница калькулятора солеотложений
-@login_required
 def scale_calculator_page(request):
     if request.method == "POST":
-        # Исходные данные графика
-        x = [5, 15, 25, 35, 45, 55]
-        y1 = [0.8, 0.6, 0.4, 0.2, 0, 0]
-        y2 = [1.2, 1, 0.8, 0.6, 0.4, 0.2]
-
         # Инициализация форм
         form = Scale_Calculator_form_1(request.POST)
         form_2 = Scale_Calculator_form_2(request.POST)
@@ -405,15 +400,15 @@ def scale_calculator_page(request):
                 )
                 all_results.append(result)
 
-            # Создаем график
-            graph = create_plot(all_results)
+            # Создаем график (html для страницы и dict для отчета)
+            graph_html, graph_dict = create_plot(all_results)
 
             # Сохраняем данные в сессию
             salt_session_context = {
                 "form_data": request.POST,
                 "all_results": all_results,
                 "custom_Part_of_Mixture": custom_Part_of_Mixture,
-                "graph": graph,
+                "graph_dict": graph_dict,  # Сохраняем словарь графика
             }
             request.session["salt_session_context"] = salt_session_context
 
@@ -425,7 +420,7 @@ def scale_calculator_page(request):
                     "form_2": form_2,
                     "all_results": all_results,
                     "custom_Part_of_Mixture": custom_Part_of_Mixture,
-                    "graph": graph,
+                    "graph": graph_html,  # Используем html-код для отображения на странице
                 },
             )
     else:
@@ -437,13 +432,20 @@ def scale_calculator_page(request):
             form_2 = Scale_Calculator_form_2(initial=salt_saved_data["form_data"])
             all_results = salt_saved_data.get("all_results")
             custom_Part_of_Mixture = salt_saved_data.get("custom_Part_of_Mixture")
-            graph = salt_saved_data.get("graph")
+
+            # Если нужно снова отобразить график на странице, надо из dict сделать html
+            graph_dict = salt_saved_data.get("graph_dict")
+            if graph_dict:
+                fig = go.Figure(graph_dict)
+                graph_html = pio.to_html(fig, full_html=False)
+            else:
+                graph_html = None
         else:
             form = Scale_Calculator_form_1()
             form_2 = Scale_Calculator_form_2()
             all_results = None
             custom_Part_of_Mixture = None
-            graph = None
+            graph_html = None
 
         return render(
             request,
@@ -453,14 +455,48 @@ def scale_calculator_page(request):
                 "form_2": form_2,
                 "all_results": all_results,
                 "custom_Part_of_Mixture": custom_Part_of_Mixture,
-                "graph": graph,
+                "graph": graph_html,
             },
         )
 
 
+def download_scale_calc_report(request):
+    salt_session_context = request.session.get("salt_session_context")
+    if not salt_session_context:
+        return redirect("scale_calculator")
+
+    template_path = os.path.join(
+        settings.BASE_DIR,
+        "calculator",
+        "report_templates",
+        "salt_calculator_template.docx",
+    )
+    doc = DocxTemplate(template_path)
+
+    # Достаем словарь графика
+    graph_dict = salt_session_context.get("graph_dict")
+    all_results = salt_session_context.get("all_results")
+    if graph_dict:
+        fig = go.Figure(graph_dict)  # Создаем фигуру из словаря
+        graph_image = pio.to_image(fig, format="png")
+        image_stream = BytesIO(graph_image)
+
+        graph_inline_image = InlineImage(doc, image_stream, width=Mm(150))
+        salt_session_context["graph_image"] = graph_inline_image
+
+    doc.render(salt_session_context)
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    response["Content-Disposition"] = (
+        'attachment; filename="scale_calculator_report.docx"'
+    )
+    print(all_results)
+    doc.save(response)
+    return response
+
+
 # База реагентов
-
-
 def reagent_base_page(request):
     # Получаем все соли и их диапазоны плотностей
     bd_names_salts = Salt.objects.all().annotate(
@@ -544,11 +580,10 @@ def calculate_consumption(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
-# Страница истории
-def history_page(request):
-    return HttpResponse("Страница истории")
-
-
 # FAQ страница
 def FAQ_page(request):
+    return render(request, "calculator/faq_page.html")
+
+
+def history_page(request):
     return render(request, "calculator/faq_page.html")

@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,6 +44,7 @@ INSTALLED_APPS = [
     "calculator.apps.CalculatorConfig",
     "users.apps.UsersConfig",
     "expert_systema.apps.ExpertSystemaConfig",
+    "filesapp.apps.FilesappConfig",
 ]
 
 MIDDLEWARE = [
@@ -62,7 +62,9 @@ ROOT_URLCONF = "rocksilencing.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+            BASE_DIR / "base_templates",  # Указываем путь к папке base_templates
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
