@@ -1,12 +1,10 @@
-from django.urls import path
-from .views import reservoir_characteristics_view
+# expert_systema/urls.py
 
-app_name = "expert_systema"  # Пространство имён для маршрутов приложения
+from django.urls import path
+from . import views
+
+app_name = "expert_systema"
 
 urlpatterns = [
-    path(
-        "reservoir-characteristics/",
-        reservoir_characteristics_view,
-        name="reservoir_characteristics",
-    ),
+    path("", views.reservoir_characteristics_view, name="reservoir_characteristics"),
 ]

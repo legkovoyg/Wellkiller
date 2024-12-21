@@ -1,32 +1,27 @@
+<!-- users/templates/users/register.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type = "text/css" href="{% static 'users/css/register-styles_v_2.css'%}" rel = "stylesheet">
+    <link type="text/css" href="{% static 'users/css/register-styles_v_2.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <title>Страница не найдена</title>
+    <title>Регистрация</title>
 </head>
 <body>
     <div class="content">
-        {% block content %}
-        <form method = "post" class="contentReg">
-
+        <form method="post" class="contentReg">
+            {% csrf_token %}
             <div class="contentReg__name">Регистрация</div>
-
-            <div  class="contentReg__regbase">
-                {% csrf_token %}
-                    {{form }}
+            <div class="contentReg__regbase">
+                {{ form.as_p }}
             </div>
-
             <div class="contentReg__button">
-                    <button class="contentReg__signUp-Button">Зарегистрироваться</button>
-                    <a href="/users/login/">Уже зарегистрированы?</a>
+                <button class="contentReg__signUp-Button" type="submit">Зарегистрироваться</button>
+                <a href="{% url 'users:login' %}">Уже зарегистрированы?</a>
             </div>
-
         </form>
-        {% endblock %}
     </div>        
 </body>
 </html>

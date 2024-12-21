@@ -1,11 +1,9 @@
-from django.shortcuts import render
+# users/views.py
+
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from users.forms import LoginUserForm, RegisterUserForm
-from django.shortcuts import redirect
-
-# Create your views here.
 
 
 def login_user(request):
@@ -18,7 +16,14 @@ def login_user(request):
             )
             if user and user.is_active:
                 login(request, user)
-                return HttpResponseRedirect("/calculator")
+                return redirect("calculator:home")  # Используем именованный URL
+            else:
+                # Добавьте сообщение об ошибке или обработку
+                return render(
+                    request,
+                    "users/login.html",
+                    {"form": form, "error": "Неверное имя пользователя или пароль."},
+                )
     else:
         form = LoginUserForm()
     return render(request, "users/login.html", {"form": form})
@@ -36,7 +41,12 @@ def register_user(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password"])
             user.save()
-            return render(request, "users/register_done.html")
+            login(request, user)  # Автоматический вход после регистрации (опционально)
+            return redirect("users:register_done")  # Перенаправление на страницу успеха
     else:
         form = RegisterUserForm()
     return render(request, "users/register.html", {"form": form})
+
+
+def register_done(request):
+    return render(request, "users/register_done.html")
