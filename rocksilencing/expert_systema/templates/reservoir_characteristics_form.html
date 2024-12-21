@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" href="{%static 'css/expert_systema/reservoir_characteristics_form.css'%}" rel="stylesheet" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"> <!--для работы сайдбара-->
+<title>Симулятор глушения</title>
+{% endblock %}
+
+{% block content %}
+<body>
+<div class="main-container">
+    <div class="container">
+        <h1>Укажите характеристики коллектора</h1>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
+    </form>
+    {% if technologies %}
+    <div class="container">
+        {% comment %} <h2>Совместимые технологии:</h2> {% endcomment %}
+        {% for category, tech_list in technologies.items %}
+                <div class="category-container">
+                    <div class="category">{{ category }}</div>
+           
+                    {% for tech, applicability in tech_list %}
+                    <details class="salt-info">
+                        
+                        <summary>
+                        <div class="left-content">
+                            <i class="bx bx-chevron-right"></i>
+                            <div>{{ tech }}</div>
+                        </div>
+                            <span>{{ applicability }}</span>
+                        </summary>
+                        <ul> <li>{{ tech }} - {{ applicability }}</li></ul>
+                    </details>
+                    {% endfor %}
+                
+            </div>
+        
+        {% endfor %}
+    </div>
+
+        <div class="container">
+            <h1>Выберите группу технологий</h1>
+        <!-- Дополнительная форма выбора группы и конкретной технологии -->
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="select-technology">
+            <div class="mb-3">
+                <label for="tech_group" class="form-label">Группа технологий</label>
+                <select id="tech_group" name="tech_group" class="form-select"
+                        data-technologies='{{ technologies_json|safe }}'>
+                    {% for category, tech_list in technologies.items %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+    
+        
+            <div class="mb-3">
+                <label for="tech_name" class="form-label">Технология</label>
+                <select id="tech_name" name="tech_name" class="form-select"></select>
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary">Выбрать</button>
+        </form>
+        {% endif %}
+        </div>
+</div>
+<script src="{%static 'js/reservoir_characteristics_form.js' %}" defer></script>
+</body>
+{% endblock %}
+</html>

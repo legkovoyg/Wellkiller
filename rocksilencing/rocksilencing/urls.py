@@ -29,6 +29,7 @@ from calculator.views import (
 
 from calculator.chat_views import chat_api
 from users.views import logout_user, login_user, register_user
+from expert_systema.views import reservoir_characteristics_view
 from rocksilencing import settings
 
 urlpatterns = [
@@ -45,4 +46,9 @@ urlpatterns = [
     path("download_report/", download_report, name="download_report"),
     path("calculate_consumption/", calculate_consumption, name="calculate_consumption"),
     path("api/chat/", chat_api, name="chat_api"),
+    path(
+        "expert_systema/reservoir_characteristics",
+        reservoir_characteristics_view,
+        name="reservoir_characteristics",
+    ),
 ]
