@@ -1,7 +1,7 @@
 function direct_animation (data) {
         // top исправить
-        console.log(data)
-        const margin = ({ top: 150, right: 30, bottom: 30, left: 40 })
+        // console.log(data)
+        const margin = ({ top: 0, right: 30, bottom: 30, left: 40 })
 
         data.sort(function (a, b) {
             return a.hnkt - b.hnkt
@@ -32,7 +32,7 @@ function direct_animation (data) {
         var svg = d3.select("#chart")
 
         var yScaleAllHeihgt = d3.scaleLinear()
-            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.height; })])
+            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.hkp; })])
             .range([1, height + margin.top]);
 
         var y_axis = d3.axisRight()
@@ -286,8 +286,7 @@ function direct_animation (data) {
 
 
 function back_animation(data) {
-        const margin = ({ top: 200, right: 30, bottom: 30, left: 40 })
-
+        const margin = ({ top:0, right: 30, bottom: 30, left: 40 })
         data.sort(function (a, b) {
             return a.hnkt - b.hnkt
         })
@@ -309,21 +308,23 @@ function back_animation(data) {
         const maxHek = d3.max(data, function (d) {
             return +d.hek
         })
-
+        const maxHekjg = d3.max(data, function (d) {
+            return +d.hekjg
+        })
         var svg = d3.select("#chart2")
 
         var height = maxHkp; // сделать генерацию свг
 
         var yScaleAllHeihgt = d3.scaleLinear()
-            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.height; })])
-            .range([1, height + margin.top]);
+            .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.hkp; })])
+            .range([ 0,maxHkpjg  ]);
 
         var y_axis = d3.axisRight()
             .scale(yScaleAllHeihgt)
-            .ticks(30, "f")
+            .ticks(30, ".1f")
 
         svg.append("g") // высота скважины
-            .attr("transform", "translate(180, 0)")
+            .attr("transform", "translate(200, 0)")
             .call(y_axis)
             .selectAll("text")
             .attr("dx", ".1em")
@@ -335,11 +336,12 @@ function back_animation(data) {
 
             var yScaleHek = d3.scaleLinear()
             .domain([d3.min(data, function (d) { return +d.hkp; }), d3.max(data, function (d) { return +d.hek; })])
-            .range([margin.top + maxHkp, margin.top + maxHkp + maxHek]);
-
+            .range([margin.top + maxHkpjg, margin.top + maxHkpjg + maxHek]);
+//console.log(maxHek)
         var y_axisHek = d3.axisRight()
             .scale(yScaleHek)
-            .ticks(2, "f")
+            .ticks(4, ".1f")
+
 
         svg.append("g") // высота скважины
             .attr("transform", "translate(150, 0)")
@@ -351,30 +353,34 @@ function back_animation(data) {
             .attr("transform", "rotate(0)")
             .style("font-size", "12px")
             .style("color", "white")
-
+console.log(maxHkp)
+console.log(maxHkpjg)
+console.log(maxHek)
         for (var i = 0; i < data.length; i++) {
             svg.append("rect")
                 .attr("x", 30)
                 .attr("y", function () {
-                    return margin.top;
+                    return maxHkpjg - maxHkp ;
                 })
                 .attr("width", 90)
                 .attr("height", function () {
-                    return data[i].hkp;
+                    return +data[i].hkp;
                 })
                 .style("fill", "rgb(184, 110, 20")
+
 
             svg.append("rect")
                 .attr("x", 30)
                 .attr("y", function () {
-                    return margin.top + maxHkp;
+                    return margin.top + maxHkpjg;
                 })
+//                .style("stroke", "black")
                 .attr("width", 90)
                 .attr("height", function () {
-                    return data[i].hek;
+                    return +data[i].hek;
                 })
                 .style("fill", "rgb(184, 110, 20")
-
+console.log(maxHek)
             // svg.append("rect")
             //     .attr("x", 60)
             //     .attr("y", 0)
@@ -389,7 +395,7 @@ function back_animation(data) {
                 .attr("y", 0)
                 .attr("width", 2)
                 .attr("height", function () {
-                    return margin.top + maxHkp + maxHek;
+                    return margin.top + maxHkpjg + maxHek;
                 })
                 .style("fill", "white")
 
@@ -398,7 +404,7 @@ function back_animation(data) {
                 .attr("y", 0)
                 .attr("width", 2)
                 .attr("height", function () {
-                    return margin.top + maxHkp + maxHek;
+                    return margin.top + maxHkpjg + maxHek;
                 })
                 .style("fill", "white")
 
@@ -407,7 +413,7 @@ function back_animation(data) {
                 .attr("y", 0)
                 .attr("width", 2)
                 .attr("height", function () {
-                    return margin.top + maxHkp + maxHek;
+                    return margin.top + maxHkpjg + maxHek;
                 })
                 .style("fill", "white")
 
@@ -416,7 +422,7 @@ function back_animation(data) {
                 .attr("y", 0)
                 .attr("width", 2)
                 .attr("height", function () {
-                    return margin.top + maxHkp + maxHek;
+                    return margin.top + maxHkpjg + maxHek;
                 })
                 .style("fill", "white")
         }
@@ -430,14 +436,14 @@ function back_animation(data) {
 
         svg.append("rect")
             .attr("x", 0)
-            .attr("y", margin.top + maxHkp + maxHek)
+            .attr("y", margin.top + maxHkpjg + maxHek)
             .attr("width", 152)
             .attr("height", 3)
             .style("fill", "white")
 
         svg.append("rect")
             .attr("x", 30)
-            .attr("y", margin.top + maxHkp + maxHek)
+            .attr("y", margin.top + maxHkpjg + maxHek)
             .attr("width", 92)
             .attr("height", 20)
             .style("fill", "gray")
@@ -468,7 +474,7 @@ function back_animation(data) {
                 svg.append("rect")
                 .attr("x", 60)
                 .attr("y", function() {
-                    return margin.top ;
+                    return maxHkpjg - maxHkp ;
                 })
                 .attr("width", 30)
                 .attr("height", 0)
@@ -531,4 +537,12 @@ function back_animation(data) {
         }
     }
 
-
+const wellConstruction = document.querySelectorAll(".well-contruction")
+    wellConstruction.forEach(function(well) {
+  well.addEventListener('click', function() {
+    var needed_div = document.getElementById("chart");
+    needed_div.innerHTML = '';
+    console.log(data);
+    direct_animation(data);
+  });
+});

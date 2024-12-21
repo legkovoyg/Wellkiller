@@ -1,10 +1,8 @@
-# filesapp/urls.py
-
 from django.urls import path
-from . import views
+from filesapp.views.filesapp_views import FilesMainWindow
 
 app_name = "filesapp"
 
 urlpatterns = [
-    path("", views.FilesMainWindow, name="design_management"),  # Корневой путь
+    path("", FilesMainWindow, name="design_management"),  # Корневой путь
 ]

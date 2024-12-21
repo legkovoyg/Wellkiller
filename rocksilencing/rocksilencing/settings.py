@@ -42,11 +42,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "calculator.apps.CalculatorConfig",
-    "salt_calculator.apps.SaltCalculatorConfig",
-    "users.apps.UsersConfig",
-    "expert_systema.apps.ExpertSystemaConfig",
     "filesapp.apps.FilesappConfig",
+    "calculator.apps.CalculatorConfig",
+    "expert_systema.apps.ExpertSystemaConfig",
+    "salt_calculator.apps.SaltCalculatorConfig",
+    "reagent_db.apps.ReagentDbConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,10 @@ CACHES = {
         "LOCATION": "unique-snowflake",
     }
 }
+
+
+SESSION_ENGINE = (
+    "django.contrib.sessions.backends.db"  # Использование бэкенда базы данных
+)
+SESSION_COOKIE_AGE = 1209600  # Срок жизни сессии: две недели
+SESSION_SAVE_EVERY_REQUEST = True  # Сохранять сессию при каждом запросе

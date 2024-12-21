@@ -1,0 +1,148 @@
+/* Общие стили для обоих состояний */
+
+.content-wrapper {
+    padding-top: 80px; /* учитывать высоту хедера */
+    color: #fff;
+    min-height: calc(100vh - 52px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Стили для блока без дизайнов */
+.no-designs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.no-designs-container p {
+    margin-bottom: 18px;
+    font-size: 20px; 
+    color: rgba(255, 255, 255, 0.87);
+    font-weight: 500;
+}
+
+body .no-designs-container button {
+    background: rgba(38, 65, 63, 1);
+    border: 1px solid rgba(29, 154, 108, 1);
+    padding: 7px 37px;
+    line-height: 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 400;
+}
+
+body .no-designs-container button:hover {
+    background: #4c977c;
+}
+
+/* Стили для истории дизайнов */
+.history-container {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: calc(52 / var(--reference_height)* 100vh);
+    padding: 17px 17px 0 105px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 27px;
+}
+
+.history-header h1 {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.87);
+}
+body .create-design-btn {
+    background: #1d9a6c;
+    border: none;
+    padding: 9px 36px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+body .create-design-btn:hover {
+    background: #4c977c;
+}
+
+.history-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 29px;
+}
+
+.history-search input {
+    padding: 6px 32px;
+    border-radius: 4px;
+    border: none;
+    font-size: 12px;
+    outline: none;
+    background-color:rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.87);
+    background-image: url('/static/images/search.svg');
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: 8px center; 
+    line-height: 16px;
+}
+
+.history-table-container {
+    background: #292e3c;
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th, .history-table td {
+    text-align: left;
+    padding: 12px 8px;
+    font-size: 14px;
+}
+
+.history-table th {
+    color: rgba(255, 255, 255, 0.87);
+    font-weight: 400;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.history-table td {
+    color: rgba(255, 255, 255, 0.87);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+thead tr:first-of-type {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width:900px) {
+    .history-container{
+        margin-top: 20px;
+        padding: 0 17px;
+    }
+}
+@media (max-width:500px) {
+    .history-container{
+        margin-top: calc(52 / var(--reference_height)* 100vh);
+        padding: 10px 17px;
+    }
+}

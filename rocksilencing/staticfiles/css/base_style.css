@@ -1,7 +1,7 @@
 
 
 *{
-    font-family: inter;
+    font-family: 'Inter';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,8 +10,6 @@
 body{
     background-color: #292e3b;
 }
-
-
 
 :root{
     --body-color: #292E3B;
@@ -25,10 +23,23 @@ body{
     --tran-03:all 0.3s ease;
     --tran-04:all 0.4s ease;
     --tran-05:all 0.5s ease;
+
+    /* reference */
+    --reference_height:1080;
+    --reference_width:1920;
+
+    /* header geom */
+    --sidebar-width-open: 280;
+    --sidebar-width-closen: 80;
+
+    /* header in paddings */
+    --left_text_left_padding:20;
+    --right_text_right_padding:20;
 }
 
+
 body{
-    height: 100vh;
+    height: 95vh;
     background: var(--body-color);
     transition: var(--tran-05);
 }
@@ -41,18 +52,19 @@ body{
     left: 0;
     height: 100%;
     width: 250px;
-    padding: 10px 14px;
+    padding:  calc(72/var(--reference_height)*100vh) 14px 10px;    
     background: var(--sidebar-color);
     transition: var(--tran-05);
     z-index: 100;
     display: flex;
     flex-direction: column;
+   
 }
 
 .sidebar.close{
     width: 88px;
 
-}
+}   
 
 /*resuable css*/
 
@@ -79,7 +91,7 @@ body{
 
 .sidebar li{
     height: 50px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     list-style: none;
     display: flex;
     align-items: center;
@@ -101,6 +113,7 @@ body{
 
 .sidebar header{
     position: relative;
+
 }
 
 .sidebar .image-text img{
@@ -126,36 +139,27 @@ header .image-text .header-text{
     margin-top: -2px;
 }
 
-.sidebar header .toggle{
-    position: relative;
-    top: 310px;
-    /* top: 50%; */
-    /*right: -25px;*/
-    /* margin-top: 450px; */
-    transform: translateY(-50%) rotate(180deg);
+body .toggle{
     height: 25px;
-    /*width: 25px;*/
+    width: 100%;
     background: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
     border-radius: 20px;
     color: var(--sidebar-color);
     font-size: 22px;
     transition: var(--tran-03);
+    line-height: normal;
 }
 
-.sidebar.close header .toggle{
-    /*transform: translateY(-50%);*/
-}
+/* .sidebar.close header .toggle{
+    transform: translateY(-50%);
+} */
 
 body.dark .sidebar header .toggle{
     color: var(--text-color);
 }
 
-.sidebar .menu{
-    margin-top: 20px;
-}
 
 .sidebar li a{
     height: 100%;
@@ -186,7 +190,7 @@ body.dark .sidebar header .toggle{
 
 .home{
     position: relative;
-    height: 100vh;
+    height: 95vh;
    /*  left: 250px;*/
     width: calc(100%-88px);
     transition: var(--tran-05);
@@ -210,7 +214,7 @@ body.dark .sidebar header .toggle{
     margin: auto 22px 25px;
 }
 
-@media (max-width: 900px) {
+ @media (max-width: 900px) {
   .sidebar {
     position: relative;
     width: 100%;
@@ -254,6 +258,67 @@ body.dark .sidebar header .toggle{
   .sidebar li a{
   justify-content: center;
   }
+  .sidebar li:last-of-type{
+    display: none;
+  }
 
+} 
+
+@media (max-width: 500px) {
+
+    .body{
+        transition: var(--tran-05);
+    }
+    .sidebar{
+        position: fixed;
+        left:auto;
+        right: 0;
+        width: 56%;
+        transition: var(--tran-05);
+        transform: translateX(0);
+        height: 100%;
+        padding-bottom: 20px;
+    }
+    .sidebar.close{
+        height: 100%;
+    }
+    .menu-bar{
+        height: 100%;
+    }
+    .sidebar li a{
+        justify-content: flex-start;
+    }
+     .sidebar li .icon{
+       padding: 0 14px;
+       font-size: 15px;
+       min-width: auto;
+    }
+    .sidebar .text{
+        font-size: 12px;
+    }
+    footer .text{
+        margin-left: 12px;
+    }
+    /* .sidebar.close{
+        background: none;
+    } */
+    .sidebar.close header .toggle{
+        display: block;
+      }
+      .sidebar.close{
+       /* display: none; */
+       transition: var(--tran-05);
+       transform: translateX(100%);
+       
+      }
+      .toggle-sidebar-img{
+        width: calc(27/500*100vw);
+        height: calc(20/500*100vh);
+      }
+      body .toggle{
+        display: none;
+      }
+      .bottom-content{
+        display: block;
+      }
 }
-

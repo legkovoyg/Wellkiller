@@ -1,0 +1,302 @@
+[
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 1,
+        "fields": {
+            "salt": 1,
+            "density": 1.01,
+            "salt_consumption": 14.999,
+            "water_consumption": 995.11
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 2,
+        "fields": {
+            "salt": 1,
+            "density": 1.02,
+            "salt_consumption": 29.599,
+            "water_consumption": 990.51
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 3,
+        "fields": {
+            "salt": 1,
+            "density": 1.03,
+            "salt_consumption": 44.298,
+            "water_consumption": 985.81
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 4,
+        "fields": {
+            "salt": 1,
+            "density": 1.04,
+            "salt_consumption": 58.98,
+            "water_consumption": 982.15
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 5,
+        "fields": {
+            "salt": 1,
+            "density": 1.05,
+            "salt_consumption": 67.398,
+            "water_consumption": 982.71
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 6,
+        "fields": {
+            "salt": 1,
+            "density": 1.06,
+            "salt_consumption": 84.497,
+            "water_consumption": 975.61
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 7,
+        "fields": {
+            "salt": 1,
+            "density": 1.07,
+            "salt_consumption": 97.697,
+            "water_consumption": 972.41
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 8,
+        "fields": {
+            "salt": 1,
+            "density": 1.08,
+            "salt_consumption": 104.597,
+            "water_consumption": 975.51
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 9,
+        "fields": {
+            "salt": 1,
+            "density": 1.09,
+            "salt_consumption": 117.497,
+            "water_consumption": 972.61
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 10,
+        "fields": {
+            "salt": 1,
+            "density": 1.10,
+            "salt_consumption": 126.897,
+            "water_consumption": 973.21
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 11,
+        "fields": {
+            "salt": 1,
+            "density": 1.11,
+            "salt_consumption": 144.596,
+            "water_consumption": 965.51
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 12,
+        "fields": {
+            "salt": 1,
+            "density": 1.12,
+            "salt_consumption": 160.595,
+            "water_consumption": 959.51
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 13,
+        "fields": {
+            "salt": 1,
+            "density": 1.13,
+            "salt_consumption": 175.0,
+            "water_consumption": 955.0
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 14,
+        "fields": {
+            "salt": 1,
+            "density": 1.14,
+            "salt_consumption": 195.394,
+            "water_consumption": 944.71
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 15,
+        "fields": {
+            "salt": 1,
+            "density": 1.15,
+            "salt_consumption": 204.195,
+            "water_consumption": 945.91
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 16,
+        "fields": {
+            "salt": 1,
+            "density": 1.16,
+            "salt_consumption": 218.894,
+            "water_consumption": 941.21
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 17,
+        "fields": {
+            "salt": 1,
+            "density": 1.17,
+            "salt_consumption": 233.493,
+            "water_consumption": 936.61
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 18,
+        "fields": {
+            "salt": 1,
+            "density": 1.18,
+            "salt_consumption": 248.0,
+            "water_consumption": 932.0
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 19,
+        "fields": {
+            "salt": 1,
+            "density": 1.19,
+            "salt_consumption": 264.192,
+            "water_consumption": 925.91
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 20,
+        "fields": {
+            "salt": 1,
+            "density": 1.20,
+            "salt_consumption": 277.291,
+            "water_consumption": 922.81
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 21,
+        "fields": {
+            "salt": 1,
+            "density": 1.21,
+            "salt_consumption": 291.891,
+            "water_consumption": 918.21
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 22,
+        "fields": {
+            "salt": 1,
+            "density": 1.22,
+            "salt_consumption": 306.491,
+            "water_consumption": 913.61
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 23,
+        "fields": {
+            "salt": 1,
+            "density": 1.23,
+            "salt_consumption": 321.190,
+            "water_consumption": 908.91
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 24,
+        "fields": {
+            "salt": 1,
+            "density": 1.24,
+            "salt_consumption": 332.990,
+            "water_consumption": 907.11
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 25,
+        "fields": {
+            "salt": 1,
+            "density": 1.25,
+            "salt_consumption": 351.0,
+            "water_consumption": 899.0
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 26,
+        "fields": {
+            "salt": 1,
+            "density": 1.26,
+            "salt_consumption": 366.490,
+            "water_consumption": 893.61
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 27,
+        "fields": {
+            "salt": 1,
+            "density": 1.27,
+            "salt_consumption": 382.0,
+            "water_consumption": 888.0
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 28,
+        "fields": {
+            "salt": 1,
+            "density": 1.28,
+            "salt_consumption": 398.0,
+            "water_consumption": 882.0
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 29,
+        "fields": {
+            "salt": 1,
+            "density": 1.29,
+            "salt_consumption": 407.890,
+            "water_consumption": 882.21
+        }
+    },
+    {
+        "model": "reagent_db.reagentsaltsolution",
+        "pk": 30,
+        "fields": {
+            "salt": 1,
+            "density": 1.30,
+            "salt_consumption": 466.0,
+            "water_consumption": 844.0
+        }
+    }
+]

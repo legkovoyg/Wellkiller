@@ -533,9 +533,9 @@
                 </div>
 
                 {% comment %} для js {% endcomment %}
-                <div id="url-container" data-download-url="{% url 'download_report' %}"></div> 
+                <div id="url-container" data-download-url="{% url 'calculator:download_report' %}"></div> 
                 
-                <a id = "download_report" class = "download__rep" href="{% url 'download_report' %}">
+                <a id = "download_report" class = "download__rep" href="{% url 'calculator:download_report' %}">
                     <img src="{%static 'images/main/xls.svg'%}" alt = "Выгрузить отчет">
                     <span class="download__span">Выгрузить отчет
                     </a>

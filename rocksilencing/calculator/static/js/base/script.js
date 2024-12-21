@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             try {
                 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                const response = await fetch('/api/chat/', {
+                const response = await fetch('api/chat/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

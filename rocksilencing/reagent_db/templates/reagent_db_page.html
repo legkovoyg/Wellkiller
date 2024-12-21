@@ -1,0 +1,217 @@
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+	type="text/css"
+	href="{%static 'css/reagent_db_page.css'%}"
+	rel="stylesheet"
+	crossorigin="anonymous"
+/>
+<title>База реагентов</title>
+{% endblock %} {% block content %} {% csrf_token %}
+<!-- header and sidebar ended-->
+
+<script type="text/javascript">
+	// Передаем данные в JavaScript
+	const saltsData = JSON.parse('{{ salts_json|safe }}')
+	const solutionsData = JSON.parse('{{ solutions_json|safe }}')
+const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
+</script>
+<script src="{%static 'js/reagent_db_page.js'%}" defer></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<main class="main__content">
+	<section class="content__search">
+<div class="tabs-wrapper">
+    <div class="tabs-buttons">
+        <select class="salt-select" name="salt-choose" id="salt-choose" placeholder="Выбор соли">
+            <option>Выбор соли</option>
+            {% for salt in bd_names_salts %}
+                <option class="salt-option" data-target="{{ salt.name }}">{{ salt.name }}</option>
+            {% endfor %}
+        </select>
+        <select class="salt-select" name="salt-base" id="salt-base" placeholder="Выбор базы">
+            <option>Выбор базы</option>
+            <option>База ПАВ</option>
+            <option>База ингибиторов коррозии</option>
+            <option>База ингибиторов солеотложений</option>
+        </select>
+    </div>
+
+    <div class="tabs">
+        <span class="tab on">
+            <i class="bx bx-chevron-down"></i>
+            Системные
+        </span>
+
+        <div class="inner-tabs on">
+            <!-- База солей -->
+            <span class="inner-tab-salt">
+                <i class="bx bx-chevron-down"></i>
+                База солей
+            </span>
+            <div class="tabs-items on">
+                {% for salt in bd_names_salts %}
+                    <span class="btn" data-target="{{ salt.name }}">{{ salt.name }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- База ПАВ -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                База ПАВ
+            </span>
+            <div class="tabs-items">
+                {% for pav in bd_pavs %}
+                    <span class="btn" data-target="pav_{{ pav.id }}">{{ pav.name }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- База ингибиторов коррозии -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                База ингибиторов коррозии
+            </span>
+            <div class="tabs-items">
+                {% for ingcorr in bd_ingcorrs %}
+                    <span class="btn" data-target="ingcorr_{{ ingcorr.id }}">{{ ingcorr.name }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- База ингибиторов солеотложений -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                База ингибиторов солеотложений
+            </span>
+            <div class="tabs-items">
+                {% for ingsalt in bd_ingsalts %}
+                    <span class="btn" data-target="ingsalt_{{ ingsalt.id }}">{{ ingsalt.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+	</section>
+
+	<section class="content-info">
+		<section class="content__table">
+			<p class="header">Расходная норма</p>
+			<div class="table-main">
+				<table class="loaded-table">
+					<tr style="background: #5c606a">
+						<td>Название соли</td>
+						<td>Плотность раствора, г/см³</td>
+						<td>Расход соли, кг/м³</td>
+						<td>Расход пресной воды, л/м³</td>
+					</tr>
+				
+					{% for salt_name, elem in random_solutions.items %}
+						{% if salt_name == "NaCl" or salt_name == "MgCl2" or salt_name == "NH4Cl" %}
+						<tr
+							id="{{ elem.salt.name }}"
+							style="background: {% if forloop.counter|divisibleby:2 %}#363a47{% else %}#292e3c{% endif %}; display:table-row;"
+						>
+							<td>{{ elem.salt.name }}</td>
+							<td>{{ elem.density }}</td>
+							<td>{{ elem.salt_consumption }}</td>
+							<td>{{ elem.water_consumption }}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+				</table>
+				
+
+				<table class="changed-table">
+    <thead>
+        <tr style="background: #5c606a">
+            <td>Название соли</td>
+            <td class="density-header" style="cursor: pointer;">Плотность раствора, г/см³</td>
+            <td>Расход соли, кг/м³</td>
+            <td>Расход пресной воды, л/м³</td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<!-- Модальное окно для установки плотности -->
+<div class="modal-overlay" id="density-modal-overlay" style="display:none;">
+    <div class="modal-window">
+		<div class="container-fill-density">
+        <h2 class = "fill-density">Заполнить все плотности</h2>
+		
+		</div>
+        <!-- Поле для ввода плотности -->
+		<div class="container-for-input">
+        <input class = "density-modal-input" type="number" step="0.01" id="mass-density-input" placeholder="Введите плотность" />
+		</div>
+        
+    </div>
+</div>
+			</div>
+			<section class="salt-base-graph">
+				<div class="select_container">
+					<select
+						placeholder="График расхода соли"
+						id="graph_select"
+						class="graph_select"
+					>
+						<option id="pressure_graph" value="pressure_graph">
+							График расхода соли
+						</option>
+						<option id="salt_choose_graph" value="salt_choose_graph">
+							График вязкости
+						</option>
+					</select>
+				</div>
+				<div
+					class="plotly-graph"
+					id="plotly-graph"
+					style="width: 100%; height: 100%"
+				></div>
+				<div
+					class="plotly-graph-changed"
+					id="plotly-graph-changed"
+					style="width: 100%; height: 100%"
+				></div>
+			</section>
+		</section>
+	</section>
+	<section class="content__features" style="display: none">
+		<p class="header">Свойства жидкости</p>
+		{% for salt in bd_names_salts %}
+		<table id="{{ salt.name }}" class="salt_table">
+			<tr style="background: #292e3c">
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ salt.name }}</p>
+				</td>
+			</tr>
+
+			<tr style="background: #363a47">
+				<td class="left-td">Мин. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.min_density }}</p>
+				</td>
+			</tr>
+			<tr style="background: #292e3c">
+				<td class="left-td">Макс. плотность ЖГ, г/см³</td>
+				<td>
+					<p>{{ salt.max_density }}</p>
+				</td>
+			</tr>
+			<tr style="background: #363a47">
+				<td class="left-td">Описание</td>
+				<td>
+					<p>{{ salt.description }}</p>
+				</td>
+			</tr>
+			{% if salt.note %}
+			<tr style="background: #292e3c">
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ salt.note }}</p>
+				</td>
+			</tr>
+			{% endif %}
+		</table>
+		{% endfor %}
+	</section>
+</main>
+{% endblock %}
