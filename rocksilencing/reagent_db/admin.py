@@ -6,6 +6,9 @@ from reagent_db.models.reagent_db_models_salts import (
 from reagent_db.models.reagent_db_models_ingcorr import CorrosionInhibitor
 from reagent_db.models.reagent_db_models_ingsalt import ScaleInhibitor
 from reagent_db.models.reagent_db_models_pavs import Surfactant
+from reagent_db.models.reagent_db_models_heavy import WeightingAgent
+from reagent_db.models.reagent_db_models_polymers import Polymer
+from reagent_db.models.reagent_db_models_other import OtherMaterial
 
 
 class ReagentSaltSolutionInline(admin.TabularInline):
@@ -46,3 +49,30 @@ class CorrosionInhibitorAdmin(admin.ModelAdmin):
     list_display = ("name", "type", "application")
     search_fields = ("name", "type")
     list_filter = ("type",)
+
+
+@admin.register(WeightingAgent)
+class WeightingAgentAdmin(admin.ModelAdmin):
+    list_display = ("name", "type", "application")
+    list_filter = ("type",)
+    search_fields = ("name", "type", "application")
+    ordering = ("name",)
+    list_per_page = 20
+
+
+@admin.register(Polymer)
+class PolymerAdmin(admin.ModelAdmin):
+    list_display = ("name", "type", "application")
+    list_filter = ("type",)
+    search_fields = ("name", "type", "application")
+    ordering = ("name",)
+    list_per_page = 20
+
+
+@admin.register(OtherMaterial)
+class OtherMaterialAdmin(admin.ModelAdmin):
+    list_display = ("name", "type", "application")
+    list_filter = ("type",)
+    search_fields = ("name", "type", "application")
+    ordering = ("name",)
+    list_per_page = 20

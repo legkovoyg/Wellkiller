@@ -1,4 +1,4 @@
-from expert_systema.models.models import Technology
+from expert_systema.models.technology import Technology
 
 
 def filter_technologies(

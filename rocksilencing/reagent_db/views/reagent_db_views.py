@@ -10,6 +10,9 @@ from reagent_db.models.reagent_db_models_salts import ReagentSalt, ReagentSaltSo
 from reagent_db.models.reagent_db_models_ingcorr import CorrosionInhibitor
 from reagent_db.models.reagent_db_models_pavs import Surfactant
 from reagent_db.models.reagent_db_models_ingsalt import ScaleInhibitor
+from reagent_db.models.reagent_db_models_heavy import WeightingAgent
+from reagent_db.models.reagent_db_models_polymers import Polymer
+from reagent_db.models.reagent_db_models_other import OtherMaterial
 
 from collections import defaultdict
 from random import choice
@@ -26,11 +29,13 @@ def reagent_db_page(request):
     bd_ingcorrs = CorrosionInhibitor.objects.all()
     bd_pavs = Surfactant.objects.all()
     bd_ingsalts = ScaleInhibitor.objects.all()
+    bd_weights = WeightingAgent.objects.all()
+    bd_polymers = Polymer.objects.all()
+    bd_others = OtherMaterial.objects.all()
 
     # Преобразуем данные в формат JSON
     salts_json = json.dumps(list(bd_names_salts.values()), default=str)
     solutions_json = json.dumps(list(bd_all_solutions.values()), default=str)
-    ingcorrs_json = json.dumps(list(bd_ingcorrs.values()), default=str)
 
     # Подготовка диапазонов плотностей
     ranges = {
@@ -56,6 +61,9 @@ def reagent_db_page(request):
             "bd_pavs": bd_pavs,  # Добавляем ПАВы
             "bd_ingcorrs": bd_ingcorrs,  # Добавляем ингибиторы коррозии
             "bd_ingsalts": bd_ingsalts,  # Добавляем ингибиторы солеотложений
+            "bd_weights": bd_weights,
+            "bd_polymers": bd_polymers,
+            "bd_others": bd_others,
             "salts_json": salts_json,
             "solutions_json": solutions_json,
             "ranges_json": ranges_json,

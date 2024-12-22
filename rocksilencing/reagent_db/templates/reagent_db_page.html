@@ -42,10 +42,10 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
         </span>
 
         <div class="inner-tabs on">
-            <!-- База солей -->
+            <!-- Солевые растворы -->
             <span class="inner-tab-salt">
                 <i class="bx bx-chevron-down"></i>
-                База солей
+                Солевые растворы
             </span>
             <div class="tabs-items on">
                 {% for salt in bd_names_salts %}
@@ -53,10 +53,10 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
                 {% endfor %}
             </div>
 
-            <!-- База ПАВ -->
+            <!-- ПАВ -->
             <span class="inner-tab">
                 <i class="bx bx-chevron-right"></i>
-                База ПАВ
+                 ПАВ
             </span>
             <div class="tabs-items">
                 {% for pav in bd_pavs %}
@@ -64,10 +64,10 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
                 {% endfor %}
             </div>
 
-            <!-- База ингибиторов коррозии -->
+            <!-- Ингибиторы коррозии -->
             <span class="inner-tab">
                 <i class="bx bx-chevron-right"></i>
-                База ингибиторов коррозии
+                Ингибиторы коррозии
             </span>
             <div class="tabs-items">
                 {% for ingcorr in bd_ingcorrs %}
@@ -75,14 +75,44 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
                 {% endfor %}
             </div>
 
-            <!-- База ингибиторов солеотложений -->
+            <!-- Ингибиторы солеотложений -->
             <span class="inner-tab">
                 <i class="bx bx-chevron-right"></i>
-                База ингибиторов солеотложений
+                Ингибиторы солеотложений
             </span>
             <div class="tabs-items">
                 {% for ingsalt in bd_ingsalts %}
                     <span class="btn" data-target="ingsalt_{{ ingsalt.id }}">{{ ingsalt.name }}</span>
+                {% endfor %}
+            </div>
+			<!-- Утяжелители -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                Утяжелители
+            </span>
+            <div class="tabs-items">
+                {% for weight in bd_weights %}
+                    <span class="btn" data-target="weight_{{ weight.id }}">{{ weight.name }}</span>
+                {% endfor %}
+            </div>
+			<!-- Полимеры -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                Полимеры
+            </span>
+            <div class="tabs-items">
+                {% for polymer in bd_polymers %}
+                    <span class="btn" data-target="polymer_{{ polymer.id }}">{{ polymer.name }}</span>
+                {% endfor %}
+            </div>
+			<!-- Прочее -->
+            <span class="inner-tab">
+                <i class="bx bx-chevron-right"></i>
+                Прочее
+            </span>
+            <div class="tabs-items">
+                {% for other in bd_others %}
+                    <span class="btn" data-target="other_{{ other.id }}">{{ other.name }}</span>
                 {% endfor %}
             </div>
         </div>

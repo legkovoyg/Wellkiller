@@ -228,10 +228,11 @@ body.dark .sidebar header .toggle{
 /* BOT AI */
 /* Chat Styles */
 .chat-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+    display: block !important;
 }
 
 .chat-button {
@@ -511,4 +512,21 @@ body.dark .sidebar header .toggle{
       .bottom-content{
         display: block;
       }
+}
+
+.chat-widget.always-visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.chat-widget button {
+    padding: 12px 20px;
+    width: auto;
+}
+
+.chat-widget .chat-input button {
+    width: 42px;
+    height: 42px;
+    padding: 0;
 }

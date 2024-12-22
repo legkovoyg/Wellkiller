@@ -1,5 +1,5 @@
 from django import forms
-from ..models.models import ReservoirCharacteristics
+from ..models.technology import ReservoirCharacteristics
 
 
 class ReservoirCharacteristicsForm(forms.ModelForm):

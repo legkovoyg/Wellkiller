@@ -27,15 +27,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация селектов для технологий
     const techGroupSelect = document.getElementById('tech_group');
     const techNameSelect = document.getElementById('tech_name');
-
+    
     if (techGroupSelect && techNameSelect) {
         const technologiesData = JSON.parse(techGroupSelect.getAttribute('data-technologies') || '{}');
-
+        
         function updateTechNames() {
             techNameSelect.innerHTML = '';
             const selectedGroup = techGroupSelect.value;
             const techList = technologiesData[selectedGroup] || [];
-
+            
             techList.forEach(function([techName, applicability]) {
                 const option = document.createElement('option');
                 option.value = techName;

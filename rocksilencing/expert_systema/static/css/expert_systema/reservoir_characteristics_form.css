@@ -12,13 +12,16 @@ body {
     width: 100%;
 }
 
+
 .main-container {
     display: flex;
     margin-left: 88px;
     margin-top: calc(52/var(--reference_height)*100vh);
     padding: 24px 0 0 17px;
     min-height: 95vh;
-   
+    margin-bottom: 100px;
+    position: relative;
+    z-index: 1;
 }
 
 .container {
@@ -188,10 +191,164 @@ details li {
     line-height: 16px;
 }
 
-span {
+
+.category-container span,
+.salt-info span {
     color: rgba(29, 154, 108, 1);
     text-align: right;
 }
+
+/* Стили для заголовков секций */
+.section-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+
+/* Стили для чекбоксов и их контейнеров */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-checkbox:checked {
+    background-color: var(--border-color);
+}
+
+.custom-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.detail-content {
+    padding: 10px;
+}
+
+
+.detail-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.detail-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+details li {
+    list-style: none;
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.checkbox-wrapper {
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-color);
+    gap: 8px;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.06);
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox-container input:checked + .custom-checkbox {
+    background-color: var(--border-color);
+}
+
+.checkbox-container input:checked + .custom-checkbox:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    color: var(--text-color);
+    font-size: 14px;
+    user-select: none;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Стили для технологий */
+.technology-selection {
+    margin-top: 32px;
+}
+
+
+.chat-widget span,
+.chat-button span {
+    color: white !important; /* Используем !important для перезаписи других стилей */
+    text-align: left !important;
+}
+
+.chat-header span {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.applicability-status {
+    color: rgba(29, 154, 108, 1);
+    text-align: right;
+}
+
+.applicability-status.partial {
+    color: rgba(29, 154, 108, 0.7); /* Более светлый оттенок для "Частично применим" */
+}
+
 .select-technology{
     display: flex;
     flex-direction: row;
