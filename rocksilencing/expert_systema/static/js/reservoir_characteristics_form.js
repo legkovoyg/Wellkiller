@@ -1,59 +1,62 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const firstSection = document.querySelectorAll('.container')
-    firstSection[0].classList.add('initial')
+    // Инициализация состояния для всех details элементов
+    const detailsElements = document.querySelectorAll('.salt-info');
+    
+    detailsElements.forEach((details) => {
+        const icon = details.querySelector('.bx');
+        const summary = details.querySelector('summary');
+        
+        // Добавляем обработчик только на summary
+        summary.addEventListener('click', function(e) {
+            e.preventDefault(); // Предотвращаем стандартное поведение details
+            
+            // Переключаем состояние details
+            const isOpen = details.hasAttribute('open');
+            if (isOpen) {
+                details.removeAttribute('open');
+                icon.classList.remove('bx-chevron-down');
+                icon.classList.add('bx-chevron-right');
+            } else {
+                details.setAttribute('open', '');
+                icon.classList.remove('bx-chevron-right');
+                icon.classList.add('bx-chevron-down');
+            }
+        });
+    });
+
+    // Инициализация селектов для технологий
     const techGroupSelect = document.getElementById('tech_group');
     const techNameSelect = document.getElementById('tech_name');
 
-    const bx = document.querySelectorAll('.bx')
-    const details = document.querySelectorAll('.salt-info')
-    details.forEach(detail =>  {
-        detail.addEventListener('click', function(){
-            bx.forEach(bx => {
-                 bx.classList.toggle('bx-chevron-right')
-                bx.classList.toggle('bx-chevron-down')  
-            })
-        })
-    })
-    const labelRadio = document.querySelectorAll('.is_water_sensitive label')
-    labelRadio.forEach(label =>{
-        label.addEventListener('click', function(){
-            labelRadio.forEach(lbl => lbl.classList.remove('active'));
-            label.classList.add('active');
-        })
-    })
+    if (techGroupSelect && techNameSelect) {
+        const technologiesData = JSON.parse(techGroupSelect.getAttribute('data-technologies') || '{}');
 
-    if(firstSection[1]){
-        firstSection[0].classList.remove('initial')
-    }
-  
-    // Получаем данные из data-атрибута
-    const technologiesData = JSON.parse(techGroupSelect.getAttribute('data-technologies') || '{}');
+        function updateTechNames() {
+            techNameSelect.innerHTML = '';
+            const selectedGroup = techGroupSelect.value;
+            const techList = technologiesData[selectedGroup] || [];
 
-    // Функция обновления списка технологий
-    function updateTechNames() {
-        // Очищаем текущий список
-        techNameSelect.innerHTML = '';
+            techList.forEach(function([techName, applicability]) {
+                const option = document.createElement('option');
+                option.value = techName;
+                option.textContent = `${techName} (${applicability})`;
+                techNameSelect.appendChild(option);
+            });
+        }
 
-        const selectedGroup = techGroupSelect.value;
-        const techList = technologiesData[selectedGroup] || [];
-
-        // Заполняем options для второго селекта
-        techList.forEach(function(item) {
-            const [techName, applicability] = item;
-            const option = document.createElement('option');
-            option.value = techName;
-            option.textContent = techName + ' (' + applicability + ')';
-            techNameSelect.appendChild(option);
-        });
-    }
-
-    // Инициализация при загрузке страницы
-    if (Object.keys(technologiesData).length > 0) {
+        // Инициализация при загрузке
         updateTechNames();
+        
+        // Обновление при изменении группы
+        techGroupSelect.addEventListener('change', updateTechNames);
     }
 
-    // Обновление при изменении выбора в первом списке
-    techGroupSelect.addEventListener('change', updateTechNames);
-
-    
+    // Обработка радио-кнопок
+    const waterSensitiveLabels = document.querySelectorAll('.is_water_sensitive label');
+    waterSensitiveLabels.forEach(label => {
+        label.addEventListener('click', function() {
+            waterSensitiveLabels.forEach(lbl => lbl.classList.remove('active'));
+            label.classList.add('active');
+        });
+    });
 });

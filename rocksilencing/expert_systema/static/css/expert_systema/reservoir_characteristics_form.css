@@ -162,6 +162,22 @@ summary {
     gap: 12px;
     align-items: center;
 }
+.salt-info summary .bx {
+    transition: transform 0.3s ease;
+}
+
+.salt-info[open] summary .bx {
+    transform: rotate(90deg);
+}
+
+.salt-info summary {
+    cursor: pointer;
+}
+
+/* Убираем стандартный маркер details */
+.salt-info summary::-webkit-details-marker {
+    display: none;
+}
 .bx{
     font-size: 16px;
 }
