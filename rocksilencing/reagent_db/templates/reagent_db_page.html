@@ -43,13 +43,13 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
 
         <div class="inner-tabs on">
             <!-- Солевые растворы -->
-            <span class="inner-tab-salt">
+            <span class="inner-tab on">
                 <i class="bx bx-chevron-down"></i>
                 Солевые растворы
             </span>
             <div class="tabs-items on">
                 {% for salt in bd_names_salts %}
-                    <span class="btn" data-target="{{ salt.name }}">{{ salt.name }}</span>
+                    <span class="btn-salt" data-target="{{ salt.name }}">{{ salt.name }}</span>
                 {% endfor %}
             </div>
 
@@ -207,39 +207,184 @@ const calculateConsumptionURL = "{% url 'reagent_db:calculate_consumption' %}";
 		<p class="header">Свойства жидкости</p>
 		{% for salt in bd_names_salts %}
 		<table id="{{ salt.name }}" class="salt_table">
-			<tr style="background: #292e3c">
+			<tr>
 				<td class="left-td">Название</td>
 				<td>
 					<p>{{ salt.name }}</p>
 				</td>
 			</tr>
 
-			<tr style="background: #363a47">
+			<tr>
 				<td class="left-td">Мин. плотность ЖГ, г/см³</td>
 				<td>
 					<p>{{ salt.min_density }}</p>
 				</td>
 			</tr>
-			<tr style="background: #292e3c">
+			<tr>
 				<td class="left-td">Макс. плотность ЖГ, г/см³</td>
 				<td>
 					<p>{{ salt.max_density }}</p>
 				</td>
 			</tr>
-			<tr style="background: #363a47">
+			<tr>
 				<td class="left-td">Описание</td>
 				<td>
 					<p>{{ salt.description }}</p>
 				</td>
 			</tr>
 			{% if salt.note %}
-			<tr style="background: #292e3c">
+			<tr>
 				<td class="left-td">Примечание</td>
 				<td>
 					<p>{{ salt.note }}</p>
 				</td>
 			</tr>
 			{% endif %}
+		</table>
+		{% endfor %}
+
+
+		{% for pav in bd_pavs %}
+		<table id="pav_{{ pav.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ pav.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ pav.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ pav.application }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+
+		{% for ingcorr in bd_ingcorrs %}
+		<table id="ingcorr_{{ ingcorr.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ ingcorr.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ ingcorr.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ ingcorr.application }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+
+		{% for ingsalt in bd_ingsalts %}
+		<table id="ingsalt_{{ ingsalt.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ ingsalt.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ ingsalt.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ ingsalt.application }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+
+		{% for weight in bd_weights %}
+		<table id="weight_{{ weight.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ weight.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ weight.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ weight.application }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+
+		{% for polymer in bd_polymers %}
+		<table id="polymer_{{ polymer.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ polymer.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ polymer.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ polymer.application }}</p>
+				</td>
+			</tr>
+		</table>
+		{% endfor %}
+
+		{% for other in bd_others %}
+		<table id="other_{{ other.id }}" class="salt_table">	
+			<tr>
+				<td class="left-td">Название</td>
+				<td>
+					<p>{{ other.name }}</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="left-td">Тип</td>
+				<td>
+					<p>{{ other.type }}</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="left-td">Примечание</td>
+				<td>
+					<p>{{ other.application }}</p>
+				</td>
+			</tr>
 		</table>
 		{% endfor %}
 	</section>
