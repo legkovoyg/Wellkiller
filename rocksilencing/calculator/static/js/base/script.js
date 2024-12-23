@@ -86,15 +86,15 @@ document.addEventListener("DOMContentLoaded", function() {
             
             try {
                 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                const response = await fetch('api/chat/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ message })
-                });
+                const response = await fetch(chatApi, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+    },
+    credentials: 'include', 
+    body: JSON.stringify({ message })
+});
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

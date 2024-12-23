@@ -41,7 +41,7 @@
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="{% url 'filesapp:design_management' %}">
+                        <a href="{% url 'filesapp:files_main_window' %}">
                             <i class="bx bx-home-alt-2 icon"></i>
                             <span class="text nav-text">История расчетов</span>
                         </a>
@@ -114,7 +114,9 @@
             </div>
         </div>
     </div>
-    
+    <script>
+    const chatApi = "{% url 'calculator:chat_api' %}";
+    </script>
     <script src="{% static 'js/base/script.js' %}"></script>
 </body>
 </html>

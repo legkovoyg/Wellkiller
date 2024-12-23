@@ -1,10 +1,17 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/designs/designs.css' %}">
 <link rel="stylesheet" href="{% static 'css/designs/modal.css' %}">
+<script>
+    window.CALCULATOR_URLS = {
+        'Глушение скважины': "{% url 'calculator:home' %}",
+        'Экспертная система': "{% url 'expert_systema:reservoir_characteristics' %}",
+        'Глушение скважины c экспертной системой': "{% url 'calculator:home' %}",
+        'Расчет совместимости вод': "{% url 'salt_calculator:calculator' %}"
+    };
+</script>
 <script src="{% static 'js/designs/designs.js' %}" defer></script>
 
 {% if designs and designs|length > 0 %}
@@ -12,12 +19,12 @@
 <div class="history-container">
     <div class="history-header">
         <h1>История расчетов</h1>
-        <!-- Добавили класс create-design-trigger -->
     </div>
     <div class="history-search">
         <a href="#" class="create-design-btn create-design-trigger">
             <img src="{% static 'images/add.svg' %}" alt="Добавить"> 
-            Создать дизайн</a>
+            Создать дизайн
+        </a>
         <input type="text" placeholder="Поиск" />
     </div>
     <div class="history-table-container">
@@ -36,7 +43,7 @@
             <tbody>
                 {% for design in designs %}
                 <tr>
-                    <td class = "design-item">
+                    <td class="design-item">
                         <img src="{% static 'images/greenimg.png' %}" alt="Описание картинки"> 
                         {{ design.name }}
                     </td>
@@ -58,12 +65,10 @@
     <div class="no-designs-container">
         <img src="{% static 'images/preview.png' %}" alt="Создать">
         <p>Вы еще не создали дизайны скважин</p>
-        <!-- Добавили класс create-design-trigger -->
         <button class="create-design-btn create-design-trigger">Создать дизайн</button>
     </div>
 </div>
 {% endif %}
-
 
 <!-- Модальное окно -->
 <div class="modal-overlay">
@@ -72,46 +77,61 @@
             <div class="modal-title">Новый дизайн</div> 
             <button class="modal-close">&times;</button>
         </div> 
+
+        <!-- Название дизайна -->
         <div>
             <label class="modal-label" for="design-name">Название дизайна</label>
             <input class="modal-input" type="text" id="design-name" placeholder="Введите название дизайна">
         </div>
-        <div>
-            <label class="modal-label" for="field-select">Месторождение</label>
-            <select class="modal-select" id="field-select">
-                <option disabled selected>Выберите или введите название</option>
-                <option>Месторождение-1</option>
-                <option>Месторождение-2</option>
-            </select>
-        </div>
-        <div>
-            <label class="modal-label" for="cluster-select">Номер кустовой площадки</label>
-            <select class="modal-select" id="cluster-select">
-                <option disabled selected>Выберите или введите номер</option>
-                <option>Куст-1</option>
-                <option>Куст-10</option>
-            </select>
-        </div>
-        <div>
-            <label class="modal-label" for="well-select">Номер скважины</label>
-            <select class="modal-select" id="well-select">
-                <option disabled selected>Выберите или введите номер</option>
-                <option>Скважина-1</option>
-                <option>Скважина-25</option>
-            </select>
-        </div>
+
+        <!-- Месторождение -->
+<div>
+    <label class="modal-label" for="field-custom-input">Месторождение</label>
+    <input 
+        type="text" 
+        id="field-custom-input" 
+        class="modal-input"
+        placeholder="Введите месторождение"
+    />
+</div>
+
+<!-- Кустовая площадь -->
+<div>
+    <label class="modal-label" for="cluster-custom-input">Номер кустовой площадки</label>
+    <input 
+        type="text" 
+        id="cluster-custom-input" 
+        class="modal-input"
+        placeholder="Введите номер куста"
+    />
+</div>
+
+<!-- Скважина -->
+<div>
+    <label class="modal-label" for="well-custom-input">Номер скважины</label>
+    <input 
+        type="text" 
+        id="well-custom-input" 
+        class="modal-input"
+        placeholder="Введите номер скважины"
+    />
+</div>
+
+        <!-- Тип расчета -->
         <div>
             <label class="modal-label" for="calc-type">Тип расчета</label>
             <select class="modal-select" id="calc-type">
                 <option>Глушение скважины</option>
+                <option>Экспертная система</option>
+                <option>Глушение скважины c экспертной системой</option>
                 <option>Расчет совместимости вод</option>
             </select>
         </div>
+
         <div class="modal-actions">
             <button class="modal-btn cancel">Отмена</button>
             <button class="modal-btn create">Создать дизайн</button>
         </div>
     </div>
 </div>
-
 {% endblock %}
