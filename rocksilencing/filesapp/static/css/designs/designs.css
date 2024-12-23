@@ -133,7 +133,10 @@ body .create-design-btn:hover {
 thead tr:first-of-type {
     background: rgba(255, 255, 255, 0.08);
 }
-
+.design-item:hover{
+    cursor: pointer;
+    color: #1d9a6c;
+}
 @media (max-width:900px) {
     .history-container{
         margin-top: 20px;

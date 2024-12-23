@@ -28,4 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
             modalOverlay.classList.remove('active');
         }
     });
+    const designButtons = document.querySelectorAll('.design-item')
+    designButtons.forEach(design => {
+        design.addEventListener('click', function(){
+            alert(design.innerText)
+        })
+    })
 });
