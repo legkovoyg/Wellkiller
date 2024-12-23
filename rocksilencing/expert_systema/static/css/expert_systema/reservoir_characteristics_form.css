@@ -34,10 +34,10 @@ body {
     width: auto;
 }
 .container:first-of-type{
-    max-width: 25%;
+    max-width: 408px;
 }
 .container:last-of-type{
-    max-width: 32%;
+    max-width: 602px;
     border: none;
 }
 h1 {
@@ -165,24 +165,16 @@ summary {
     gap: 12px;
     align-items: center;
 }
-.salt-info summary .bx {
-    transition: transform 0.3s ease;
-}
-
-.salt-info[open] summary .bx {
-    transform: rotate(90deg);
-}
 
 .salt-info summary {
     cursor: pointer;
 }
-
+.bx-chevron-down{
+    color:#1D9A6C;
+}
 /* Убираем стандартный маркер details */
 .salt-info summary::-webkit-details-marker {
     display: none;
-}
-.bx{
-    font-size: 16px;
 }
 details li {
     list-style: none;
@@ -211,19 +203,23 @@ details li {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .custom-checkbox {
     appearance: none;
     -webkit-appearance: none;
     width: 16px;
+    min-width: 16px;
     height: 16px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.06);
     cursor: pointer;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .custom-checkbox:checked {
@@ -267,10 +263,6 @@ details li {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-.checkbox-wrapper {
-    margin-bottom: 20px;
-}
-
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -282,17 +274,6 @@ details li {
 
 .checkbox-container input {
     display: none;
-}
-
-.custom-checkbox {
-    width: 16px;
-    height: 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.06);
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
 }
 
 .checkbox-container input:checked + .custom-checkbox {
@@ -322,7 +303,12 @@ details li {
     color: var(--text-color);
     cursor: pointer;
 }
-
+.hidden{
+    display: none;
+}
+.added-questions{
+    margin-bottom: 24px;
+}
 /* Стили для технологий */
 .technology-selection {
     margin-top: 32px;
@@ -333,11 +319,6 @@ details li {
 .chat-button span {
     color: white !important; /* Используем !important для перезаписи других стилей */
     text-align: left !important;
-}
-
-.chat-header span {
-    font-weight: 500;
-    font-size: 14px;
 }
 
 .applicability-status {

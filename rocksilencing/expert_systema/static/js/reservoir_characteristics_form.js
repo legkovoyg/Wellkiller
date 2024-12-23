@@ -59,4 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             label.classList.add('active');
         });
     });
+    const checkbox = document.querySelector('.checkbox-container input')
+    const addedQuestions = document.querySelector('.added-questions')
+    checkbox.addEventListener('click', function(){
+            addedQuestions.classList.toggle('hidden')
+    })
 });
