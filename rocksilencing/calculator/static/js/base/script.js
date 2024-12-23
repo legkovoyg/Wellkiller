@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Добавьте этот код в самое начало функции
     if (document.querySelector('.chat-widget')) {
         const chatWidget = document.querySelector('.chat-widget');
-        chatWidget.style.zIndex = '9999';
+        // chatWidget.style.zIndex = '9999';
     }
     // Сайдбар функциональность
     const body = document.querySelector("body");
