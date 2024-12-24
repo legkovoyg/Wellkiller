@@ -80,7 +80,6 @@ function form_update (concent_1, concent_2, ro_id, multiplier) {
         });
         mg_value.addEventListener('input', function() {
             var newValue = parseFloat(mg_value.value);
-            console.log(newValue)
             mole_value.value = (newValue / (1000 * multiplier * ro_smesi_1.value)).toFixed(5);
         });
     }

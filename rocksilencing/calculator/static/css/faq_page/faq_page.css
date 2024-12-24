@@ -1,13 +1,13 @@
-
 .divider {
-padding-left: 50px;
     height: 100vh;
-    }
-
+    margin-left: 87px;
+    margin-top: calc(51/var(--reference_height)*100vh);
+}
 
 @media (max-width: 900px) {
-.divider {
-padding-left: 0px;
-    height: 100vh;
+    .divider {
+        padding-left: 0px;
+        height: 100vh;
+        margin: 0;
     }
 }

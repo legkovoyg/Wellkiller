@@ -367,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const saltSlug = normalizeId(saltNameRaw);
 
         const salt = saltsData.find(s => normalizeId(s.name) === saltSlug);
-        console.log(saltSlug, salt)
 
         if (!salt) {
             console.error(`Соль с идентификатором ${saltSlug} не найдена.`)

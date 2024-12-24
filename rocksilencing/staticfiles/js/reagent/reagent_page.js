@@ -9,8 +9,6 @@ document.querySelectorAll('.tabs-wrapper').forEach((e) => {
             let tables = document.querySelectorAll('.content__features table');
             let salts = document.querySelectorAll('.content__table table tr:not(:first-child)')
             let header = document.querySelector('.content__features')
-            console.log(header)
-            console.log(header)
             tables.forEach(table => {
                 if (table.id === target) {
                     table.style.display = 'table';

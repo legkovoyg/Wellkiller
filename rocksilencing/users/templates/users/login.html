@@ -14,13 +14,13 @@
         <div class="contentLogin">
             <form method="post" class="contentLogin__loginPass">
                 {% csrf_token %}
-                {% if error %}
-                    <div class="error">{{ error }}</div>
-                {% endif %}
                 <div class="contentLogin__name">RockSilencing</div>
                 <div class="contentLogin__loginPass">
                     {{ form.as_p }}
                 </div>
+                {% if error %}
+                <div class="error">{{ error }}</div>
+                {% endif %}
                 <div class="contentLogin__button">
                     <div class="contentLogin__rememberMe">
                         <input class="rememberMe-checkbox" name="rememberMe" type="checkbox">Запомнить меня

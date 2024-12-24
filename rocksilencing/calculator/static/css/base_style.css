@@ -239,7 +239,7 @@ body.dark .sidebar header .toggle{
     border: none;
     color: white;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -259,12 +259,12 @@ body.dark .sidebar header .toggle{
 
 .chat-dialog {
     position: fixed;
-    bottom: 90px;
+    bottom: 20px;
     right: 20px;
-    width: 400px;
-    height: 550px;
+    width: 300px;
+    aspect-ratio: 0.73;
     background: #292e3c;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     display: none;
     flex-direction: column;
@@ -274,7 +274,9 @@ body.dark .sidebar header .toggle{
 .chat-dialog.open {
     display: flex;
 }
-
+.chat-dialog button {
+    padding: 6px 10px;
+}
 .chat-header {
     padding: 16px;
     background: #1d9a6c;
@@ -374,23 +376,21 @@ body.dark .sidebar header .toggle{
     background: #4c977c;
 }
 
-@media (max-width: 500px) {
-    .chat-dialog {
-        width: calc(100% - 40px);
-        height: calc(100vh - 180px);
-        bottom: 80px;
-    }
-    
-    .chat-button {
-        width: calc(100% - 40px);
-        justify-content: center;
-    }
+.chat-widget.always-visible {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    z-index: 151;
 }
 
-
-
-
-
+.chat-widget button:hover{
+    background-color: #4c977c;
+}
+.chat-widget .chat-input button {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
 
  @media (max-width: 900px) {
   .sidebar {
@@ -439,11 +439,18 @@ body.dark .sidebar header .toggle{
   .sidebar li:last-of-type{
     display: none;
   }
-
 } 
 
 @media (max-width: 500px) {
-
+    
+    .chat-button {
+        justify-content: center;
+        font-size: 11px;
+        padding: 8px 15px;
+    }
+    .chat-button i{
+        font-size: 15px;
+    }
     .body{
         transition: var(--tran-05);
     }
@@ -511,23 +518,4 @@ body.dark .sidebar header .toggle{
       .bottom-content{
         display: block;
       }
-}
-
-.chat-widget.always-visible {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    z-index: 2;
-}
-
-.chat-widget button {
-    padding: 12px 20px;
-    width: auto;
-    margin: 0;
-}
-
-.chat-widget .chat-input button {
-    width: 42px;
-    height: 42px;
-    padding: 0;
 }

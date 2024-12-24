@@ -29,17 +29,21 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     width: 100%;
 }
-.initial{
+
+.initial {
     margin: 0 auto;
     width: auto;
 }
-.container:first-of-type{
+
+.container:first-of-type {
     max-width: 408px;
 }
-.container:last-of-type{
+
+.container:last-of-type {
     max-width: 602px;
     border: none;
 }
+
 h1 {
     line-height: 28px;
     font-weight: 500;
@@ -58,9 +62,11 @@ p {
     flex-direction: column;
     margin-bottom: 24px;
 }
-p:nth-last-of-type(2){
+
+p:nth-last-of-type(2) {
     margin-bottom: 0;
 }
+
 label {
     font-size: 14px;
     font-weight: 400;
@@ -80,13 +86,16 @@ option {
     padding: 8px 0 8px 12px;
     color: var(--text-color);
 }
-option{
-    background-color:#363A47;
-}   
-.is_water_sensitive{
+
+option {
+    background-color: #363A47;
+}
+
+.is_water_sensitive {
     display: flex;
     gap: 14px;
 }
+
 input[type="radio"] {
     display: none;
 }
@@ -107,15 +116,19 @@ input[type="radio"] {
     padding: 8px 20px;
 
 }
-.is_water_sensitive label.active{
+
+.is_water_sensitive label.active {
     border: 1px solid var(--border-color);
 }
+
 .is_water_sensitive label:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-.is_water_sensitive div{
+
+.is_water_sensitive div {
     width: 100%;
 }
+
 button {
     background-color: rgba(29, 154, 108, 1);
     border: none;
@@ -126,7 +139,8 @@ button {
     padding: 8px 0;
     color: var(--text-color);
 }
-button:hover{
+
+button:hover {
     background-color: #4c977c;
     cursor: pointer;
 }
@@ -137,6 +151,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .category {
     font-size: 16px;
     line-height: 16px;
@@ -149,6 +164,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 34px;
     margin-top: 8px;
 }
+
 summary {
     background-color: rgba(255, 255, 255, 0.06);
     display: flex;
@@ -160,7 +176,8 @@ summary {
     line-height: 16px;
     padding: 8px 10px 8px 12px;
 }
-.left-content{
+
+.left-content {
     display: flex;
     gap: 12px;
     align-items: center;
@@ -169,13 +186,16 @@ summary {
 .salt-info summary {
     cursor: pointer;
 }
-.bx-chevron-down{
-    color:#1D9A6C;
+
+.bx-chevron-down {
+    color: #1D9A6C;
 }
+
 /* Убираем стандартный маркер details */
 .salt-info summary::-webkit-details-marker {
     display: none;
 }
+
 details li {
     list-style: none;
     padding: 11px 59px 11px 40px;
@@ -235,6 +255,7 @@ details li {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .detail-content {
     padding: 10px;
 }
@@ -276,11 +297,11 @@ details li {
     display: none;
 }
 
-.checkbox-container input:checked + .custom-checkbox {
+.checkbox-container input:checked+.custom-checkbox {
     background-color: var(--border-color);
 }
 
-.checkbox-container input:checked + .custom-checkbox:after {
+.checkbox-container input:checked+.custom-checkbox:after {
     content: '';
     position: absolute;
     left: 5px;
@@ -303,12 +324,15 @@ details li {
     color: var(--text-color);
     cursor: pointer;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
-.added-questions{
+
+.added-questions {
     margin-bottom: 24px;
 }
+
 /* Стили для технологий */
 .technology-selection {
     margin-top: 32px;
@@ -317,7 +341,8 @@ details li {
 
 .chat-widget span,
 .chat-button span {
-    color: white !important; /* Используем !important для перезаписи других стилей */
+    color: white !important;
+    /* Используем !important для перезаписи других стилей */
     text-align: left !important;
 }
 
@@ -327,24 +352,36 @@ details li {
 }
 
 .applicability-status.partial {
-    color: rgba(29, 154, 108, 0.7); /* Более светлый оттенок для "Частично применим" */
+    color: rgba(29, 154, 108, 0.7);
+    /* Более светлый оттенок для "Частично применим" */
 }
 
-.select-technology{
+.select-technology {
     display: flex;
     flex-direction: row;
     gap: 25px;
     margin-bottom: 24px;
 }
-.mb-3{
+
+.mb-3 {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
 }
-.form-label{
+
+.form-label {
     font-size: 12px;
 }
-.form-select{
+
+.form-select {
     width: 100%;
+}
+
+@media(max-width:900px) {
+    .main-container {
+        margin: 0;
+        margin-top: calc(73.5/var(--reference_height)*100vh);
+        padding: 0;
+    }
 }

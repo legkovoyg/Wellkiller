@@ -1,13 +1,13 @@
 // tabs //
 
 document.getElementById('input__file').addEventListener('change', function () {
-  var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
+  let fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
   document.getElementById('file-name-text').textContent = fileName;
   document.getElementById
 }
 );
 document.getElementById('input__file-NKT').addEventListener('change', function () {
-  var fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
+  let fileName = this.files.length > 0 ? Array.from(this.files).map(file => file.name).join(', ') : 'Импорт';
   document.getElementById('file-name-text-NKT').textContent = fileName;
   document.getElementById
 }
@@ -27,49 +27,59 @@ document.querySelectorAll('.tabs-wrapper').forEach((e) => {
   }
 });
 
-document.getElementById('toggleIcon1').addEventListener('click', function () {
-  var containerTab = document.querySelector('.container__tab');
-  if (containerTab.style.display === 'none') {
-    containerTab.style.display = 'block';
-  } else {
-    containerTab.style.display = 'none';
-  }
-});
+let firstSection = document.querySelector('.container__tab');
+if (firstSection) {
+  document.getElementById('toggleIcon1').addEventListener('click', function () {
 
-document.getElementById('toggleIcon2').addEventListener('click', function () {
-  var containerTab = document.querySelector('.second_section');
-  if (containerTab.style.display === 'none') {
-    containerTab.style.display = 'block';
-  } else {
-    containerTab.style.display = 'none';
-  }
-});
-
-document.getElementById('toggleIcon3').addEventListener('click', function () {
-  var containerTab = document.querySelector('.third_section');
-  if (containerTab.style.display === 'none') {
-    containerTab.style.display = 'block';
-  } else {
-    containerTab.style.display = 'none';
-  }
-});
-
-const svgImage = document.querySelectorAll(".main-svg")
-const pressureGraph = document.getElementById("pressure_graph")
-const graphSelect = document.getElementById('graph_select')
-graphSelect.addEventListener('change', function () {
-  if (graphSelect.value === "pressure_graph") {
-    for (let i = 0; i <= svgImage.length; i++) {
-      svgImage[i].classList.remove("hidden")
-      svgImage[i].classList.add("visible")
+    if (containerTab.style.display === 'none') {
+      containerTab.style.display = 'block';
+    } else {
+      containerTab.style.display = 'none';
     }
-  } else {
-    for (let i = 0; i < svgImage.length; i++) {
-      svgImage[i].classList.remove("visible")
-      svgImage[i].classList.add("hidden")
+  });
+}
+
+let secondSection = document.querySelector('.second_section');
+if (secondSection) {
+  document.getElementById('toggleIcon2').addEventListener('click', function () {
+    if (containerTab.style.display === 'none') {
+      containerTab.style.display = 'block';
+    } else {
+      containerTab.style.display = 'none';
     }
-  }
-})
+    const svgImage = document.querySelectorAll(".main-svg")
+    const pressureGraph = document.getElementById("pressure_graph")
+    const graphSelect = document.getElementById('graph_select')
+    graphSelect.addEventListener('change', function () {
+      if (graphSelect.value === "pressure_graph") {
+        for (let i = 0; i <= svgImage.length; i++) {
+          svgImage[i].classList.remove("hidden")
+          svgImage[i].classList.add("visible")
+        }
+      } else {
+        for (let i = 0; i < svgImage.length; i++) {
+          svgImage[i].classList.remove("visible")
+          svgImage[i].classList.add("hidden")
+        }
+      }
+    })
+
+  });
+}
+
+let thirdSection = document.querySelector('.third_section');
+if (thirdSection) {
+  document.getElementById('toggleIcon3').addEventListener('click', function () {
+
+    if (containerTab.style.display === 'none') {
+      containerTab.style.display = 'block';
+    } else {
+      containerTab.style.display = 'none';
+    }
+  });
+}
+
+
 
 function resizeGraph() {
   const graphContainer = document.getElementById('graphPlotly');
@@ -95,11 +105,12 @@ function mobile() {
   const sections = document.querySelectorAll('.container__tab, .second_section, .third_section');
   let linkDownload = document.querySelector('.download-report-mobile')
   const urlContainer = document.getElementById('url-container');
-  const downloadUrl = urlContainer.getAttribute('data-download-url');
+ 
+ 
 
   const rows = document.querySelectorAll('.injection-scenarious tr');
 
-  const headersInjection = document.querySelectorAll('.header-table-inject td') 
+  const headersInjection = document.querySelectorAll('.header-table-inject td')
   let buttonStageNext = document.querySelector('.next-stage-image')
   let buttonStagePrevious = document.querySelector('.previous-stage-image')
 
@@ -148,10 +159,10 @@ function mobile() {
               sections[index].style.display = 'block';
             }
 
-              headerMobile.forEach(header => {
-                header.classList.remove('active');
-              });
-            
+            headerMobile.forEach(header => {
+              header.classList.remove('active');
+            });
+
 
             header.classList.add('active');
 
@@ -166,15 +177,19 @@ function mobile() {
     if (!linkDownload) {
       const linkDownload = document.createElement('a');
       linkDownload.classList.add('download-report-mobile')
-      linkDownload.href = downloadUrl;
-      linkDownload.textContent = "Скачать отчёт";
-      sections[1].append(linkDownload);
-
-      hasElementsBeenAdded = true;
+      if(thirdSection){
+        const downloadUrl = urlContainer.getAttribute('data-download-url');
+        linkDownload.href = downloadUrl;
+        linkDownload.textContent = "Скачать отчёт";
+        sections[1].append(linkDownload);
+  
+        hasElementsBeenAdded = true;
+      }
+    
     }
     //Таблица стадий
 
-    
+
     headersInjection.forEach((header, index) => {
       if (index > 0) {
         if (!buttonStageNext && !buttonStagePrevious) {
@@ -195,7 +210,7 @@ function mobile() {
 
 
     })
-  
+
     let currentStage = 1;
 
     //Отображаем только первую стадию в начале
@@ -246,86 +261,86 @@ function mobile() {
       linkDownload.remove();
       hasElementsBeenAdded = false;
     }
-    if(buttonStageNext && buttonStagePrevious){
+    if (buttonStageNext && buttonStagePrevious) {
       buttonStageNext = document.querySelectorAll('.next-stage-image')
-      buttonStageNext.forEach(button =>{
+      buttonStageNext.forEach(button => {
         button.remove()
       })
       buttonStagePrevious = document.querySelectorAll('.previous-stage-image')
-      buttonStagePrevious.forEach(button =>{
+      buttonStagePrevious.forEach(button => {
         button.remove()
       })
       hasElementsBeenAdded = false
     }
-    
+
     const cell = document.querySelectorAll('.injection-scenarious td')
     cell.forEach(cell => {
-     cell.style.display = 'table-cell'
+      cell.style.display = 'table-cell'
     })
   }
 }
 
-function demonstrate(){
-var mest = document.getElementById("field")
-var field = document.getElementById("bush")
-var well_name = document.getElementById("well_name")
-var design_name = document.getElementById('design_name')
-var porosity = document.getElementById('id_Porosity')
-var oil_density = document.getElementById('id_Oil_density')
-var Plast_pressure = document.getElementById('id_Plast_pressure')
-var Radius_countour = document.getElementById("id_Radius_countour")
-var Plast_thickness = document.getElementById('id_Plast_thickness')
-var From_yst_to_plast = document.getElementById('id_From_yst_to_plast')
-var False_zaboi = document.getElementById('id_False_zaboi')
-var True_zaboi = document.getElementById('id_True_zaboi')
-var NKT_length = document.getElementById("id_NKT_length")
-var NKT_inner_diameter = document.getElementById("id_NKT_inner_diameter")
-var NKT_external_diameter = document.getElementById('id_NKT_external_diameter')
-var EXP_length = document.getElementById('id_EXP_length')
-var EXP_inner_diameter = document.getElementById('id_EXP_inner_diameter')
-var EXP_external_diameter = document.getElementById('id_EXP_external_diameter')
-var Volume_of_car = document.getElementById('id_Volume_of_car')
-var Debit = document.getElementById('id_Debit')
-var YV_density = document.getElementById("id_YV_density")
-var YV_dole = document.getElementById('id_YV_dole')
-var Emul_density = document.getElementById("id_Emul_density")
-var Emul_dole = document.getElementById('id_Emul_dole')
-var Phase_oil_permeability = document.getElementById('id_Phase_oil_permeability')
-var Phase_jgs_permeability = document.getElementById('id_Phase_jgs_permeability')
-var Oil_viscosity = document.getElementById('id_Oil_viscosity')
-var Jgs_viscosity = document.getElementById('id_Jgs_viscosity')
-var Zapas = document.getElementById("id_Zapas")
+function demonstrate() {
+  let mest = document.getElementById("field")
+  let field = document.getElementById("bush")
+  let well_name = document.getElementById("well_name")
+  let design_name = document.getElementById('design_name')
+  let porosity = document.getElementById('id_Porosity')
+  let oil_density = document.getElementById('id_Oil_density')
+  let Plast_pressure = document.getElementById('id_Plast_pressure')
+  let Radius_countour = document.getElementById("id_Radius_countour")
+  let Plast_thickness = document.getElementById('id_Plast_thickness')
+  let From_yst_to_plast = document.getElementById('id_From_yst_to_plast')
+  let False_zaboi = document.getElementById('id_False_zaboi')
+  let True_zaboi = document.getElementById('id_True_zaboi')
+  let NKT_length = document.getElementById("id_NKT_length")
+  let NKT_inner_diameter = document.getElementById("id_NKT_inner_diameter")
+  let NKT_external_diameter = document.getElementById('id_NKT_external_diameter')
+  let EXP_length = document.getElementById('id_EXP_length')
+  let EXP_inner_diameter = document.getElementById('id_EXP_inner_diameter')
+  let EXP_external_diameter = document.getElementById('id_EXP_external_diameter')
+  let Volume_of_car = document.getElementById('id_Volume_of_car')
+  let Debit = document.getElementById('id_Debit')
+  let YV_density = document.getElementById("id_YV_density")
+  let YV_dole = document.getElementById('id_YV_dole')
+  let Emul_density = document.getElementById("id_Emul_density")
+  let Emul_dole = document.getElementById('id_Emul_dole')
+  let Phase_oil_permeability = document.getElementById('id_Phase_oil_permeability')
+  let Phase_jgs_permeability = document.getElementById('id_Phase_jgs_permeability')
+  let Oil_viscosity = document.getElementById('id_Oil_viscosity')
+  let Jgs_viscosity = document.getElementById('id_Jgs_viscosity')
+  let Zapas = document.getElementById("id_Zapas")
 
 
-mest.value = 'Самотлорское';
-field.value = '332'
-well_name.value = '8971'
-design_name.value = 'Дизайн 1'
-porosity.value = 0.2
-oil_density.value = 800
-Plast_pressure.value = 100
-Radius_countour.value = 250
-Plast_thickness.value = 10
-From_yst_to_plast.value = 1400
-False_zaboi.value = 1500
-True_zaboi.value = 1500
-NKT_length.value = 1400
-NKT_inner_diameter.value = 0.062
-NKT_external_diameter.value = 0.073
-EXP_length.value = 100
-EXP_inner_diameter.value = 0.15
-EXP_external_diameter.value = 0.163
-Volume_of_car.value = 20
-Debit.value = 0.01
-YV_density.value = 0.88
-YV_dole.value = 0.16
-Emul_density.value = 0.8
-Emul_dole.value = 0.04
-Phase_oil_permeability.value = 0.5
-Phase_jgs_permeability.value = 1.5
-Oil_viscosity.value = 0.005
-Jgs_viscosity.value = 0.001
-Zapas.value = 0.1
+  mest.value = 'Самотлорское';
+  field.value = '332'
+  well_name.value = '8971'
+  design_name.value = 'Дизайн 1'
+  porosity.value = 0.2
+  oil_density.value = 800
+  Plast_pressure.value = 100
+  Radius_countour.value = 250
+  Plast_thickness.value = 10
+  From_yst_to_plast.value = 1400
+  False_zaboi.value = 1500
+  True_zaboi.value = 1500
+  NKT_length.value = 1400
+  NKT_inner_diameter.value = 0.062
+  NKT_external_diameter.value = 0.073
+  EXP_length.value = 100
+  EXP_inner_diameter.value = 0.15
+  EXP_external_diameter.value = 0.163
+  Volume_of_car.value = 20
+  Debit.value = 0.01
+  YV_density.value = 0.88
+  YV_dole.value = 0.16
+  Emul_density.value = 0.8
+  Emul_dole.value = 0.04
+  Phase_oil_permeability.value = 0.5
+  Phase_jgs_permeability.value = 1.5
+  Oil_viscosity.value = 0.005
+  Jgs_viscosity.value = 0.001
+  Zapas.value = 0.1
 }
 
 

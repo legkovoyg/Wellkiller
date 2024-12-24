@@ -8,14 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let tabs = e.querySelectorAll('.tab')
         let innerTabs = e.querySelectorAll('.inner-tabs')
         let innerTab = e.querySelectorAll('.inner-tab')
-        console.log(innerTab)
         let btn = e.querySelectorAll('.tabs-items')
-        console.log(btn)
         let bxSalt = e.querySelectorAll('.inner-tab i')
         let icons = e.querySelectorAll('.tabs i')
         let buttonSalt = e.querySelectorAll('.btn-salt')
         let buttonOthers = e.querySelectorAll('.btn')
-        let options =  e.querySelectorAll('.salt-option')
 
         for (let i = 0; i < tabs.length; i++) {
             tabs[i].onclick = () => {
@@ -34,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         for (let i = 0; i < innerTab.length; i++) {
-            innerTab[i].onclick = () => {
-                console.log('dcdsc')               
+            innerTab[i].onclick = () => {             
                 if (innerTab[i].classList.contains('on')) {
                     innerTab[i].classList.remove('on')
                     btn[i].classList.remove ('on')
@@ -59,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 tables.forEach(table => {
                     if (table.id === target) {
                         table.style.display = 'table'
-                        console.log('dcac')
                     } else {
                         table.style.display = 'none'
                     }
@@ -387,9 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Убираем суффикс -cell, чтобы получить имя соли
         const saltNameRaw = row.id.replace('-cell','');
         const saltSlug = normalizeId(saltNameRaw);
-
         const salt = saltsData.find(s => normalizeId(s.name) === saltSlug);
-        console.log(saltSlug, salt)
 
         if (!salt) {
             console.error(`Соль с идентификатором ${saltSlug} не найдена.`)

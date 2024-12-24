@@ -101,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 const data = await response.json();
-                console.log('Received response:', data);
                 
                 if (data.status === 'success') {
                     addMessage(data.response, 'assistant');

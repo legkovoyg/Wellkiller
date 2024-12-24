@@ -133,7 +133,21 @@ body .create-design-btn:hover {
 thead tr:first-of-type {
     background: rgba(255, 255, 255, 0.08);
 }
-.design-item:hover{
+body .open-module-link{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.87);
+}
+body .open-module-link:hover{
+    cursor: pointer;
+    color: #1d9a6c;
+}
+.delete-design-btn{
+    background: none;
+    border:none;
+    color:rgba(255, 255, 255, 0.87);
+
+}
+.delete-design-btn:hover{
     cursor: pointer;
     color: #1d9a6c;
 }
@@ -142,10 +156,15 @@ thead tr:first-of-type {
         margin-top: 20px;
         padding: 0 17px;
     }
+    .history-table-container {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
 }
 @media (max-width:500px) {
     .history-container{
-        margin-top: calc(52 / var(--reference_height)* 100vh);
+        margin-top: calc(73.5/ var(--reference_height)* 100vh);
         padding: 10px 17px;
     }
+    
 }

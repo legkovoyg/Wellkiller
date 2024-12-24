@@ -32,8 +32,12 @@ body{
 .contentLogin__loginPass{
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
 }
-
+.error{
+    color: #e64646;
+    text-align: center;
+}
 .loginPass{
     border-radius: 8px;
     padding: 8px 10px;
