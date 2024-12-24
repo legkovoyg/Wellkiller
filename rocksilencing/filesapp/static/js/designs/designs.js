@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-   // DOM элементы
    const modalOverlay = document.querySelector('.modal-overlay');
    const createDesignTriggers = document.querySelectorAll('.create-design-trigger');
    const modalClose = document.querySelector('.modal-close');
    const modalCancel = document.querySelector('.modal-btn.cancel');
    const createButton = document.querySelector('.modal-btn.create');
    
-   // Элементы формы
    const designNameInput = document.getElementById('design-name');
    const fieldInput = document.getElementById('field-custom-input');
    const clusterInput = document.getElementById('cluster-custom-input');
@@ -19,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
        fieldInput.value = '';
        clusterInput.value = '';
        wellInput.value = '';
+       calcTypeSelect.value = 'Глушение скважины';
    }
 
    function closeModal() {
@@ -39,6 +38,34 @@ document.addEventListener('DOMContentLoaded', function() {
        }
        return cookieValue;
    }
+
+   // Удаление дизайна
+   document.querySelectorAll('.delete-design-btn').forEach(button => {
+       button.addEventListener('click', function() {
+           if (confirm('Вы уверены, что хотите удалить этот дизайн?')) {
+               const designId = this.dataset.uuid;
+               
+               fetch(`/files/delete_design/${designId}/`, {
+                   method: 'POST',
+                   headers: {
+                       'X-CSRFToken': getCookie('csrftoken')
+                   }
+               })
+               .then(response => response.json())
+               .then(data => {
+                   if (data.status === 'ok') {
+                       this.closest('tr').remove();
+                   } else {
+                       alert('Ошибка при удалении дизайна');
+                   }
+               })
+               .catch(error => {
+                   console.error('Error:', error);
+                   alert('Произошла ошибка при удалении дизайна');
+               });
+           }
+       });
+   });
 
    createButton.addEventListener('click', function() {
        const designName = designNameInput.value.trim();
@@ -68,7 +95,14 @@ document.addEventListener('DOMContentLoaded', function() {
            if (data.status === 'ok') {
                alert('Дизайн успешно создан!');
                closeModal();
-               window.location.reload();
+               const createdDesignId = data.design_id;
+               const baseUrl = window.CALCULATOR_URLS[payload.calc_type];
+               if (baseUrl) {
+                   const fullUrl = baseUrl + "?design_id=" + createdDesignId;
+                   window.location.href = fullUrl;
+               } else {
+                   window.location.reload();
+               }
            } else {
                alert('Ошибка при создании дизайна: ' + data.message);
            }
@@ -97,13 +131,38 @@ document.addEventListener('DOMContentLoaded', function() {
        });
    }
 
-   const tableRows = document.querySelectorAll('.history-table tbody tr');
-   tableRows.forEach(row => {
-       row.addEventListener('click', function() {
-           const calcType = this.querySelector('td:nth-child(2)').textContent;
-           const url = window.CALCULATOR_URLS[calcType];
-           if (url) {
-               window.location.href = url;
+   const moduleLinks = document.querySelectorAll('.open-module-link');
+   moduleLinks.forEach(link => {
+       link.addEventListener('click', async function(e) {
+           e.preventDefault();
+
+           const calcType = this.dataset.calcType;
+           const designId = this.dataset.designId;
+
+           if (!calcType || !designId) {
+               return;
+           }
+
+           try {
+               // Обновляем сессию перед переходом
+               const response = await fetch(`/files/get_design/${designId}/`, {
+                   method: 'GET',
+                   headers: {
+                       'X-CSRFToken': getCookie('csrftoken')
+                   }
+               });
+
+               if (!response.ok) {
+                   throw new Error('Ошибка получения данных дизайна');
+               }
+
+               const baseUrl = window.CALCULATOR_URLS[calcType];
+               if (baseUrl) {
+                   window.location.href = baseUrl + "?design_id=" + designId;
+               }
+           } catch (error) {
+               console.error('Ошибка:', error);
+               alert('Произошла ошибка при загрузке дизайна');
            }
        });
    });

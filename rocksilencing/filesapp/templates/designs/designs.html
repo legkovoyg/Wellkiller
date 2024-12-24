@@ -8,8 +8,9 @@
     window.CALCULATOR_URLS = {
         'Глушение скважины': "{% url 'calculator:home' %}",
         'Экспертная система': "{% url 'expert_systema:reservoir_characteristics' %}",
-        'Глушение скважины c экспертной системой': "{% url 'calculator:home' %}",
-        'Расчет совместимости вод': "{% url 'salt_calculator:calculator' %}"
+        'Глушение скважины c экспертной системой': "{% url 'expert_systema:reservoir_characteristics' %}",
+        'Расчет совместимости вод': "{% url 'salt_calculator:calculator' %}",
+        'Всё включено': "{% url 'expert_systema:reservoir_characteristics' %}",
     };
 </script>
 <script src="{% static 'js/designs/designs.js' %}" defer></script>
@@ -40,22 +41,33 @@
                     <th>Последнее изменение</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for design in designs %}
-                <tr>
-                    <td class="design-item">
-                        <img src="{% static 'images/greenimg.png' %}" alt="Описание картинки"> 
-                        {{ design.name }}
-                    </td>
-                    <td>{{ design.calc_type }}</td>
-                    <td>{{ design.field }}</td>
-                    <td>{{ design.cluster }}</td>
-                    <td>{{ design.well }}</td>
-                    <td>{{ design.created|date:"d M Y H:i" }}</td>
-                    <td>{{ design.updated|date:"d M Y H:i" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+            <!-- designs.html -->
+<tbody>
+{% for design in designs %}
+    <tr>
+        <td class="design-item">
+            <img src="{% static 'images/greenimg.png' %}" alt="Описание картинки"> 
+            <a href="#"
+               class="open-module-link"
+               data-calc-type="{{ design.calc_type }}"
+               data-design-id="{{ design.id }}">
+               {{ design.name }}
+            </a>
+        </td>
+        <td>{{ design.calc_type }}</td>
+        <td>{{ design.field }}</td>
+        <td>{{ design.cluster }}</td>
+        <td>{{ design.well }}</td>
+        <td>{{ design.created|date:"d M Y H:i" }}</td>
+        <td>{{ design.updated|date:"d M Y H:i" }}</td>
+        <td>
+            <button class="delete-design-btn" data-uuid="{{ design.id }}"> Удалить дизайн
+            </button>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+
         </table>
     </div>
 </div>
@@ -125,6 +137,7 @@
                 <option>Экспертная система</option>
                 <option>Глушение скважины c экспертной системой</option>
                 <option>Расчет совместимости вод</option>
+                <option>Всё включено</option>
             </select>
         </div>
 

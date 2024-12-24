@@ -8,11 +8,34 @@ from django.shortcuts import redirect
 from filesapp.models.models import Design
 
 
+def get_design(request, design_id):
+    """Получает данные дизайна и обновляет сессию"""
+    design = get_object_or_404(Design, pk=design_id)
+
+    # Обновляем сессию
+    request.session["design_id"] = str(design.id)
+    request.session["design_name"] = design.name
+    request.session["field"] = design.field
+    request.session["cluster"] = design.cluster
+    request.session["well"] = design.well
+    request.session["calc_type"] = design.calc_type
+
+    return JsonResponse({"status": "ok"})
+
+
 def FilesMainWindow(request):
-    """
-    Отображает все "Дизайны" (история).
-    """
+    """Отображает все Дизайны"""
     designs = Design.objects.all().order_by("-updated")
+
+    # Очищаем сессию при заходе на страницу
+    keys_to_clear = request.session.keys() - {
+        "_auth_user_id",
+        "_auth_user_backend",
+        "_auth_user_hash",
+    }
+    for key in keys_to_clear:
+        del request.session[key]
+
     return render(request, "designs/designs.html", {"designs": designs})
 
 
@@ -71,9 +94,28 @@ def ajax_create_design(request):
                     {"status": "error", "message": "Name is required"}, status=400
                 )
 
+            # Создаём дизайн
             design = Design.objects.create(
-                name=name, field=field, cluster=cluster, well=well, calc_type=calc_type
+                name=name,
+                field=field,
+                cluster=cluster,
+                well=well,
+                calc_type=calc_type,
             )
+
+            # Запоминаем в сессии
+            request.session["design_id"] = str(design.id)
+            request.session["design_name"] = design.name
+            request.session["field"] = design.field
+            request.session["cluster"] = design.cluster
+            request.session["well"] = design.well
+            request.session["calc_type"] = design.calc_type
+
+            # Можно очистить какие-то специфические ключи, если нужно
+            # keys_to_clear = ["salt_session_context"]
+            # for key in keys_to_clear:
+            #     if key in request.session:
+            #         del request.session[key]
 
             return JsonResponse({"status": "ok", "design_id": str(design.id)})
 
@@ -81,7 +123,6 @@ def ajax_create_design(request):
             return JsonResponse(
                 {"status": "error", "message": "Invalid JSON"}, status=400
             )
-
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
@@ -134,3 +175,13 @@ def get_wells_json(request):
     )
     wells = [w for w in wells if w]
     return JsonResponse({"wells": list(wells)})
+
+
+def delete_design(request, design_id):
+    if request.method == "POST":
+        design = get_object_or_404(Design, pk=design_id)
+        design.delete()
+        return JsonResponse({"status": "ok"})
+    return JsonResponse(
+        {"status": "error", "message": "Method not allowed"}, status=405
+    )

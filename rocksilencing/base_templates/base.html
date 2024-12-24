@@ -1,5 +1,6 @@
 <!-- rocksilencing/templates/base.html -->
 {% load static %}
+{% load custom_filters %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +18,15 @@
 <body>
     <header class="main-Header">
         <div class="main-Header__leftContent" style="display: flex; align-items: center;">
-            {% if user.is_authenticated %}
-                <div class="leftContent-first">{{ user }}</div>
-            {% endif %}
-        </div>
+   {% if request.session.field %}
+       <div class="leftContent-first">
+           Месторождение {{ request.session.field|default:"-" }} / 
+           куст {{ request.session.cluster|default:"-" }} / 
+           скв. {{ request.session.well|default:"-" }} / 
+           {{ request.session.design_name|default:"-" }}
+       </div>
+   {% endif %}
+</div>
         <div class="main-Header__rightContent">
             {% if user.is_authenticated %}
                 <a class="rightContent-fourth" href="{% url 'users:logout' %}" style="text-decoration: none; color: rgba(255, 255, 255, 0.87);">Logout</a>
@@ -40,46 +46,67 @@
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="{% url 'filesapp:files_main_window' %}">
-                            <i class="bx bx-home-alt-2 icon"></i>
-                            <span class="text nav-text">История расчетов</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'calculator:home' %}">
-                            <i class="bx bx-objects-vertical-top icon"></i>
-                            <span class="text nav-text">Глушение</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'expert_systema:reservoir_characteristics' %}">
-                            <i class='bx bx-stats icon'></i>
-                            <span class="text nav-text">Экспертная система</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'salt_calculator:calculator' %}">
-                            <i class="bx bx-droplet icon"></i>
-                            <span class="text nav-text">Совместимость вод</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'reagent_db:main' %}">
-                            <i class="bx bx-data icon"></i>
-                            <span class="text nav-text">База реагентов</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{% url 'calculator:FAQ_page' %}">
-                            <i class="bx bx-question-mark icon"></i>
-                            <span class="text nav-text">FAQ</span>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="bx bx-menu toggle"></i>
-                    </li>
-                </ul>
+    <!-- История расчетов - всегда видна -->
+    <li class="nav-link">
+        <a href="{% url 'filesapp:files_main_window' %}">
+            <i class="bx bx-home-alt-2 icon"></i>
+            <span class="text nav-text">История расчетов</span>
+        </a>
+    </li>
+
+    <!-- Глушение - виден только в определённых режимах -->
+    {% if not request.session.calc_type or request.session.calc_type == "Глушение скважины" or request.session.calc_type == "Глушение скважины c экспертной системой" or request.session.calc_type == "Всё включено" %}
+    <li class="nav-link">
+        <a href="{% url 'calculator:home' %}">
+            <i class="bx bx-objects-vertical-top icon"></i>
+            <span class="text nav-text">Глушение</span>
+        </a>
+    </li>
+    {% endif %}
+
+    <!-- Экспертная система - видна только в определённых режимах -->
+    {% if not request.session.calc_type or request.session.calc_type == "Глушение скважины c экспертной системой" or request.session.calc_type == "Экспертная система" or request.session.calc_type == "Всё включено" %}
+    <li class="nav-link">
+        <a href="{% url 'expert_systema:reservoir_characteristics' %}">
+            <i class='bx bx-stats icon'></i>
+            <span class="text nav-text">Экспертная система</span>
+        </a>
+    </li>
+    {% endif %}
+
+    <!-- Совместимость вод - виден только в определённых режимах -->
+    {% if not request.session.calc_type or request.session.calc_type == "Расчет совместимости вод" or request.session.calc_type == "Всё включено" %}
+
+    <li class="nav-link">
+        <a href="{% url 'salt_calculator:calculator' %}">
+            <i class="bx bx-droplet icon"></i>
+            <span class="text nav-text">Совместимость вод</span>
+        </a>
+    </li>
+    {% endif %}
+
+    <!-- База реагентов - всегда видна -->
+    <li class="nav-link">
+        <a href="{% url 'reagent_db:main' %}">
+            <i class="bx bx-data icon"></i>
+            <span class="text nav-text">База реагентов</span>
+        </a>
+    </li>
+
+    <!-- FAQ - всегда виден -->
+    <li class="nav-link">
+        <a href="{% url 'calculator:FAQ_page' %}">
+            <i class="bx bx-question-mark icon"></i>
+            <span class="text nav-text">FAQ</span>
+        </a>
+    </li>
+
+    <!-- Кнопка для переключения меню - всегда видна -->
+    <li>
+        <i class="bx bx-menu toggle"></i>
+    </li>
+</ul>
+
             </div>
             <!-- <div class="bottom-content"></div> -->
         </div>

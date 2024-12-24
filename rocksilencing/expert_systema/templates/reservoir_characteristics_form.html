@@ -3,7 +3,7 @@
 {% block styles %}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link type="text/css" href="{%static 'css/expert_systema/reservoir_characteristics_form.css'%}" rel="stylesheet" crossorigin="anonymous">
+<link type="text/css" href="{% static 'css/expert_systema/reservoir_characteristics_form.css' %}" rel="stylesheet" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <title>Симулятор глушения</title>
@@ -32,23 +32,27 @@
        {% for category, tech_list in technologies.items %}
        <div class="category-container">
            <div class="category">{{ category }}</div>
-           {% for tech, applicability in tech_list %}
+           {% for tech in tech_list %}
            <details class="salt-info">
                <summary>
                    <div class="left-content">
                        <i class="bx bx-chevron-right"></i>
-                       <div>{{ tech }}</div>
+                       <div>{{ tech.name }}</div>
                    </div>
-                   <span class="applicability-status {% if applicability == 'Частично применим' %}partial{% endif %}">{{ applicability }}</span>
+                   <span class="applicability-status {% if tech.applicability == 'Частично применим' %}partial{% endif %}">{{ tech.applicability }}</span>
                </summary>
                <ul>
                    <li>
                        <div class="detail-content">
                            <div class="detail-section">
-                            <div class="detail-text">Состав:</div>
-                               <div class="detail-text"> {{ tech }}</div>
-                               <div class="detail-text">Примечание:</div>
-                               <div class="detail-text">Состав: {{ tech }}</div>
+                                <div class="detail-text">Возможный состав:</div>
+                                <div class="components-text">
+                                    {{ tech.components_text }}
+                                </div>
+                                {% if tech.notes %}
+                                    <div class="detail-text">Примечание:</div>
+                                    <div class="notes-text">{{ tech.notes }}</div>
+                                {% endif %}
                            </div>
                        </div>
                    </li>
@@ -65,15 +69,25 @@
            <div class="select-technology">
                <div class="mb-3">
                    <label for="tech_group" class="form-label">Группа технологий</label>
-                   <select id="tech_group" name="tech_group" class="form-select" data-technologies='{{ technologies_json|safe }}'>
+                   <select id="tech_group" name="tech_group" class="form-select" data-technologies='{{ technologies_json|safe }}' data-selected-group="{{ selected_group }}" data-selected-technology="{{ selected_technology }}">
                        {% for category, tech_list in technologies.items %}
-                       <option value="{{ category }}">{{ category }}</option>
+                       <option value="{{ category }}" {% if selected_group == category %}selected{% endif %}>{{ category }}</option>
                        {% endfor %}
                    </select>
                </div>
                <div class="mb-3">
                    <label for="tech_name" class="form-label">Технология</label>
-                   <select id="tech_name" name="tech_name" class="form-select"></select>
+                   <select id="tech_name" name="tech_name" class="form-select">
+                       {% if selected_technology and selected_group %}
+                           {% for category, tech_list in technologies.items %}
+                               {% if category == selected_group %}
+                                   {% for tech in tech_list %}
+                                       <option value="{{ tech.name }}" {% if selected_technology == tech.name %}selected{% endif %}>{{ tech.name }} ({{ tech.applicability }})</option>
+                                   {% endfor %}
+                               {% endif %}
+                           {% endfor %}
+                       {% endif %}
+                   </select>
                </div>
            </div>
            <button type="submit" class="btn btn-primary">Выбрать</button>
@@ -81,7 +95,7 @@
    </div>
    {% endif %}
 </div>
-<script src="{%static 'js/reservoir_characteristics_form.js' %}" defer></script>
+<script src="{% static 'js/reservoir_characteristics_form.js' %}" defer></script>
 </body>
 {% endblock %}
 </html>

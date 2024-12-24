@@ -8,6 +8,8 @@ from .views.filesapp_views import (
     get_fields_json,
     get_clusters_json,
     get_wells_json,
+    delete_design,
+    get_design,
 )
 
 app_name = "filesapp"
@@ -21,4 +23,6 @@ urlpatterns = [
     path("get_fields_json/", get_fields_json, name="get_fields_json"),
     path("get_clusters_json/", get_clusters_json, name="get_clusters_json"),
     path("get_wells_json/", get_wells_json, name="get_wells_json"),
+    path("get_design/<uuid:design_id>/", get_design, name="get_design"),
+    path("delete_design/<uuid:design_id>/", delete_design, name="delete_design"),
 ]

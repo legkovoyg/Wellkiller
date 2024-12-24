@@ -9,6 +9,7 @@ from reagent_db.models.reagent_db_models_pavs import Surfactant
 from reagent_db.models.reagent_db_models_heavy import WeightingAgent
 from reagent_db.models.reagent_db_models_polymers import Polymer
 from reagent_db.models.reagent_db_models_other import OtherMaterial
+from reagent_db.models.reagent_db_models_reagentypes import ReagentType
 
 
 class ReagentSaltSolutionInline(admin.TabularInline):
@@ -74,5 +75,13 @@ class OtherMaterialAdmin(admin.ModelAdmin):
     list_display = ("name", "type", "application")
     list_filter = ("type",)
     search_fields = ("name", "type", "application")
+    ordering = ("name",)
+    list_per_page = 20
+
+
+@admin.register(ReagentType)
+class ReagentTypeAdmin(admin.ModelAdmin):
+    list_display = ("name", "description")
+    search_fields = ("name", "description")
     ordering = ("name",)
     list_per_page = 20
