@@ -16,7 +16,9 @@ def login_user(request):
             )
             if user and user.is_active:
                 login(request, user)
-                return redirect("calculator:home")  # Используем именованный URL
+                return redirect(
+                    "filesapp:files_main_window"
+                )  # Используем именованный URL
             else:
                 # Добавьте сообщение об ошибке или обработку
                 return render(

@@ -16,7 +16,7 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="{%static 'js/main/main_page.js'%}" defer></script>
 <script src="{%static 'js/main/main_page_anim.js' %}" defer></script>
-<body>
+<body data-type-of-glush="{{ type_of_glush }}">
 <form method="POST" action='' enctype="multipart/form-data">
     <main class="mainContainer">
         <section class="container__tab">
@@ -979,7 +979,6 @@
             {% else %}
             <div class="well-contruction">
                 <svg id="chart2" width="250" height="2000"></svg>
-            </div><div id="chart"></div>
             {% endif %}
 
 

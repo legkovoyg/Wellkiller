@@ -537,12 +537,35 @@ console.log(maxHek)
         }
     }
 
-const wellConstruction = document.querySelectorAll(".well-contruction")
+// Убедитесь, что весь код выполняется после загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем значение type_of_glush из data-атрибута body
+    const typeOfGlush = document.body.dataset.typeOfGlush;
+
+    // Получаем все элементы с классом "well-contruction"
+    const wellConstruction = document.querySelectorAll(".well-contruction");
+
+    // Обработчик клика для каждой "well-contruction"
     wellConstruction.forEach(function(well) {
-  well.addEventListener('click', function() {
-    var needed_div = document.getElementById("chart");
-    needed_div.innerHTML = '';
-    console.log(data);
-    direct_animation(data);
-  });
+        well.addEventListener('click', function() {
+            let needed_div;
+            let animationFunction;
+
+            if (typeOfGlush === "direct") {
+                needed_div = document.getElementById("chart");
+                animationFunction = direct_animation;
+            } else {
+                needed_div = document.getElementById("chart2");
+                animationFunction = back_animation;
+            }
+
+            if (needed_div) {
+                needed_div.innerHTML = '';
+                console.log(data);
+                animationFunction(data);
+            } else {
+                console.error(`Элемент с id "${typeOfGlush === "direct" ? "chart" : "chart2"}" не найден.`);
+            }
+        });
+    });
 });
