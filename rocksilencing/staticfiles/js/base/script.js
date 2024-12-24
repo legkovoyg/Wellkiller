@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Добавьте этот код в самое начало функции
+    if (document.querySelector('.chat-widget')) {
+        const chatWidget = document.querySelector('.chat-widget');
+        // chatWidget.style.zIndex = '9999';
+    }
     // Сайдбар функциональность
     const body = document.querySelector("body");
     const sidebar = body.querySelector(".sidebar");
@@ -81,22 +86,21 @@ document.addEventListener("DOMContentLoaded", function() {
             
             try {
                 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                const response = await fetch('/api/chat/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ message })
-                });
+                const response = await fetch(chatApi, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+    },
+    credentials: 'include', 
+    body: JSON.stringify({ message })
+});
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
-                console.log('Received response:', data);
                 
                 if (data.status === 'success') {
                     addMessage(data.response, 'assistant');

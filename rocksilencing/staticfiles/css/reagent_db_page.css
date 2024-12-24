@@ -61,6 +61,7 @@
 
 section {
     width: 100%;
+    padding-bottom: 20px;
 }
 
 
@@ -171,6 +172,20 @@ section {
     padding: 0 5px 5px;
 }
 
+.inner-tabs .tabs-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.inner-tabs .tabs-items.on {
+    max-height: 500px; /* или другое подходящее значение */
+}
+
+.inner-tab.on + .tabs-items {
+    max-height: 500px;
+}
+
 .search-info {
     display: flex;
     flex-direction: column;
@@ -277,7 +292,12 @@ section {
     max-height: 95vh;
     min-width: 0px;
 }
-
+.content__features tr:nth-of-type(odd) {
+   background-color: #292e3c;
+}
+.content__features tr:nth-of-type(even) {
+    background-color: #363a47;
+ }
 
 /* tables */
 
@@ -385,8 +405,9 @@ tr td p {
 .tabs-items.on {
     display: flex;
     flex-direction: column;
-    ;
-
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 span {
@@ -398,7 +419,7 @@ span {
     margin-top: 20px;
 }
 
-.btn {
+.btn, .btn-salt {
     cursor: pointer;
     font-size: 12px;
     font-weight: 400;
@@ -408,13 +429,13 @@ span {
     border-radius: 10%;
 }
 
-.btn:hover {
+.btn:hover, .btn-salt:hover {
     background: #FFFFFF14;
     border-radius: 3px;
 
 }
 
-.btn.active {
+.btn-salt.active {
     background: #FFFFFF14;
     border-radius: 3px;
 }

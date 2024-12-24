@@ -2,12 +2,14 @@ import json
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from filesapp.models.models import Design
 
 
+@login_required
 def get_design(request, design_id):
     """Получает данные дизайна и обновляет сессию"""
     design = get_object_or_404(Design, pk=design_id)
@@ -23,6 +25,7 @@ def get_design(request, design_id):
     return JsonResponse({"status": "ok"})
 
 
+@login_required
 def FilesMainWindow(request):
     """Отображает все Дизайны"""
     designs = Design.objects.all().order_by("-updated")
@@ -39,6 +42,7 @@ def FilesMainWindow(request):
     return render(request, "designs/designs.html", {"designs": designs})
 
 
+@login_required
 def create_design_view(request):
     """
     (Необязательная, старая версия). Создаёт новый дизайн через обычную POST-форму.
@@ -62,6 +66,7 @@ def create_design_view(request):
     return render(request, "designs/create_design.html")
 
 
+@login_required
 def edit_design_view(request, design_id):
     """
     Редактируем существующий дизайн.
@@ -79,6 +84,7 @@ def edit_design_view(request, design_id):
     return render(request, "designs/edit_design.html", {"design": design})
 
 
+@login_required
 def ajax_create_design(request):
     if request.method == "POST":
         try:
@@ -131,6 +137,7 @@ def ajax_create_design(request):
     )
 
 
+@login_required
 def get_fields_json(request):
     """
     Возвращает JSON со списком уникальных месторождений (field).
@@ -142,6 +149,7 @@ def get_fields_json(request):
     return JsonResponse({"fields": list(fields)})
 
 
+@login_required
 def get_clusters_json(request):
     """
     Возвращает список уникальных "кустов" (cluster) для выбранного месторождения (field).
@@ -158,6 +166,7 @@ def get_clusters_json(request):
     return JsonResponse({"clusters": list(clusters)})
 
 
+@login_required
 def get_wells_json(request):
     """
     Возвращает список уникальных "скважин" (well) для выбранных месторождения + куста.
@@ -177,6 +186,7 @@ def get_wells_json(request):
     return JsonResponse({"wells": list(wells)})
 
 
+@login_required
 def delete_design(request, design_id):
     if request.method == "POST":
         design = get_object_or_404(Design, pk=design_id)

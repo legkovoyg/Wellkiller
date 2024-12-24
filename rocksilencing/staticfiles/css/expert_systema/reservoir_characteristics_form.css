@@ -12,13 +12,16 @@ body {
     width: 100%;
 }
 
+
 .main-container {
     display: flex;
     margin-left: 88px;
     margin-top: calc(52/var(--reference_height)*100vh);
     padding: 24px 0 0 17px;
     min-height: 95vh;
-   
+    margin-bottom: 100px;
+    position: relative;
+    z-index: 1;
 }
 
 .container {
@@ -26,17 +29,21 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     width: 100%;
 }
-.initial{
+
+.initial {
     margin: 0 auto;
     width: auto;
 }
-.container:first-of-type{
-    max-width: 25%;
+
+.container:first-of-type {
+    max-width: 408px;
 }
-.container:last-of-type{
-    max-width: 32%;
+
+.container:last-of-type {
+    max-width: 602px;
     border: none;
 }
+
 h1 {
     line-height: 28px;
     font-weight: 500;
@@ -55,9 +62,11 @@ p {
     flex-direction: column;
     margin-bottom: 24px;
 }
-p:nth-last-of-type(2){
+
+p:nth-last-of-type(2) {
     margin-bottom: 0;
 }
+
 label {
     font-size: 14px;
     font-weight: 400;
@@ -77,13 +86,16 @@ option {
     padding: 8px 0 8px 12px;
     color: var(--text-color);
 }
-option{
-    background-color:#363A47;
-}   
-.is_water_sensitive{
+
+option {
+    background-color: #363A47;
+}
+
+.is_water_sensitive {
     display: flex;
     gap: 14px;
 }
+
 input[type="radio"] {
     display: none;
 }
@@ -104,15 +116,19 @@ input[type="radio"] {
     padding: 8px 20px;
 
 }
-.is_water_sensitive label.active{
+
+.is_water_sensitive label.active {
     border: 1px solid var(--border-color);
 }
+
 .is_water_sensitive label:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-.is_water_sensitive div{
+
+.is_water_sensitive div {
     width: 100%;
 }
+
 button {
     background-color: rgba(29, 154, 108, 1);
     border: none;
@@ -123,7 +139,8 @@ button {
     padding: 8px 0;
     color: var(--text-color);
 }
-button:hover{
+
+button:hover {
     background-color: #4c977c;
     cursor: pointer;
 }
@@ -134,6 +151,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .category {
     font-size: 16px;
     line-height: 16px;
@@ -146,6 +164,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 34px;
     margin-top: 8px;
 }
+
 summary {
     background-color: rgba(255, 255, 255, 0.06);
     display: flex;
@@ -157,14 +176,26 @@ summary {
     line-height: 16px;
     padding: 8px 10px 8px 12px;
 }
-.left-content{
+
+.left-content {
     display: flex;
     gap: 12px;
     align-items: center;
 }
-.bx{
-    font-size: 16px;
+
+.salt-info summary {
+    cursor: pointer;
 }
+
+.bx-chevron-down {
+    color: #1D9A6C;
+}
+
+/* Убираем стандартный маркер details */
+.salt-info summary::-webkit-details-marker {
+    display: none;
+}
+
 details li {
     list-style: none;
     padding: 11px 59px 11px 40px;
@@ -172,25 +203,185 @@ details li {
     line-height: 16px;
 }
 
-span {
+
+.category-container span,
+.salt-info span {
     color: rgba(29, 154, 108, 1);
     text-align: right;
 }
-.select-technology{
+
+/* Стили для заголовков секций */
+.section-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+
+/* Стили для чекбоксов и их контейнеров */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-checkbox:checked {
+    background-color: var(--border-color);
+}
+
+.custom-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.detail-content {
+    padding: 10px;
+}
+
+
+.detail-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.detail-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+details li {
+    list-style: none;
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-color);
+    gap: 8px;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkbox-container input:checked+.custom-checkbox {
+    background-color: var(--border-color);
+}
+
+.checkbox-container input:checked+.custom-checkbox:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    color: var(--text-color);
+    font-size: 14px;
+    user-select: none;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.added-questions {
+    margin-bottom: 24px;
+}
+
+/* Стили для технологий */
+.technology-selection {
+    margin-top: 32px;
+}
+
+
+.chat-widget span,
+.chat-button span {
+    color: white !important;
+    /* Используем !important для перезаписи других стилей */
+    text-align: left !important;
+}
+
+.applicability-status {
+    color: rgba(29, 154, 108, 1);
+    text-align: right;
+}
+
+.applicability-status.partial {
+    color: rgba(29, 154, 108, 0.7);
+    /* Более светлый оттенок для "Частично применим" */
+}
+
+.select-technology {
     display: flex;
     flex-direction: row;
     gap: 25px;
     margin-bottom: 24px;
 }
-.mb-3{
+
+.mb-3 {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
 }
-.form-label{
+
+.form-label {
     font-size: 12px;
 }
-.form-select{
+
+.form-select {
     width: 100%;
+}
+
+@media(max-width:900px) {
+    .main-container {
+        margin: 0;
+        margin-top: calc(73.5/var(--reference_height)*100vh);
+        padding: 0;
+    }
 }

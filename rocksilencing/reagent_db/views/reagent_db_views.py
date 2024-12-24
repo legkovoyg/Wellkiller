@@ -17,9 +17,13 @@ from reagent_db.models.reagent_db_models_other import OtherMaterial
 from collections import defaultdict
 from random import choice
 from scipy.interpolate import interp1d
+from django.contrib.auth.decorators import login_required
 
 
 # База реагентов
+
+
+@login_required
 def reagent_db_page(request):
     # Получаем все соли и их диапазоны плотностей
     bd_names_salts = ReagentSalt.objects.all().annotate(
@@ -72,6 +76,7 @@ def reagent_db_page(request):
     )
 
 
+@login_required
 def calculate_consumption(request):
     try:
         salt_id = int(request.GET.get("salt_id"))

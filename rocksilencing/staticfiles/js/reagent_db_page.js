@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.tabs-wrapper').forEach(e => {
         let tabs = e.querySelectorAll('.tab')
         let innerTabs = e.querySelectorAll('.inner-tabs')
-        let innerTab = e.querySelectorAll('.inner-tabs span')
+        let innerTab = e.querySelectorAll('.inner-tab')
         let btn = e.querySelectorAll('.tabs-items')
-        let bxSalt = e.querySelectorAll('.inner-tab-salt i')
+        let bxSalt = e.querySelectorAll('.inner-tab i')
         let icons = e.querySelectorAll('.tabs i')
-        let buttons = e.querySelectorAll('.btn')
-        let options =  e.querySelectorAll('.salt-option')
+        let buttonSalt = e.querySelectorAll('.btn-salt')
+        let buttonOthers = e.querySelectorAll('.btn')
 
         for (let i = 0; i < tabs.length; i++) {
             tabs[i].onclick = () => {
@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        for (let i = 0; i < btn.length; i++) {
-            innerTab[i].onclick = () => {
+        for (let i = 0; i < innerTab.length; i++) {
+            innerTab[i].onclick = () => {             
                 if (innerTab[i].classList.contains('on')) {
                     innerTab[i].classList.remove('on')
-                    btn[i].classList.remove('on')
+                    btn[i].classList.remove ('on')
                     bxSalt[i].classList.remove('bx-chevron-down')
                     bxSalt[i].classList.add('bx-chevron-right')
                 } else {
@@ -43,11 +43,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     bxSalt[i].classList.remove('bx-chevron-right')
                     bxSalt[i].classList.add('bx-chevron-down')
                 }
-                Plotly.Plots.resize('plotly-graph')
+                // Plotly.Plots.resize('plotly-graph')
             }
         }
 
-        buttons.forEach(btn => {
+
+        buttonOthers.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let tables = document.querySelectorAll('.content__features table')  
+                let target = btn.getAttribute('data-target')
+                tables.forEach(table => {
+                    if (table.id === target) {
+                        table.style.display = 'table'
+                    } else {
+                        table.style.display = 'none'
+                    }
+                })
+                let descriptionSection = document.querySelector('.content__features')
+                 if (descriptionSection.style.display == 'none') {
+                    descriptionSection.style.display = 'block'
+                }
+                Plotly.Plots.resize('plotly-graph')
+            })
+        })
+
+        buttonSalt.forEach(btn => {
             btn.addEventListener('click', () => {
                
                 btn.classList.toggle('active')
@@ -56,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let tables = document.querySelectorAll('.content__features table')
                 let loadedTable = document.querySelector('.loaded-table')
                 
-                let header = document.querySelector('.content__features')
+                let descriptionSection = document.querySelector('.content__features')
                 let saltName = btn.textContent.trim()
 
                 loadedTable.style.display = 'none'
@@ -69,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         table.style.display = 'none'
                     }
                 })
-
+                if (descriptionSection.style.display == 'none') {
+                    descriptionSection.style.display = 'block'
+                }
                 // Вставляем новую строку для выбранной соли
                 let tableBody = document.querySelector(".changed-table tbody");
                 let elemName = saltName;
@@ -94,11 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     loadedTable.style.display = 'none'; 
                     changedTable.style.display = 'table'; 
-                }
-
-
-                if (header.style.display == 'none') {
-                    header.style.display = 'block'
                 }
 
                 const graph = document.getElementById('plotly-graph')
@@ -148,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
            
         })
         
+       
         // Заменяем на селектор выбора соли по id
         document.querySelector('#salt-choose').addEventListener('change', (event) => {
             let selectedSaltName = event.target.value.trim();
@@ -163,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let tables = document.querySelectorAll('.content__features table');
             let loadedTable = document.querySelector('.loaded-table');
 
-            let header = document.querySelector('.content__features');
+            let descriptionSection = document.querySelector('.content__features');
 
             loadedTable.style.display = 'none';
             changedTable.style.display = 'table';
@@ -175,6 +193,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     table.style.display = 'none';
                 }
             });
+            if (descriptionSection.style.display == 'none') {
+                descriptionSection.style.display = 'block';
+            }
 
             let tableBody = document.querySelector(".changed-table tbody");
             let elemName = selectedSaltName;
@@ -192,10 +213,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 tableBody.appendChild(newRow);
             } else {
                 existingRow.remove();
-            }
-
-            if (header.style.display == 'none') {
-                header.style.display = 'block';
             }
 
             const graph = document.getElementById('plotly-graph');
@@ -365,7 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Убираем суффикс -cell, чтобы получить имя соли
         const saltNameRaw = row.id.replace('-cell','');
         const saltSlug = normalizeId(saltNameRaw);
-
         const salt = saltsData.find(s => normalizeId(s.name) === saltSlug);
 
         if (!salt) {
@@ -543,4 +559,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-let buttons = document.querySelectorAll('.btn')
