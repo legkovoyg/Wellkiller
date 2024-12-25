@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'  # Явная версия для лучшей совместимости
 
 services:
   web:
@@ -13,24 +13,26 @@ services:
       - "8000"
     env_file:
       - .env
+    networks:
+      - wellkiller_network  # Объединяем сервисы в одну сеть
 
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
-      - "443:443"  # Добавляем маппинг порта 443
+      - "443:443"  # Маппирование порта 443 для HTTPS
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - static_volume:/app/staticfiles
-      - /etc/letsencrypt:/etc/letsencrypt:ro  # Монтируем директорию сертификатов
+      - /etc/letsencrypt:/etc/letsencrypt:ro  # Монтируем директорию сертификатов как только для чтения
     depends_on:
       - web
     networks:
-      - rocksilencing_default
+      - wellkiller_network  # Объединяем сервисы в одну сеть
 
 volumes:
   static_volume:
 
 networks:
-  rocksilencing_default:
+  wellkiller_network:
     driver: bridge
