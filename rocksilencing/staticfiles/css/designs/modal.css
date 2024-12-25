@@ -116,24 +116,3 @@
    text-decoration: underline;
 }
 
-/* Стили таблицы */
-.history-table {
-   width: 100%;
-   border-collapse: collapse;
-}
-
-/* .history-table tbody tr {
-   cursor: pointer;
-   transition: all 0.3s ease;
-} */
-
-.history-table tbody tr:hover {
-   background: rgba(29, 154, 108, 0.1);
-}
-
-.history-table th,
-.history-table td {
-   padding: 12px 8px;
-   text-align: left;
-   color: rgba(255, 255, 255, 0.87);
-}

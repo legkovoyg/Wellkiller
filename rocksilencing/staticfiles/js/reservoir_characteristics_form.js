@@ -3,6 +3,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- 1) Логика раскрывающихся details ---
     const detailsElements = document.querySelectorAll('.salt-info');
+    const infoModal = document.querySelector('.info-modal');
+    const modalClose = document.querySelector('.info-modal-close');
+    const pageTitle = document.querySelector('h1');
     detailsElements.forEach((details) => {
         const icon = details.querySelector('.bx');
         const summary = details.querySelector('summary');
@@ -23,6 +26,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Открытие модального окна при клике на заголовок
+pageTitle.addEventListener('click', () => {
+    infoModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+// Закрытие модального окна при клике на крестик
+modalClose.addEventListener('click', () => {
+    infoModal.style.display = 'none';
+    document.body.style.overflow = '';
+});
+
+// Закрытие модального окна при клике вне его
+infoModal.addEventListener('click', (e) => {
+    if (e.target === infoModal) {
+        infoModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+});
+
+// Предотвращение закрытия при клике внутри модального окна
+infoModal.querySelector('.info-modal-content').addEventListener('click', (e) => {
+    e.stopPropagation();
+});
     // --- 2) Селектор групп/технологий ---
     const techGroupSelect = document.getElementById('tech_group');
     const techNameSelect = document.getElementById('tech_name');
