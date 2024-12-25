@@ -4,6 +4,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/designs/designs.css' %}">
 <link rel="stylesheet" href="{% static 'css/designs/modal.css' %}">
+<title>История расчетов</title>
 <script>
     window.CALCULATOR_URLS = {
         'Глушение скважины': "{% url 'calculator:home' %}",
@@ -18,14 +19,15 @@
 {% if designs and designs|length > 0 %}
 <!-- Если есть дизайны, показываем историю расчетов -->
 <div class="history-container">
-    <div class="history-header">
-        <h1>История расчетов</h1>
-    </div>
+    <!-- <div class="history-header"> -->
+        
+    <!-- </div> -->
     <div class="history-search">
         <a href="#" class="create-design-btn create-design-trigger">
             <img src="{% static 'images/add.svg' %}" alt="Добавить"> 
             Создать дизайн
         </a>
+        <h1>История расчетов</h1>
         <input type="text" placeholder="Поиск" />
     </div>
     <div class="history-table-container">
@@ -47,7 +49,19 @@
 {% for design in designs %}
     <tr>
         <td class="design-item">
-            <img src="{% static 'images/greenimg.png' %}" alt="Описание картинки"> 
+            {% if design.calc_type == 'Глушение скважины' %}
+                <img src="{% static 'images/glushenie.svg' %}" alt="Глушение скважины">
+            {% elif design.calc_type == 'Экспертная система' %}
+                <img src="{% static 'images/expert.svg' %}" alt="Экспертная система">
+            {% elif design.calc_type == 'Глушение скважины c экспертной системой' %}
+                <img src="{% static 'images/glushenieexp.svg' %}" alt="Глушение с экспертной системой">
+            {% elif design.calc_type == 'Расчет совместимости вод' %}
+                <img src="{% static 'images/salts.svg' %}" alt="Совместимость вод">
+            {% elif design.calc_type == 'Всё включено' %}
+                <img src="{% static 'images/allinclusive.svg' %}" alt="Все включено">
+            {% else %}
+                <img src="{% static 'images/IconWellAttributes.svg' %}" alt="Общий дизайн">
+            {% endif %}
             <a href="#"
                class="open-module-link"
                data-calc-type="{{ design.calc_type }}"
@@ -62,9 +76,10 @@
         <td>{{ design.created|date:"d M Y H:i" }}</td>
         <td>{{ design.updated|date:"d M Y H:i" }}</td>
         <td>
-            <button class="delete-design-btn" data-uuid="{{ design.id }}"> Удалить дизайн
-            </button>
-        </td>
+    <button class="delete-design-btn" data-uuid="{{ design.id }}">
+        <img src="{% static 'images/size=m.svg' %}" alt="Удалить" class="delete-icon">
+    </button>
+</td>
     </tr>
 {% endfor %}
 </tbody>

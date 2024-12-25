@@ -1,7 +1,14 @@
-/* Общие стили для обоих состояний */
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
 
 .content-wrapper {
-    padding-top: 80px; /* учитывать высоту хедера */
+    padding-top: 80px;
     color: #fff;
     min-height: calc(100vh - 52px);
     display: flex;
@@ -20,7 +27,7 @@
 
 .no-designs-container p {
     margin-bottom: 18px;
-    font-size: 20px; 
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.87);
     font-weight: 500;
 }
@@ -45,9 +52,9 @@ body .no-designs-container button:hover {
 /* Стили для истории дизайнов */
 .history-container {
     width: 100%;
-    margin: 0 auto;
-    margin-top: calc(52 / var(--reference_height)* 100vh);
-    padding: 17px 17px 0 105px;
+    margin: 0;
+    padding: 60px 24px 24px 105px;
+    min-height: calc(100vh - 60px);
 }
 
 .history-header {
@@ -62,6 +69,7 @@ body .no-designs-container button:hover {
     font-weight: 500;
     color: rgba(255, 255, 255, 0.87);
 }
+
 body .create-design-btn {
     background: #1d9a6c;
     border: none;
@@ -77,6 +85,7 @@ body .create-design-btn {
     align-items: center;
     gap: 8px;
 }
+
 body .create-design-btn:hover {
     background: #4c977c;
 }
@@ -88,83 +97,177 @@ body .create-design-btn:hover {
     margin-bottom: 29px;
 }
 
+.history-search h1 {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.87);
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
 .history-search input {
     padding: 6px 32px;
     border-radius: 4px;
     border: none;
     font-size: 12px;
     outline: none;
-    background-color:rgba(255, 255, 255, 0.06);
+    background-color: rgba(255, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.87);
     background-image: url('/static/images/search.svg');
     background-repeat: no-repeat;
     background-size: 16px 16px;
-    background-position: 8px center; 
+    background-position: 8px center;
     line-height: 16px;
 }
 
+/* Стили таблицы */
 .history-table-container {
     background: #292e3c;
+    border-radius: 8px;
     overflow-x: auto;
 }
 
+/* Обновленные стили для таблицы */
 .history-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 1000px;
+    background: #1e2331; /* Новый цвет фона */
 }
 
-.history-table th, .history-table td {
-    text-align: left;
-    padding: 12px 8px;
-    font-size: 14px;
+/* Фиксированная высота для строк */
+.history-table tr {
+    height: 56px; /* Фиксированная высота для всех строк */
 }
 
 .history-table th {
+    padding: 8px 16px;
+    text-align: left;
     color: rgba(255, 255, 255, 0.87);
-    font-weight: 400;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: middle; /* Выравнивание по центру по вертикали */
 }
 
-.history-table td {
-    color: rgba(255, 255, 255, 0.87);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+/* Обновленные стили для ячеек таблицы */
+.history-table td,
+.history-table th {
+    padding: 0 16px;
+    min-height: 60px; /* Фиксированная высота ячейки */
+    vertical-align: middle;
+    line-height: 1.4;
+    color:white;
+    text-align: center;
+}
+
+
+.history-table td:first-child {
+    padding-left: 24px;
+}
+.history-table td:last-child {
+    padding-right: 24px;
+    width: 60px;
+    text-align: right;
 }
 
 thead tr:first-of-type {
     background: rgba(255, 255, 255, 0.08);
 }
-body .open-module-link{
+
+.design-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 24px; /* Минимальная высота вместо фиксированной */
+    padding: 8px 0;
+}
+
+.design-item img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block; /* Предотвращает проблемы с выравниванием картинки */
+}
+.open-module-link {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.87);
+    transition: color 0.3s;
+    white-space: nowrap; /* Предотвращает перенос текста */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет многоточие при переполнении */
+    display: block; /* Исправляет проблему с высотой */
+    line-height: 24px; /* Высота строки для выравнивания текста */
 }
-body .open-module-link:hover{
-    cursor: pointer;
-    color: #1d9a6c;
-}
-.delete-design-btn{
-    background: none;
-    border:none;
-    color:rgba(255, 255, 255, 0.87);
 
+
+body .open-module-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.87);
+    transition: color 0.3s;
 }
-.delete-design-btn:hover{
-    cursor: pointer;
+
+body .open-module-link:hover {
     color: #1d9a6c;
 }
-@media (max-width:900px) {
-    .history-container{
-        margin-top: 20px;
-        padding: 0 17px;
-    }
-    .history-table-container {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+
+/* Обновленные стили для кнопки удаления */
+.delete-design-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.delete-design-btn img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    filter: brightness(0) invert(1);
+}
+
+.delete-design-btn:hover img {
+    opacity: 1;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1200px) {
+    .history-container {
+        padding-left: 24px;
     }
 }
-@media (max-width:500px) {
-    .history-container{
-        margin-top: calc(73.5/ var(--reference_height)* 100vh);
-        padding: 10px 17px;
+
+@media (max-width: 900px) {
+    .history-container {
+        padding: 60px 16px 16px 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .history-container {
+        padding: 60px 12px 12px 12px;
     }
     
+    .history-search {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .history-search input {
+        width: 100%;
+    }
+    
+    body .create-design-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

@@ -24,7 +24,7 @@ LOGIN_URL = "/users/login"
 SECRET_KEY = "django-insecure-huvfj)&xrohe5+ba3(g_=1wh5r5u9g_45jh&luy_j**izy*j21"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
@@ -52,11 +52,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -69,7 +69,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "base_templates",  # Указываем путь к папке base_templates
+            BASE_DIR / "base_templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -83,6 +83,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# Добавьте эту настройку
+TEMPLATE_DEBUG = False
 
 WSGI_APPLICATION = "rocksilencing.wsgi.application"
 
@@ -168,10 +171,17 @@ LOGGING = {
             "level": "ERROR",
             "class": "logging.FileHandler",
             "filename": BASE_DIR / "error.log",
+            "formatter": "verbose",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
         },
     },
     "loggers": {
-        "django.request": {
+        "django": {
             "handlers": ["file"],
             "level": "ERROR",
             "propagate": True,
