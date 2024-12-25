@@ -178,9 +178,24 @@ section {
     transition: max-height 0.3s ease-out;
 }
 
+/* Отображаем содержимое при добавлении класса 'on' */
 .inner-tabs .tabs-items.on {
-    max-height: 500px; /* или другое подходящее значение */
+    max-height: 500px; /* Или другое подходящее значение */
 }
+
+/* Обновлённые стили для .tabs-items.on */
+.tabs-items.on {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Позволяет вертикальную прокрутку */
+    scrollbar-width: none; /* Для Firefox */
+    -ms-overflow-style: none; /* Для IE и Edge */
+}
+
+/* Скрываем полосу прокрутки для WebKit-браузеров
+.tabs-items.on::-webkit-scrollbar {
+    display: none;
+} */
 
 .inner-tab.on + .tabs-items {
     max-height: 500px;

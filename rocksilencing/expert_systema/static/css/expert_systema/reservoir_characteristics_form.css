@@ -394,10 +394,16 @@ details li {
     color: rgba(255, 255, 255, 0.87);
 }
 
-.info-modal-body {
-    padding: 24px;
-    overflow-y: auto;
-    max-height: calc(90vh - 70px);
+/* Стили для скрытия полосы прокрутки, но сохранения функциональности прокрутки */
+/* .info-modal-body { */
+    /* overflow-y: auto; Позволяет вертикальную прокрутку */
+    /* scrollbar-width: none; Для Firefox */
+    /* -ms-overflow-style: none; Для IE и Edge */
+/* } */
+
+/* Для WebKit-браузеров (Chrome, Safari, Opera) */
+.info-modal-body::-webkit-scrollbar {
+    display: none;
 }
 
 .info-section {
