@@ -17,6 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGIN_URL = "/users/login"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -32,6 +33,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://wellkilling.fvds.ru",
     "http://78.24.220.67",
 ]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,7 +54,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # Удаляем WhiteNoise Middleware, так как используем Nginx для статических файлов
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -60,8 +63,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = "rocksilencing.urls"
 
@@ -89,7 +90,6 @@ TEMPLATE_DEBUG = False
 
 WSGI_APPLICATION = "rocksilencing.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -99,7 +99,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -131,15 +129,15 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -153,16 +151,13 @@ CACHES = {
     }
 }
 
-
 SESSION_ENGINE = (
     "django.contrib.sessions.backends.db"  # Использование бэкенда базы данных
 )
 SESSION_COOKIE_AGE = 1209600  # Срок жизни сессии: две недели
 SESSION_SAVE_EVERY_REQUEST = True  # Сохранять сессию при каждом запросе
 
-
-# settings.py
-
+# Logging configuration
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
