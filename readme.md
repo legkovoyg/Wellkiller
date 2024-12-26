@@ -75,7 +75,7 @@ rocksilencing/
 
 1. Клонируйте репозиторий:
 ```bash
-git clone [URL репозитория]
+git clone https://github.com/legkovoyg/Wellkiller
 ```
 
 2. Запустите контейнеры:
@@ -107,13 +107,6 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## Требования к системе
-
-- Python 3.12+
-- Docker (опционально)
-- 2GB RAM минимум
-- 1GB свободного места на диске
-
 ## Разработка
 
 ### Добавление нового функционала
@@ -131,15 +124,9 @@ git checkout -b feature/название-функционала
 python manage.py test
 ```
 
-## Лицензия
-
-[Укажите тип лицензии]
 
 ## Авторы
 
 Backend - @legkovoyg
 Front - @TimurShainurov
 
-## Контакты
-
-[Контактная информация для связи]
