@@ -25,13 +25,12 @@ LOGIN_URL = "/users/login"
 SECRET_KEY = "django-insecure-huvfj)&xrohe5+ba3(g_=1wh5r5u9g_45jh&luy_j**izy*j21"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["wellkilling.ru", "www.wellkilling.ru"]
+ALLOWED_HOSTS = ["wellkilling.ru", "www.wellkilling.ru", "*"]
 CSRF_TRUSTED_ORIGINS = [
     "http://wellkilling.ru",
-    "http://www.wellkilling.ru",
-]
+    "http://www.wellkilling.ru"]
 
 # Application definition
 
@@ -182,15 +181,15 @@ LOGGING = {
         },
     },
 }
-# Установите безопасные параметры для куки
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-# Настройте обработку SSL-заголовков
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-# Дополнительные параметры безопасности
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 31536000  # Один год
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# # Установите безопасные параметры для куки
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# # Настройте обработку SSL-заголовков
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "http")
+# # Дополнительные параметры безопасности
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 31536000  # Один год
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
