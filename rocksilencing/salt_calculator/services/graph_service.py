@@ -80,6 +80,10 @@ def create_plot(results: List[Dict]) -> Tuple[str, Dict]:
     # Получаем данные графика для сохранения
     graph_dict = fig.to_dict()
 
+    # Удаляем template, если он случайно попал в layout
+    if "layout" in graph_dict and "template" in graph_dict["layout"]:
+        del graph_dict["layout"]["template"]
+
     # Преобразуем numpy массивы в списки в словаре графика
     def convert_numpy_to_list(obj):
         if isinstance(obj, (np.ndarray, np.generic)):
