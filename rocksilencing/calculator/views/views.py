@@ -134,7 +134,7 @@ def process_calculations(data, polynomial):
     """
     Запускает matmodel_glush и возвращает результат расчётов (список из 7 элементов).
     """
-    bd_CaCl = ReagentSaltSolution.objects.filter(salt__name="CaCl")
+    bd_CaCl = ReagentSaltSolution.objects.filter(salt__name="CaCl2")
     bd_CaJG = ReagentSaltSolution.objects.filter(salt__name="CaЖГ")
     bd_CaKCl = ReagentSaltSolution.objects.filter(salt__name="KCl")
 

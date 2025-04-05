@@ -551,7 +551,7 @@ class DesignGlush():
             self.recommended_water_debit = Q
             return self.recommended_salt_name, self.recommended_salt_debit, self.recommended_water_debit
         else:
-            if self.true_jgs_density <= 1.31:
+            if self.true_jgs_density <= 1.23:
                 self.recommended_salt_name = "CaCl"
                 for i in bdCaCl:
                     x.append(i.density)

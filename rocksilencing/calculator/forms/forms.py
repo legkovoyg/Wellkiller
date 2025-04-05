@@ -161,7 +161,7 @@ class ModelGlushForm(forms.Form):
     #     attrs={'class': "input", "oninput": "limitLength(event)", "type": "text", "style": "background: #363A47;"}))
     types_of_jgs = [
         ("CaCl", "CaCl"),
-        ("KCl", "KCl"),
+        # ("KCl", "KCl"),
         ("CaЖГ", "CaЖГ"),
         ("без соли", "без соли"),
     ]
