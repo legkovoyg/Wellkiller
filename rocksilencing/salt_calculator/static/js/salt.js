@@ -55,8 +55,8 @@ const inputs = {
     Sr_2_another:  'id_Sr_2_another',
 
     // Плотности
-    ro_1:          'id_ro_1',
-    ro_2:          'id_ro_2'
+    ro_1:          'density_1',
+    ro_2:          'density_2'
 };
 
 // --------------------- ФУНКЦИИ ---------------------
