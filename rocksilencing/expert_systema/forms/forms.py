@@ -22,7 +22,7 @@ class ReservoirCharacteristicsForm(forms.ModelForm):
             "rock_type": forms.Select(attrs={"class": "form-select"}),
             "pressure_coefficient": forms.Select(attrs={"class": "form-select"}),
             "temperature": forms.NumberInput(
-                attrs={"class": "form-control", "placeholder": "Температура в °C"}
+                attrs={"class": "form-control", "placeholder": "Температура в °C", "max":"150"}
             ),
             "is_water_sensitive": forms.RadioSelect(
                 choices=[(True, "Да"), (False, "Нет")],
