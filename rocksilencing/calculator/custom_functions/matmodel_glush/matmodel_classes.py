@@ -557,8 +557,8 @@ class DesignGlush():
                     x.append(i.density)
                     y.append(i.salt_consumption)
                     z.append(i.water_consumption)
-                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='cubic', fill_value='extrapolate')
-                interpolation_function_for_water_consumption = interp1d(x, z, kind='cubic', fill_value='extrapolate')
+                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='linear', fill_value='extrapolate')
+                interpolation_function_for_water_consumption = interp1d(x, z, kind='linear', fill_value='extrapolate')
                 x_new = self.true_jgs_density
                 y_new = interpolation_fuction_for_salt_consump(x_new)
                 z_new = interpolation_function_for_water_consumption(x_new)
@@ -572,8 +572,8 @@ class DesignGlush():
                     x.append(i.density)
                     y.append(i.salt_consumption)
                     z.append(i.water_consumption)
-                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='cubic', fill_value='extrapolate')
-                interpolation_function_for_water_consumption = interp1d(x, z, kind='cubic', fill_value='extrapolate')
+                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='linear', fill_value='extrapolate')
+                interpolation_function_for_water_consumption = interp1d(x, z, kind='linear', fill_value='extrapolate')
                 x_new = self.true_jgs_density
                 y_new = interpolation_fuction_for_salt_consump(x_new)
                 z_new = interpolation_function_for_water_consumption(x_new)
@@ -589,14 +589,14 @@ class DesignGlush():
             self.chosen_water_debit = Q
             return self.chosen_salt_name, self.chosen_salt_debit, self.chosen_water_debit
         else:
-            if self.true_jgs_density <= 1.31:
+            if self.true_jgs_density <= 1.23:
                 self.chosen_salt_name = "CaCl"
                 for i in bdCaCl:
                     x.append(i.density)
                     y.append(i.salt_consumption)
                     z.append(i.water_consumption)
-                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='cubic', fill_value='extrapolate')
-                interpolation_function_for_water_consumption = interp1d(x, z, kind='cubic', fill_value='extrapolate')
+                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='linear', fill_value='extrapolate')
+                interpolation_function_for_water_consumption = interp1d(x, z, kind='linear', fill_value='extrapolate')
                 x_new = self.true_jgs_density
                 y_new = interpolation_fuction_for_salt_consump(x_new)
                 z_new = interpolation_function_for_water_consumption(x_new)
@@ -610,13 +610,16 @@ class DesignGlush():
                     x.append(i.density)
                     y.append(i.salt_consumption)
                     z.append(i.water_consumption)
-                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='cubic', fill_value='extrapolate')
-                interpolation_function_for_water_consumption = interp1d(x, z, kind='cubic', fill_value='extrapolate')
+                print(x, y, z)
+                interpolation_fuction_for_salt_consump = interp1d(x, y, kind='linear', fill_value='extrapolate')
+                interpolation_function_for_water_consumption = interp1d(x, z, kind='linear', fill_value='extrapolate')
                 x_new = self.true_jgs_density
                 y_new = interpolation_fuction_for_salt_consump(x_new)
                 z_new = interpolation_function_for_water_consumption(x_new)
+                print(x_new, y_new, z_new)
                 self.chosen_water_debit = z_new
                 self.chosen_salt_debit = y_new
+                print(self.chosen_salt_name, self.chosen_salt_debit, self.chosen_water_debit)
                 return self.chosen_salt_name, self.chosen_salt_debit, self.chosen_water_debit
 
     def calculate_water_volume(self):
