@@ -21,6 +21,12 @@ class ReagentSaltSolution(models.Model):
     density = models.FloatField("Плотность раствора, г/см³")
     salt_consumption = models.FloatField("Расход соли, кг/м³")
     water_consumption = models.FloatField("Расход воды, л/м³")
+    viscosity = models.FloatField(
+        "Вязкость, мПа·с", default=1.0
+    )
+    max_viscosity = models.FloatField(
+        "Максимальная вязкость раствора, мПа·с", default=1.0
+    )
 
     def __str__(self):
         return f"{self.salt.name} - {self.density} г/см³"
