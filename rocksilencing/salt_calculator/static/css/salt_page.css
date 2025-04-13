@@ -11,7 +11,7 @@
 }
 
 .container__tab{
-    padding: 0 25px 0;
+    padding: 0 25px 20px;
     border-right: solid rgba(255, 255, 255, 0.08) 2px; 
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@ body .download__rep{
 }
 
 .download__span{
-  padding:5px;
+  padding-left:5px;
 }
 
 p{
@@ -127,7 +127,31 @@ td p{
     padding: 0 25px 0;
     width: 100%;
 }
-
+.third_section-graph{
+    border-right: 1px solid rgba(255, 255, 255, 0.87);
+    padding-right: 5px;
+    line-height: 15px;
+}
+.third_section-table{
+    margin-right: 20px;
+    padding-left: 5px;
+    line-height: 15px;
+}
+.third_section-graph:hover, .third_section-table:hover{
+    color: #1d9a6c;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+.active{
+    color: #1d9a6c;
+}
+.third-section__child{
+    display: none;
+}
+.right-container{
+    display: flex;
+    align-items: center;
+}
 /* button */
 
 .text{

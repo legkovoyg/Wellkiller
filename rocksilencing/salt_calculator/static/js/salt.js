@@ -172,6 +172,28 @@ document.querySelector('input[name="pH_2"]').value = demoValues.pH_2;
 document.querySelector('input[name="ro_2"]').value = demoValues.ro_2;
 };
 
+
+const tableToggle = document.querySelector('.third_section-table')
+const graphToggle = document.querySelector('.third_section-graph')
+const graphSection = document.querySelector('.graph')
+const tableSection = document.querySelector('.third-section__child')
+
+tableToggle.addEventListener('click', function () {
+    tableSection.style.display = 'block'
+    graphSection.style.display = 'none'
+    tableToggle.classList.add('active')
+    graphToggle.classList.remove('active')
+} )
+graphToggle.addEventListener('click', function () {
+    graphSection.style.display = 'block'
+    tableSection.style.display = 'none'
+    graphToggle.classList.add('active')
+    tableToggle.classList.remove('active')
+} )
+
+
+
+
 /**
  * Применяет чередование классов строк таблицы (для визуала).
  * Меняем строки на 'gray-row' / 'dark-row'.

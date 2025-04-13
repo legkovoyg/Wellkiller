@@ -51,10 +51,11 @@ body .no-designs-container button:hover {
 
 /* Стили для истории дизайнов */
 .history-container {
-    width: 100%;
     margin: 0;
-    padding: 60px 24px 24px 105px;
     min-height: calc(100vh - 60px);
+    margin-left: 88px;
+    margin-top: calc(52 / var(--reference_height)* 100vh);
+    padding: 24px;
 }
 
 .history-header {

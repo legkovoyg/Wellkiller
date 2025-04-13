@@ -71,18 +71,19 @@ body{
 /*resuable css*/
 
 .sidebar .text{
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    /* font-weight: 500; */
     color: var(--text-color);
     transition: var(--tran-03);
     white-space: nowrap;
     opacity: 1;
+    line-height: 24px;
 }
 
-.sidebar.close .text{
+/* .sidebar.close .text{
     opacity: 0;
     display: none;
-}
+} */
 
 .sidebar .image{
     max-width: 60px;
@@ -112,6 +113,7 @@ body{
     color: var(--text-color);
     transition: var(--tran-02);
 }
+
 
 .sidebar header{
     position: relative;
@@ -180,10 +182,45 @@ body.dark .sidebar header .toggle{
 }
 
 
-.sidebar li a:hover .icon,
+/* .sidebar li a:hover .icon,
 .sidebar li a:hover .text{
     color: var(--sidebar-color);
+} */
+
+
+.nav-text {
+    display: inline-block;
+    position: absolute;
+    padding: 4px 10px;
+    border-radius: 3px;
+    left: 90px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 13px;
+    letter-spacing: .5px;
+    background-color: var(--primary-color);
+    
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -4px;
+        top: 11px;
+        transform: rotate(45deg);
+        width: 10px;
+        height: 10px;
+        background-color: inherit;
+    }
 }
+
+.nav-link:hover {
+    .nav-text {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
 
 .sidebar .menu-bar{
     height: calc(100%-50px);
@@ -191,7 +228,6 @@ body.dark .sidebar header .toggle{
     flex-direction: column;
     justify-content: space-between;
 }
-
 .home{
     position: relative;
     height: 95vh;
@@ -422,6 +458,12 @@ body.dark .sidebar header .toggle{
     width: 100%;
     height: auto;
     padding-top: 50px;
+  }
+  .nav-text{
+    position: relative;
+    background: none;
+    left: 0px ;
+    visibility: visible;
   }
   .sidebar.close ~ .home{
     left: 0px;

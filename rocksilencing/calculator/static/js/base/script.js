@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const chatDialog = document.getElementById('chatDialog');
 
     // Инициализация и обработчики сайдбара
-    if (toggle) {
-        toggle.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
-        });
-    }
+    // if (toggle) {
+    //     toggle.addEventListener("click", () => {
+    //         sidebar.classList.toggle("close");
+    //     });
+    // }
 
     // Открытие/закрытие чата
     if (chatButton && chatDialog) {
